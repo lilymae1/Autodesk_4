@@ -2,19 +2,58 @@
 <html lang="en">
 
 <head>
+    <!--Currently Local Style Stuff -->
+    <style>
+    .container {
+      display: grid;
+      height: 75vh;
+      grid-template-columns: auto auto auto auto auto;
+      grid-template-rows: 50% 50%;
+      background-color: #c70f0f;
+    }
+    .container > div {
+    background-color: #97e9fd;
+    border: 1px solid black;
+    font-size: 30px;
+    text-align: center;
+    }
+    .container > div > img {
+      display: block;
+      height: calc(100% - 35px);
+      width: 100%;
+    }
+    
+    </style>
+
+    <!--Script Stuff -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="jquery.js"></script> 
     <script> 
     $(function(){
-      $("#includedContent").load("Nav.html"); 
+      $("#navbar").load("Nav.html"); 
     });
     </script> 
 </head>
 <body>
-    <!--put navbar here when can -->
-    yup
-    <div id="includedContent"></div>
+    <!--Navbar -->
+    <div id="navbar"></div>
+    <!--Navbar -->
+
+
+
+    <div class="container">
+      <div>1<img src="media/example_image.png" alt="Example Image"></div>
+      <div>2<img src="media/example_image.png" alt="Example Image"></div>
+      <div>3<img src="media/example_image.png" alt="Example Image"></div>
+      <div>4<img src="media/example_image.png" alt="Example Image"></div>
+      <div>5<img src="media/example_image.png" alt="Example Image"></div>
+      <div>6<img src="media/example_image.png" alt="Example Image"></div>
+      <div>7<img src="media/example_image.png" alt="Example Image"></div>
+      <div>8<img src="media/example_image.png" alt="Example Image"></div>
+      <div>9<img src="media/example_image.png" alt="Example Image"></div>
+      <div>10<img src="media/example_image.png" alt="Example Image"></div>
+    </div> 
     
     <!--put footer here when can -->
 </body>
-</html>\
+</html>
