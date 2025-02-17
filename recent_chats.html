@@ -2,10 +2,18 @@
 <html lang="en">
 
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="jquery.js"></script> 
+    <script> 
+    $(function(){
+      $("#includedContent").load("Nav.html"); 
+    });
+    </script> 
 </head>
 <body>
     <!--put navbar here when can -->
     yup
+    <div id="includedContent"></div>
     <script>
         console.log('Hello World');
     </script>
