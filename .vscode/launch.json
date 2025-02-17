@@ -5,11 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "chrome",
+            "type": "firefox",
             "request": "launch",
-            "name": "Launch Chrome against localhost",
-            "url": "http://localhost:8080",
-            "webRoot": "${workspaceFolder}"
-        }
+            "reAttach": true,
+            "name": "recent_chats.html",
+            "file": "${workspaceFolder}/index.html"
+        },
+
     ]
 }
