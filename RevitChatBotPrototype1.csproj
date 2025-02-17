@@ -12,13 +12,20 @@
 	</ItemGroup>
 
   <ItemGroup>
+    <None Update="chatbot.html">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+
+  <ItemGroup>
     <Reference Include="RevitAPI">
       <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2025\RevitAPI.dll</HintPath>
     </Reference>
     <Reference Include="RevitAPIUI">
       <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2025\RevitAPIUI.dll</HintPath>
     </Reference>
-    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms"/>
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,7 @@
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.WinForms;
 using System;
+using System.Reflection;
 using System.IO;
 using System.Windows.Forms;
 
@@ -37,9 +38,22 @@ public class ChatBotForm : Form
             var env = await CoreWebView2Environment.CreateAsync(null, customDataDir);
             await webView.EnsureCoreWebView2Async(env);
 
-            // Load chatbot UI using local html file
-            // This may need to be changed to sync with out system
-            webView.Source = new Uri("C:\\Users\\richa\\source\\repos\\RevitChatBotPrototype1\\RevitChatBotPrototype1\\chatbot.html");
+            // Get the directory where the add-in DLL is located
+            string dllFolderPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+            // Get the correct path to chatbot.html
+            string htmlFilePath = Path.Combine(dllFolderPath, "chatbot.html");
+
+            // Ensure the file exists before setting it
+            if (File.Exists(htmlFilePath))
+            {
+                MessageBox.Show($"Expected HTML file at: {htmlFilePath}");
+                webView.Source = new Uri(htmlFilePath);
+            }
+            else
+            {
+                MessageBox.Show($"Error: chatbot.html not found!\nExpected at: {htmlFilePath}");
+            }
         }
         catch (Exception ex)
         {
