@@ -2,7 +2,7 @@
 <RevitAddIns>
   <AddIn Type="Command">
     <Name>ChatBot Add-in</Name>
-    <Assembly>"C:\Users\richa\AppData\Roaming\Autodesk\Revit\Addins\2025\RevitChatBotPrototype1.dll"</Assembly>
+    <Assembly>"C:\Users\ollyj\AppData\Roaming\Autodesk\Revit\Addins\2025\RevitChatBotPrototype1.dll"</Assembly>
     <AddInId>12345678-1234-1234-1234-123456789abc</AddInId>
     <FullClassName>RevitChatBotPrototype1.ChatBotCommand</FullClassName>
     <VendorId>YOURID</VendorId>

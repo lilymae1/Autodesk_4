@@ -39,7 +39,7 @@ public class ChatBotForm : Form
 
             // Load chatbot UI using local html file
             // This may need to be changed to sync with out system
-            webView.Source = new Uri("C:\\Users\\richa\\source\\repos\\RevitChatBotPrototype1\\RevitChatBotPrototype1\\chatbot.html");
+            webView.Source = new Uri("C:\\Users\\ollyj\\source\\repos\\RevitChatBotPrototype1\\RevitChatBotPrototype1\\chatbot.html");
         }
         catch (Exception ex)
         {
