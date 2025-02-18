@@ -3,18 +3,39 @@
 
 <html>
     <head>
-
+        <link rel="stylesheet" href="style.css">
     </head>
 
     <body>
-
-        <div class="Navbar">
-            <ul>
-                <li><a href="">Home</a></li>
-                <li><a href="">Place Holder</a></li>
-                <li><a href="">Place Holder</a></li>
-                <li><a href="">Profile</a></li>
+        <nav class="navbar">
+            <div>
+                <button id="menuButton" class="menuButton"><img src="Assets/Hamburger.png"></button>
+                <img src="Assets/Logo.png">
+            </div>
+            <div>
+                <button class="menuButton"><img src="Assets/NotificationIcon.png"></button>
+                <button class="menuButton"><a href="profile.html"><img src="Assets/ProfileIcon.png"></a></button>
+            </div>
+            <ul id="dropdown" class="dropdown">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">Place Holder</a></li>
+                <li><a href="#">Place Holder</a></li>
+                <li><a href="#">Place Holder</a></li>
+                <li><a href="profile.html">Profile</a></li>
             </ul>
-        </div>
+        </nav>
+        
+        <footer class="footer">
+            <a href="FAQ.html">FAQ</a>
+            <a href="T&C.html">Terms & Conditions</a>
+            <a href="contact.html">Contact</a>
+        </footer>
+        
+        <script>
+            const menuButton = document.getElementById('menuButton');
+            const dropdown = document.getElementById('dropdown');
+    
+            menuButton.addEventListener('click', () => dropdown.classList.toggle('active'));
+        </script>
     </body>
 </html>

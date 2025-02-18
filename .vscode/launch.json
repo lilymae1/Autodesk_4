@@ -8,9 +8,9 @@
             "type": "firefox",
             "request": "launch",
             "reAttach": true,
-            "name": "recent_chats.html",
-            "file": "${workspaceFolder}/index.html"
-        },
+            "name": "Launch index.html",
+            "file": "${workspaceFolder}/Nav.html"
+        }
 
     ]
 }
