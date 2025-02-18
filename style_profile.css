@@ -1,23 +1,40 @@
+@font-face {
+    font-family: AutodeskFont;
+    src: url(WOFF/ArtifaktElementExtraLight.woff);
+}
 body{
-    background-color: lightgrey;
+    background-color: white;
+    font-family: ArtifaktElement, Arial, sans-serif
 }
 #profile_top{
   margin-left:20px;
-  background-color:yellow;
+  background-color:white;
+}
+#profile_line{
+  width:95%;
+  size: 2;
 }
 #profile_right{
   margin-right: 50px;
-  background-color:lightgrey;
+  background-color:white;
   margin-top: 50px;
   width:50%;
   float: right;
 }
 #revit_info{
-  border:solid;
+  
+  border-style:solid;
+  border-radius:10px;
+  border-width:2px;
+  background-color: #f9f9f9;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+  border-color: #f9f9f9;
+  margin-top:20px;
+  
 }
 #profile_left{
   margin-left: 20px;
-  background-color: darkgrey;
+  background-color: white;
   float: left;
   padding-bottom:20px;
   width: 30%;
@@ -33,6 +50,12 @@ body{
   margin-top: 20px;
   margin-left: 55px;
   width:85%;
+  border-style:solid;
+  border-radius:10px;
+  border-width:2px;
+  color: #212121;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+  border-color: #f9f9f9;
 }
 #profile_img{
   
@@ -41,7 +64,14 @@ body{
   
 }
 button.profile_button{
-  background-color: blue;
   
-  
+  padding-left:15px;
+  padding-right:15px;
+  padding-top:5px;
+  padding-bottom:5px;
+  background-color: #414BB2;
+  border-radius:5px;
+  border-color: #414BB2;
+  color: white;
+  margin:10px;
 }
