@@ -96,3 +96,71 @@ body {
   color: white;
   margin: 0 10px;
 }
+
+/* ExistingProjectPage CSS Portion */
+.ExistingProjectPage-Body{
+  background-color: azure;
+}
+
+.ExistingProjectPage-Center {
+  text-align: center;
+  background-color: black;
+  width: 1000px;
+  height: 400px;
+  padding: 20px;
+  margin: 100px;
+  margin-top: 100px;
+  margin-right:100;
+}
+
+.ExistingProjectPage-Image {
+  float:left;  
+  margin: 10px;
+  width:200px; 
+  height:300px;
+}
+
+.ExistingProjectPage-Container {
+  float:right;
+  background-color: grey;
+  width:500px;
+  height:350px;
+  margin-right:20px;
+  margin-top:20px;
+}
+
+.ExistingProjectPage-Name {
+  float:right;
+  background-color: lightgray;
+  width:440px;
+  height:60px;
+  margin-right:30px;
+  margin-top:15px;
+}
+
+.ExistingProjectPage-Scroll {
+  float:right;
+  background-color: lightgray;
+  width:430px;
+  height:150px;
+  line-height:3em;
+  overflow:auto;
+  padding:5px;
+  margin-top:30px;
+  margin-right:30px;
+}
+
+.ExistingProjectPage-ButtonContainer {
+  float:right;
+  display: flex;
+  width:50px;
+  height:20px;
+  margin-top:30px;
+  margin-right:240px;
+}
+
+.ExistingProjectPage-Generate-report {
+  float:right;
+  margin-top:50px;
+  margin-right:20px;
+}
