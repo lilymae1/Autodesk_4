@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="jquery.js"></script> 
+    <script> 
+    $(function(){
+      $("#navbar").load("Nav.html");
+      $("#footer").load("Footer.html") 
+    });
+    </script> 
+</head>
+
+<html>
+    <body>
+        <object type="text/html" data="Nav.html"></object>
+        <link rel="stylesheet" type="text/css" href="style.css" >
+        <form>
+            <div class="CreatingNewChat-ProjectChoice">
+                <div class="CreatingNewChat-CreateNew">
+                    <button onclick="document.location='default.asp'"></button>
+                </div>
+                <p>Create Entirely New Project</p>
+                <div class="CreatingNewChat-ImportInfo">
+                    <button onclick="document.location='default.asp'"></button>
+                </div>
+                <p>Import Existing Project</p>
+            </div>
+            
+            <div class="CreatingNewChat-ProjectInfo">
+                <div class="ExistingProjectPage-Name">
+                    <h1 contenteditable="true"> 
+                        Name
+                    </h1>
+                    <!--Last Modified needs to be added with javascript-->
+                </div>
+                <div class="ExistingProjectPage-Description">
+                    <h1 contenteditable="true"> 
+                        Description
+                    </h1>
+                    <!--Last Modified needs to be added with javascript-->
+                </div>
+                <div class="CreatingNewChat-Image">
+                    <img src="Assets/example_image.png" alt="Trulli" class="img">
+                </div>
+            </div>
+        </form>
+        <object type="text/html" data="Footer.html"></object>
+    </body>
+</html>
