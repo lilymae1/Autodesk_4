@@ -1,0 +1,42 @@
+body {
+    background-color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+}
+
+#chat-top {
+    height: 20px;
+    background-color: #808080;
+    padding: 5px;
+}
+
+#chat {
+    height: 200px;
+    overflow-y: scroll;
+    background-color: #E6E6E6;
+    padding: 5px;
+    position: relative;   
+}
+
+#input{
+  height: 25px;
+  width: 475px;
+  padding: 5px;
+  border: none;
+  border-radius: 3px;
+  position: absolute;
+  bottom: 5px;
+}
+
+#send{
+  height: 30px;
+  width: 50px;
+  background-color: #414BB2;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  position: absolute;
+  bottom: 8px;
+  right: 5px;
+}
