@@ -1,8 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<head>
+    <script src="jquery.js"></script> 
+    <script> 
+    $(function(){
+      $("#navbar").load("Nav.html");
+      $("#footer").load("Footer.html") 
+    });
+    </script> 
+</head>
 <html>
     <body class="ExistingProjectPage-Body">
+        <div id="navbar"></div>
         <link rel="stylesheet" type="text/css" href="style.css" >
 
             <div class="ExistingProjectPage-Center">
@@ -35,5 +45,6 @@
                 </div>
             </div>
         </div>
+        <div id="footer"></div>
     </body>
 </html>
