@@ -13,19 +13,19 @@
       font-family: AutodeskFontBold;
       src: url(WOFF/ArtifaktElementSemiBold.woff);
       }
-
-      html,body{
-      /*overflow: hidden;*/
-    }
+      
     .container {
+      padding: 3%;
+      padding-top: 0%;
+      padding-bottom: 0%;
       display: grid;
-      height: 70vh;
+      height: 90%;
       column-gap: 1%;
       row-gap: 3%;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      grid-template-rows: repeat(auto-fit, minmax(250px, 1fr));
+      grid-auto-rows: 40%;
+      grid-template-rows: 40%;
       background-color: #ffffff;
-      padding: 1%;
     }
     .container > div {
     background-color: #dadada;
@@ -78,7 +78,6 @@
       Recent Chatted With
       <button type="button">New</button>
     </div>
-
     <div class="container">
       <div>1<img src="media/example_image.png" alt="Example Image"></div>
       <div>2<img src="media/example_image.png" alt="Example Image"></div>
