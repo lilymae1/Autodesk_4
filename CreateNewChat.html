@@ -16,15 +16,30 @@
         <object type="text/html" data="Nav.html"></object>
         <link rel="stylesheet" type="text/css" href="style.css" >
         <form>
+            <!--These two buttons should switch the right to either create new with a standard photo-->
+            <!-- or use previous project/chatbox for new chatbox so a scroll etc.-->
+            <!--Need to change all button links-->
             <div class="CreatingNewChat-ProjectChoice">
-                <div class="CreatingNewChat-CreateNew">
+                <!--When option below is clicked shows Project Info with ability to write down info-->
+                <!--Basically creating a new chatbox for a new project, should allow you to write some info dowm -->
+                <!--Should then send you to revit page where you make new project -->
+                <div class="CreatingNewChat-CreateNew"> 
                     <button onclick="document.location='default.asp'"></button>
                 </div>
-                <p>Create Entirely New Project</p>
-                <div class="CreatingNewChat-ImportInfo">
+                <div class="CreatingNewChat-CreateNewFont">
+                    <p>Create Entirely New Project</p>
+                </div> 
+                <!--You can access your previous projects you've made and import them to make a chatbox /  -->
+                <!--Basically same process of wroiting info down for chatbox but you use a project rather than make a new one-->
+                <div class="CreatingNewChat-ImportInfo"> <!-- Imports chatbox from projects user has worked on -->
                     <button onclick="document.location='default.asp'"></button>
                 </div>
-                <p>Import Existing Project</p>
+                <div class="CreatingNewChat-ImportInfoFont">
+                    <p>Import Existing Project</p>
+                </div>
+                <div class="CreatingNewChat-Done">
+                    <button onclick="document.location='default.asp'">Done</button>
+                </div>
             </div>
             
             <div class="CreatingNewChat-ProjectInfo">
@@ -40,8 +55,23 @@
                     </h1>
                     <!--Last Modified needs to be added with javascript-->
                 </div>
+                <!--Need to somehow using javascript make buttons switch to either image or scroll of previous projects-->
                 <div class="CreatingNewChat-Image">
                     <img src="Assets/example_image.png" alt="Trulli" class="img">
+                </div>
+                <div class="CreatingNewChat-PreviousProjects">
+                    <br> Project (25/12/24) </br>
+                    <br> Project (25/12/24) </br>
+                    <br> Project (25/12/24) </br>
+                    <br> Project (25/12/24) </br>
+                    <br> Project (25/12/24) </br>
+                    <br> Project (25/12/24) </br>
+                    <br> Project (25/12/24) </br>
+                    <br> Project (25/12/24) </br>
+                    <br> Project (25/12/24) </br>
+                    <br> Project (25/12/24) </br>
+                    <br> Project (25/12/24) </br>
+                    <br> Project (25/12/24) </br>
                 </div>
             </div>
         </form>

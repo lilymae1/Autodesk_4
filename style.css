@@ -238,3 +238,123 @@ section
   font-family: AutodeskFont;
   box-shadow: 2px 2px 3px #141417;
 }
+
+/* CreateNewChat CSS Portion */
+
+.CreateNewChat-ProjectChoice {
+  float:left;
+  background-color: grey;
+  width:500px; /*Need to adjust size when proj can run */
+  height:350px;
+  margin-left:20px; /*Need to adjust location */
+  margin-top:20px;
+  box-shadow: 2px 2px 3px #141417;
+}
+
+.CreatingNewChat-CreateNew> {
+  float:left;
+  width:50px; /*Need to adjust size when proj can run */
+  height:20px;
+  margin-top:50px;/*Need to adjust location */
+  margin-left:20px;
+  box-shadow: 2px 2px 3px #141417;
+}
+
+.CreatingNewChat-ImportInfo> { 
+  float:left;
+  width:50px; /*Need to adjust size when proj can run */
+  height:20px;
+  margin-top:50px;
+  margin-left:20px; /*Need to adjust location */
+  box-shadow: 2px 2px 3px #141417;
+}
+
+.CreatingNewChat-CreateNewFont> {
+  float:left;
+  background-color: lightgray;
+  width:440px; /*Need to adjust size when proj can run */
+  height:60px;
+  font-size: 1rem;
+  font-family: AutodeskFont;
+  margin-top:50px;/*Need to adjust location */
+  margin-left:20px;
+  box-shadow: 2px 2px 3px #141417;
+}
+
+.CreatingNewChat-ImportInfoFont> {
+  float:left;
+  background-color: lightgray;
+  width:440px; /*Need to adjust size when proj can run */
+  height:60px;
+  font-size: 1rem;
+  font-family: AutodeskFont;
+  margin-top:50px;/*Need to adjust location */
+  margin-right:20px;
+  box-shadow: 2px 2px 3px #141417;
+}
+
+.CreatingNewChat-Done>{
+  float:left;
+  margin-top:50px;
+  margin-right:20px;
+  font-family: AutodeskFont;
+  box-shadow: 2px 2px 3px #141417;
+}
+
+.CreateNewChat-ProjectInfo {
+  float:right;
+  background-color: grey;
+  width:500px; 
+  height:350px;
+  margin-right:20px;
+  margin-top:20px;
+  box-shadow: 2px 2px 3px #141417;
+}
+
+.CreateNewChat-Name {
+  float:right;
+  background-color: lightgray;
+  width:440px;
+  height:60px;
+  margin-right:30px;
+  margin-top:15px;
+  font-size:20px;
+  font-family: AutodeskFont;
+  box-shadow: 2px 2px 3px #141417;
+}
+
+.CreateNewChat-Description {
+  float:right;
+  background-color: lightgray;
+  width:440px;
+  height:60px;
+  margin-right:30px;
+  margin-top:15px;
+  font-size:20px;
+  font-family: AutodeskFont;
+  box-shadow: 2px 2px 3px #141417;
+}
+
+/*Need to somehow using javascript make buttons switch to either image or scroll of previous projects */
+.CreatingNewChat-Image {
+  float:right;  
+  margin: 10px;
+  width:200px; 
+  height:300px;
+  box-shadow: 2px 2px 3px #141417;
+}
+
+.CreatingNewChat-PreviousProjects {
+  float:right;
+  background-color: lightgray;
+  width:430px;
+  height:150px;
+  line-height:1em;
+  overflow:auto;
+  padding:5px;
+  margin-top:30px;
+  margin-right:30px;
+  font-size:10px;
+  font-family: AutodeskFont;
+  box-shadow: 2px 2px 3px #141417;
+}
