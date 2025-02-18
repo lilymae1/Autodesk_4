@@ -1,8 +1,14 @@
+@font-face {
+    font-family: AutodeskFont;
+    src: url(WOFF/ArtifaktElementExtraLight.woff);
+}
+
 body {
     background-color: white;
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 10px;
+    font: AutodeskFont;
 }
 
 #chat-top {
@@ -23,8 +29,7 @@ body {
 #input{
   height: 25px;
   width: 475px;
-  font-family: AutodeskFont;
-  src: url(WOFF/ArtifaktElementExtraLight.woff);
+
   padding: 5px;
   border: none;
   border-radius: 3px;
