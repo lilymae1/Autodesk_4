@@ -1,0 +1,121 @@
+body {
+    background-color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+}
+
+#chat-top {
+    height: 20px;
+    background-color: #808080;
+    padding: 5px;
+}
+
+#chat {
+    height: 200px;
+    overflow-y: scroll;
+    background-color: #E6E6E6;
+    padding: 5px;
+    position: relative;
+    
+}
+
+#input{
+  height: 25px;
+  width: 475px;
+  font-family: AutodeskFont;
+  src: url(WOFF/ArtifaktElementExtraLight.woff);
+  padding: 5px;
+  border: none;
+  border-radius: 3px;
+  position: absolute;
+  bottom: 5px;
+}
+
+#send{
+  height: 30px;
+  width: 50px;
+  background-color: #414BB2;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  position: absolute;
+  bottom: 8px;
+  right: 5px;
+}
+
+received-chats-img {
+    display: inline-block;
+    width: 50px;
+    float: left;
+}
+
+.received-msg {
+    display: inline-block;
+    padding: 0 0 0 10px;
+    vertical-align: top;
+    width: 92%;
+}
+.received-msg-inbox {
+    width: 57%;
+}
+
+.received-msg-inbox p {
+    background:  #414BB2 none repeat scroll 0 0;
+    border-radius: 10px;
+    color: white;
+    font-family: AutodeskFont;
+    src: url(WOFF/ArtifaktElementExtraLight.woff);
+    font-size: 14px;
+    margin-left: 20px;
+    padding: 10px;
+    width: 100%;
+}
+    p {
+    overflow-wrap: break-word;
+}
+
+.received-time {
+    color: #777;
+    display: block;
+    font-size: 12px;
+    margin: 0px 25px 0;
+}
+
+.outgoing-chats {
+    overflow: hidden;
+    margin: 26px 20px;
+}
+
+.outgoing-chats-msg p {
+    background-color: #808080;
+    color: #fff;
+    border-radius: 10px;
+    font-family: AutodeskFont;
+    src: url(WOFF/ArtifaktElementExtraLight.woff);
+    font-size: 14px;
+    color: #fff;
+    padding: 5px 10px 5px 12px;
+    width: 100%;
+    padding: 10px;
+}
+.outgoing-chats-msg {
+        float: right;
+        width: 46%;
+    }
+
+/* Styling the avatar */
+.outgoing-chats-img {
+    display: inline-block;
+    width: 50px;
+    float: right;
+    margin-right: 20px;
+}
+
+.outgoing-time {
+    color: #777;
+    display: block;
+    font-size: 12px;
+    margin: 0 0 0 20px;
+    text-align: right;
+}
