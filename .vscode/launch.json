@@ -11,6 +11,5 @@
             "name": "Launch index.html",
             "file": "${workspaceFolder}/index.html"
         }
-
     ]
 }
