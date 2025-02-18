@@ -39,10 +39,11 @@ public class ChatBotForm : Form
             await webView.EnsureCoreWebView2Async(env);
 
             // Get the directory where the add-in DLL is located
-            string dllFolderPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            // this is incredibly ineffiecient and needs to be fixed at some point.!!!!!!!
+            string dllFolderPath = Directory.GetParent(Directory.GetParent((Directory.GetParent(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))).FullName).FullName).FullName;
 
             // Get the correct path to chatbot.html
-            string htmlFilePath = Path.Combine(dllFolderPath, "chatbot.html");
+            string htmlFilePath = Path.Combine(dllFolderPath, "chatEnlarged.html");
 
             // Ensure the file exists before setting it
             if (File.Exists(htmlFilePath))
