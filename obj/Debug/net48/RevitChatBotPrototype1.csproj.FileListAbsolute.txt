@@ -1,7 +1,6 @@
 C:\Users\richa\Documents\Autodesk Project\Autodesk_4\bin\Debug\net48\runtimes\win-x86\native\WebView2Loader.dll
 C:\Users\richa\Documents\Autodesk Project\Autodesk_4\bin\Debug\net48\runtimes\win-x64\native\WebView2Loader.dll
 C:\Users\richa\Documents\Autodesk Project\Autodesk_4\bin\Debug\net48\runtimes\win-arm64\native\WebView2Loader.dll
-C:\Users\richa\Documents\Autodesk Project\Autodesk_4\bin\Debug\net48\chatbot.html
 C:\Users\richa\Documents\Autodesk Project\Autodesk_4\bin\Debug\net48\RevitChatBotPrototype1.dll
 C:\Users\richa\Documents\Autodesk Project\Autodesk_4\bin\Debug\net48\RevitChatBotPrototype1.pdb
 C:\Users\richa\Documents\Autodesk Project\Autodesk_4\bin\Debug\net48\Microsoft.Web.WebView2.Core.dll
@@ -108,3 +107,4 @@ C:\Users\richa\Documents\Autodesk Project\Autodesk_4\obj\Debug\net48\RevitChatBo
 C:\Users\richa\Documents\Autodesk Project\Autodesk_4\obj\Debug\net48\RevitCha.9BD59A4F.Up2Date
 C:\Users\richa\Documents\Autodesk Project\Autodesk_4\obj\Debug\net48\RevitChatBotPrototype1.dll
 C:\Users\richa\Documents\Autodesk Project\Autodesk_4\obj\Debug\net48\RevitChatBotPrototype1.pdb
+C:\Users\richa\Documents\Autodesk Project\Autodesk_4\bin\Debug\net48\chatbot.html
