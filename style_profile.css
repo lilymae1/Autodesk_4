@@ -1,0 +1,47 @@
+body{
+    background-color: lightgrey;
+}
+#profile_top{
+  margin-left:20px;
+  background-color:yellow;
+}
+#profile_right{
+  margin-right: 50px;
+  background-color:lightgrey;
+  margin-top: 50px;
+  width:50%;
+  float: right;
+}
+#revit_info{
+  border:solid;
+}
+#profile_left{
+  margin-left: 20px;
+  background-color: darkgrey;
+  float: left;
+  padding-bottom:20px;
+  width: 30%;
+  height:200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#profile_bottom{
+  
+  background-color: darkgray;
+  float:left;
+  margin-top: 20px;
+  margin-left: 55px;
+  width:85%;
+}
+#profile_img{
+  
+  width: 125px;
+  height: 125px;
+  
+}
+button.profile_button{
+  background-color: blue;
+  
+  
+}
