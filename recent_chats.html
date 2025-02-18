@@ -6,23 +6,37 @@
     <style>
     .container {
       display: grid;
-      height: 75vh;
+      height: 84vh;
+      column-gap: 3%;
+      row-gap: 3%;
       grid-template-columns: auto auto auto auto auto;
-      grid-template-rows: 50% 50%;
-      background-color: #c70f0f;
+      grid-template-rows: 45% 45%;
+      background-color: #ffffff;
     }
     .container > div {
-    background-color: #97e9fd;
-    border: 1px solid black;
-    font-size: 30px;
+    background-color: #dadada;
+    border: 1px solid rgb(255, 255, 255);
+    font-size: 20px;
     text-align: center;
     }
     .container > div > img {
       display: block;
-      height: calc(100% - 35px);
+      height: calc(100% - 25px);
       width: 100%;
     }
     
+    .Title{
+      font-size: 45px;
+    }
+    .Title > button{
+      float: right;
+      cursor: pointer;
+      border: none;
+      color:white;
+      background-color: #000000;
+      width: 15%;
+      height: 10%;
+    }
     </style>
 
     <!--Script Stuff -->
@@ -30,7 +44,8 @@
     <script src="jquery.js"></script> 
     <script> 
     $(function(){
-      $("#navbar").load("Nav.html"); 
+      $("#navbar").load("Nav.html");
+      $("#footer").load("Footer.html") 
     });
     </script> 
 </head>
@@ -39,7 +54,10 @@
     <div id="navbar"></div>
     <!--Navbar -->
 
-
+    <div class="Title">
+      Recent Chatted With
+      <button type="button">New</button>
+    </div>
 
     <div class="container">
       <div>1<img src="media/example_image.png" alt="Example Image"></div>
@@ -54,6 +72,7 @@
       <div>10<img src="media/example_image.png" alt="Example Image"></div>
     </div> 
     
+    <div id="footer"></divdiv>
     <!--put footer here when can -->
 </body>
 </html>
