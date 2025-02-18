@@ -1,9 +1,15 @@
 <link rel="stylesheet" href="style_profile.css">
 <head>
-    <!--navbar-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="jquery.js"></script> 
+    <script> 
+        $(function(){$("#navbar").load("Nav.html")});
+        $(function(){$("#footer").load("Footer.html")});
+    </script> 
 </head>
 
 <body>
+    <div id="navbar"></div>
 
     <div id= profile_top>
     <h2>Name</h2>
@@ -30,5 +36,5 @@
       <h3>Hi! I'm Archie</h3>
       <p></p>
     </div>
-
+    <div id="footer"></div>
 </body>
