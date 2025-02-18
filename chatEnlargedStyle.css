@@ -23,6 +23,8 @@ body {
 #input{
   height: 25px;
   width: 475px;
+  font-family: AutodeskFont;
+  src: url(WOFF/ArtifaktElementExtraLight.woff);
   padding: 5px;
   border: none;
   border-radius: 3px;
@@ -62,6 +64,8 @@ received-chats-img {
     background:  #414BB2 none repeat scroll 0 0;
     border-radius: 10px;
     color: white;
+    font-family: AutodeskFont;
+    src: url(WOFF/ArtifaktElementExtraLight.woff);
     font-size: 14px;
     margin-left: 20px;
     padding: 10px;
@@ -87,6 +91,8 @@ received-chats-img {
     background-color: #808080;
     color: #fff;
     border-radius: 10px;
+    font-family: AutodeskFont;
+    src: url(WOFF/ArtifaktElementExtraLight.woff);
     font-size: 14px;
     color: #fff;
     padding: 5px 10px 5px 12px;
