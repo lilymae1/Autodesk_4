@@ -3,10 +3,15 @@
   padding: 0;
   text-decoration: none;
 }
+
+html, body {
+  height: 100%;
+}
+
 body {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  justify-content: space-between;
 }
 
 .navbar {
@@ -24,11 +29,13 @@ body {
   padding-left: 15px;
   padding-right: 15px;
 }
-.menuButton{
+
+.menuButton {
   background: none;
   border: none;
   cursor: pointer;
 }
+
 .dropdown {
   position: absolute;
   top: 100%;
@@ -40,6 +47,7 @@ body {
   background: #F0EFEF;
   box-shadow: 3px 0px 5px #ceced2;
 }
+
 .dropdown.active {
   display: flex;
 }
@@ -61,6 +69,7 @@ body {
 .dropdown li:last-child {
   margin-top: 260px;
 }
+
 .navbar a.active { 
   background: #414BB2;
   color: white;
@@ -71,8 +80,8 @@ body {
   color: white;
   text-align: center;
   padding: 10px;
-  margin-top: auto;
 }
+
 .footer a {
   color: white;
   margin: 0 10px;
