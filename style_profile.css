@@ -21,6 +21,9 @@ body{
   width:50%;
   float: right;
 }
+#revit_title{
+  margin-left: 80px;
+}
 #revit_info{
   
   border-style:solid;
@@ -45,17 +48,29 @@ body{
 }
 #profile_bottom{
   
-  background-color: darkgray;
-  float:left;
+  float:right;
   margin-top: 20px;
-  margin-left: 55px;
-  width:85%;
+  width:100%;
+ 
+ 
+ 
+}
+#profile_archie{
+  float:left;
+  width:10%;
+  margin-bottom:0;
+}
+.dot {
+  float: left;
+  height: 50px;
+  width: 50px;
+  background-color: white;
+  border-radius: 50%;
+  border-color:#414BB2;
+  display: inline-block;
   border-style:solid;
-  border-radius:10px;
-  border-width:2px;
-  color: #212121;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
-  border-color: #f9f9f9;
+  
+  overflow:hidden;
 }
 #profile_img{
   
@@ -74,4 +89,32 @@ button.profile_button{
   border-color: #414BB2;
   color: white;
   margin:10px;
+}
+#speech_box{
+  margin-left:20px;
+  margin-bottom: 40px;
+  border-style:solid;
+  border-color: lightgrey;
+  border-radius:10px;
+  border-width:2px;
+  color: #212121;
+  background-color: lightgrey;
+  width:85%;
+}
+#dot_box{
+  width:9%;
+}
+#triangle{
+  width: 0;
+	height: 0;
+  margin-top:45px;
+  float:left;
+  padding:0;
+  
+	border-top: 5px solid transparent;
+	border-right: 20px solid lightgrey;
+	border-bottom: 5px solid transparent;
+}
+#archie{
+  
 }
