@@ -2,17 +2,30 @@
 <html lang="en">
 
 <head>
-    <script src="jquery.js"></script> 
-    <script> 
-    $(function(){
-      $("#navbar").load("Nav.html");
-      $("#footer").load("Footer.html") 
-    });
-    </script> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'Nav.html', true);
+        xhr.onload = function () {
+            if (xhr.status == 200) {
+                console.log("Nav.html loaded successfully");
+                $("#includedNavContent").html(xhr.responseText);
+            } else {
+                console.error("Error loading Nav.html: " + xhr.status);
+                $("#includedNavContent").html("Error loading Nav.html");
+            }
+        };
+        xhr.onerror = function () {
+            console.error("Request failed");
+            $("#includedNavContent").html("Error loading Nav.html");
+        };
+        xhr.send();
+
+    </script>
 </head>
 <html>
     <body class="ExistingProjectPage-Body">
-        <object type="text/html" data="Nav.html"></object>
+        <div id="includedNavContent"></div>
         <link rel="stylesheet" type="text/css" href="style.css" >
 
             <div class="ExistingProjectPage-Center">
@@ -54,4 +67,25 @@
         </div>
         <object type="text/html" data="Footer.html"></object>
     </body>
+    <footer>
+        <script>
+            var xhr1 = new XMLHttpRequest();
+            xhr1.open('GET', 'Footer.html', true);
+            xhr1.onload = function () {
+                if (xhr1.status == 200) {
+                    console.log("footer.html loaded successfully");
+                    $("#includedContent").html(xhr1.responseText);
+                } else {
+                    console.error("Error loading footer.html: " + xhr1.status);
+                    $("#includedContent").html("Error loading Nav.html");
+                }
+            };
+            xhr1.onerror = function () {
+                console.error("Request failed");
+                $("#includedContent").html("Error loading footer.html");
+            };
+            xhr1.send();
+        </script>
+        <div id="includedContent"></div>
+    </footer>
 </html>
