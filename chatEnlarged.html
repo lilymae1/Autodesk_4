@@ -8,15 +8,27 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <div id="include"></div>
     <script>
-        window.onload = function(){
-            $.get("navbar.html", function(data){
-                $("#include").html(data);
-            })
-        }
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'C:\\Users\\richa\\Documents\\Autodesk Project\\Autodesk_4\\Nav.html', true);
+        xhr.onload = function () {
+            if (xhr.status == 200) {
+                console.log("Nav.html loaded successfully");
+                $("#includedContent").html(xhr.responseText);
+            } else {
+                console.error("Error loading Nav.html: " + xhr.status);
+                $("#includedContent").html("Error loading Nav.html");
+            }
+        };
+        xhr.onerror = function () {
+            console.error("Request failed");
+            $("#includedContent").html("Error loading Nav.html");
+        };
+        xhr.send();
+
     </script>
 </head>
 <body>
-    <div id="include">
+    <div id="includedContent">
         <h2> Tests Content</h2>
         <p>this is a test</p>
     </div>

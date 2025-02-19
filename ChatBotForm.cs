@@ -1,65 +1,73 @@
-using Microsoft.Web.WebView2.Core;
-using Microsoft.Web.WebView2.WinForms;
+using CefSharp;
+using CefSharp.WinForms;
 using System;
-using System.Reflection;
 using System.IO;
+using System.Reflection;
 using System.Windows.Forms;
 
-// windows form to display chat bot form
 public class ChatBotForm : Form
 {
-    private WebView2 webView;
+    // Declare the browser field at the class level (outside of the constructor and methods)
+    private ChromiumWebBrowser browser;
 
     public ChatBotForm()
     {
         InitializeComponent();
     }
 
-    private async void InitializeComponent()
+    private void InitializeComponent()
     {
-        // form title and size
+        // Initialize CefSharp (Only needs to be done once per application)
+         if (!Cef.IsInitialized)
+        {
+            var settings = new CefSettings();
+            settings.CefCommandLineArgs.Add("allow-file-access-from-files", "1");
+            Cef.Initialize(settings);
+        }
+
+        // Form title and size
         this.Text = "Revit Chatbot";
         this.Size = new System.Drawing.Size(500, 700);
 
-        webView = new WebView2
+        // Get the directory where the add-in DLL is located
+        string dllFolderPath = Directory.GetParent(Directory.GetParent((Directory.GetParent(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))).FullName).FullName).FullName;
+
+        // Get the correct path to chatbot.html
+        string htmlFilePath = Path.Combine(dllFolderPath, "chatEnlarged.html");
+
+        // Ensure the file exists before setting it
+        if (File.Exists(htmlFilePath))
         {
-            Dock = DockStyle.Fill
-        };
+            string fileUri = new Uri(htmlFilePath).AbsoluteUri;
+            MessageBox.Show($"Loading HTML file from: {fileUri}");
 
-        this.Controls.Add(webView);
-
-        try
-        {
-            // Set a writable custom data directory for WebView2
-            string customDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "WebView2", "RevitChatbot");
-            Directory.CreateDirectory(customDataDir); // Ensure the directory exists
-
-            // Create WebView2 environment with the custom directory
-            var env = await CoreWebView2Environment.CreateAsync(null, customDataDir);
-            await webView.EnsureCoreWebView2Async(env);
-
-            // Get the directory where the add-in DLL is located
-            // this is incredibly ineffiecient and needs to be fixed at some point.!!!!!!!
-            string dllFolderPath = Directory.GetParent(Directory.GetParent((Directory.GetParent(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))).FullName).FullName).FullName;
-
-            // Get the correct path to chatbot.html
-            string htmlFilePath = Path.Combine(dllFolderPath, "chatEnlarged.html");
-
-            // Ensure the file exists before setting it
-            if (File.Exists(htmlFilePath))
+            // Create the Chromium browser and load the HTML file
+            browser = new ChromiumWebBrowser(fileUri)
             {
-                MessageBox.Show($"Expected HTML file at: {htmlFilePath}");
-                webView.Source = new Uri(htmlFilePath);
-            }
-            else
+                Dock = DockStyle.Fill
+            };
+
+            browser.IsBrowserInitializedChanged += (sender, args) =>
             {
-                MessageBox.Show($"Error: chatbot.html not found!\nExpected at: {htmlFilePath}");
-            }
+                if (browser.IsBrowserInitialized)
+                {
+                    Console.WriteLine("Browser initialized successfully.");
+                }
+            };
+
+            this.Controls.Add(browser);
         }
-        catch (Exception ex)
+        else
         {
-            MessageBox.Show($"WebView2 Error: {ex.Message}");
+            MessageBox.Show($"Error: chatbot.html not found!\nExpected at: {htmlFilePath}");
         }
     }
-}
 
+    protected override void OnFormClosing(FormClosingEventArgs e)
+    {
+        // Properly dispose of CefSharp when closing the form
+        browser?.Dispose();
+        Cef.Shutdown();
+        base.OnFormClosing(e);
+    }
+}
