@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RevitChatBotPrototype1")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5eccd6e72c635c6e3988ddb9a6ddc740c6ac46bd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+be2378cb4266d5ef0800df25aef5f5cc364e66f1")]
 [assembly: System.Reflection.AssemblyProductAttribute("RevitChatBotPrototype1")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RevitChatBotPrototype1")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

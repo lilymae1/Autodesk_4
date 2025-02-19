@@ -8,6 +8,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="cef.redist.x64" Version="120.2.7" />
+	  <PackageReference Include="CefSharp.Common" Version="120.2.7" />
+	  <PackageReference Include="CefSharp.WinForms" Version="120.2.7" />
 	  <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2045.28" />
 	</ItemGroup>
 
@@ -25,7 +28,7 @@
     <Reference Include="RevitAPIUI">
       <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2025\RevitAPIUI.dll</HintPath>
     </Reference>
-    <Reference Include="System.Windows.Forms"/>
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
 
   <ItemGroup>

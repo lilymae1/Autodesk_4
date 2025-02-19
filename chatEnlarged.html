@@ -5,10 +5,21 @@
     <meta charset="UTF-8">
     <title>Archie Forklift</title>
     <link rel="stylesheet" href="chatEnlargedStyle.css">
-
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <div id="include"></div>
+    <script>
+        window.onload = function(){
+            $.get("navbar.html", function(data){
+                $("#include").html(data);
+            })
+        }
+    </script>
 </head>
 <body>
+    <div id="include">
+        <h2> Tests Content</h2>
+        <p>this is a test</p>
+    </div>
     <div id="chat-top"></div>
     <div id="chat">
         <div class="received-chats">
