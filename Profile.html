@@ -8,8 +8,12 @@
     </script> 
 </head>
 
+<link rel="stylesheet" href="style_profile.css">
+<head>
+    <!--navbar-->
+</head>
+
 <body>
-    <div id="navbar"></div>
 
     <div id= profile_top>
     <h2>Name</h2>
@@ -23,18 +27,34 @@
     </div>
     <div id = profile_right>
         <a href = "https://www.autodesk.com/buying/plans">Your Plan</a>
+        <p>This will take you to your current subscription and show you</p>
         <div id=revit_info>
-            <h3>Revit resources</h3>
+            <h3 id = revit_title>Revit resources</h3>
+            <p>Setting up your first Revit</p>
             <button class=profile_button onclick="window.location.href = 'https://www.autodesk.com/learn/ondemand/curated/revit-quick-start-guide'" >Getting started</button>
+            <br></br>
+            <p>Autodesk Revit tutorials</p>
             <button class=profile_button onclick="window.location.href = 'https://www.autodesk.com/learn'" >Learn more </button>
         </div>
-    </div>
-    <img>
-    <div id= profile_bottom>
-      <!--archie, rounded edges and speech bubble -->
-      <img>
-      <h3>Hi! I'm Archie</h3>
-      <p></p>
-    </div>
-    <div id="footer"></div>
+    </div> 
+      
+      
+      
+      <table id=profile_bottom>
+        <td id= "dot_box">
+        <span class="dot" >
+          <img id="archie" src="https://ociacc.com/wp-content/uploads/2019/03/blank-profile-picture-973460_1280-1030x1030.png" width="50" height="50">
+        </span>
+        </td>
+        <td>
+          <div id="triangle"></div>
+          <div id= "speech_box">
+            <h3>Hi! I'm Archie</h3>
+            <p></p>
+          </div>
+        </td>
+      </table>
+    
+    
+    
 </body>
