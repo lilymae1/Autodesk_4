@@ -28,7 +28,6 @@ section
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 20px;
 }
 
 .navbar {
@@ -95,6 +94,7 @@ section
 .title
 {
   font-size: 3rem;
+  margin: 2rem 0;
 }
 
 .FAQ
@@ -175,68 +175,126 @@ section
 }
 
 .ExistingProjectPage-Image {
-  float:left;  
+  float:left;
   margin: 10px;
-  width:200px; 
-  height:300px;
+  min-width:400px;
+  height:400px;
   box-shadow: 2px 2px 3px #141417;
 }
 
-.ExistingProjectPage-Container {
+.ExistingProjectPage-RightContainer {
   float:right;
   background-color: grey;
-  width:500px;
-  height:350px;
+  width:550px;
+  height:380px;
   margin-right:20px;
-  margin-top:20px;
+  margin-top:10px;
   box-shadow: 2px 2px 3px #141417;
 }
 
 .ExistingProjectPage-Name {
   float:right;
   background-color: lightgray;
-  width:440px;
-  height:60px;
+  width:430px;
+  height:45px;
   margin-right:30px;
-  margin-top:15px;
-  font-size:20px;
+  margin-top:30px;
+  color: black;
+  background-color: lightgray;
+  padding: 10px 30px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
   font-family: AutodeskFont;
-  box-shadow: 2px 2px 3px #141417;
+  box-shadow: 2px 2px 3px #141417; 
+  border: none;
+}
+
+.ExistingProjectPage-Description {
+  float:left;
+  width:205px;
+  height:100px;
+  margin-top:20px;
+  margin-left:30px;
+  color: black;
+  background-color: lightgray;
+  padding: 5px 15px;
+  text-align: left;
+  text-decoration: none;
+  font-size: 6px;
+  font-family: AutodeskFont;
+  box-shadow: 2px 2px 2px #141417; 
+  border: none;
 }
 
 .ExistingProjectPage-Scroll {
   float:right;
-  background-color: lightgray;
-  width:430px;
-  height:150px;
+  width:205px;
+  height:160px;
+  margin-top:20px;
+  margin-right:30px;
   line-height:1em;
   overflow:auto;
-  padding:5px;
-  margin-top:30px;
-  margin-right:30px;
-  font-size:10px;
+  color: black;
+  background-color: lightgray;
+  padding: 5px 15px;
+  text-align: left;
+  text-decoration: none;
+  font-size: 10px;
   font-family: AutodeskFont;
-  box-shadow: 2px 2px 3px #141417;
+  box-shadow: 2px 2px 2px #141417; 
+  border: none;
 }
+
+.ExistingProjectPage-Generate-report {
+  float:left;
+  margin-top:20px;
+  margin-left:30px;
+  color: black;
+  background-color: lightgray;
+  padding: 10px 65px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  font-family: AutodeskFont;
+  box-shadow: 2px 2px 3px #141417; 
+  border: none;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.ExistingProjectPage-Generate-report:hover {
+  background-color: #414BB2;
+  color: white;
+}
+
 
 .ExistingProjectPage-ButtonContainer {
   float:right;
   display: flex;
-  width:50px;
-  height:20px;
-  margin-top:30px;
-  margin-right:240px;
-  font-size:10px;
-  font-family: AutodeskFont;
-  box-shadow: 2px 2px 3px #141417;
 }
 
-.ExistingProjectPage-Generate-report {
+.ExistingProjectPage-Button {
   float:right;
-  margin-top:50px;
-  margin-right:20px;
+  display: flex;
+  margin-top:20px;
+  margin-right:30px;
+  color: black;
+  background-color: lightgray;
+  padding: 10px 55px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
   font-family: AutodeskFont;
-  box-shadow: 2px 2px 3px #141417;
+  box-shadow: 2px 2px 3px #141417; 
+  border: none;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.ExistingProjectPage-Button:hover {
+  background-color: #414BB2;
+  color: white;
 }
 
 /* CreateNewChat CSS Portion */
@@ -357,34 +415,4 @@ section
   font-size:10px;
   font-family: AutodeskFont;
   box-shadow: 2px 2px 3px #141417;
-}
-
-/*lilys reworked styling for create new chat*/
-
-#create_new_leftdiv{
-  float:left;
-  width:50%;
-  background-color:yellow;
-  
-}
-#create_import{
-  background-color:black;
-  width:60%;
-}
-
-#create_new_rightdiv{
-  float:right;
-  width:50%;
-  background-color:red;
-}
-
-#name_description{
-  background-color:black;
-  width:70%;
-}
-
-#choose_project{
-  background-color:black;
-  width:70%;
-  margin-top:10px;
 }

@@ -2,43 +2,36 @@
 <html lang="en">
 
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script>
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'Nav.html', true);
-        xhr.onload = function () {
-            if (xhr.status == 200) {
-                console.log("Nav.html loaded successfully");
-                $("#includedNavContent").html(xhr.responseText);
-            } else {
-                console.error("Error loading Nav.html: " + xhr.status);
-                $("#includedNavContent").html("Error loading Nav.html");
-            }
-        };
-        xhr.onerror = function () {
-            console.error("Request failed");
-            $("#includedNavContent").html("Error loading Nav.html");
-        };
-        xhr.send();
-
-    </script>
+    <script src="jquery.js"></script> 
+    <script> 
+    $(function(){
+      $("#navbar").load("Nav.html");
+      $("#footer").load("Footer.html") 
+    });
+    </script> 
 </head>
 <html>
     <body class="ExistingProjectPage-Body">
-        <div id="includedNavContent"></div>
-        <link rel="stylesheet" type="text/css" href="style.css" >
-
-            <div class="ExistingProjectPage-Center">
-                <div class="ExistingProjectPage-Image">
-                    <img src="Assets/example_image.png" alt="Trulli" class="img">
-                </div>
+        <object type="text/html" data="Nav.html"></object>
+        <div class="ExistingProjectPage-Center">
+            
+            <div class="ExistingProjectPage-Image">
+                <img src="example_image.png" alt="Trulli" width="380px" height="380px">
+            </div>
     
-            <div class="ExistingProjectPage-Container">
+            <div class="ExistingProjectPage-RightContainer">
                 <div class="ExistingProjectPage-Name">
                     <h1 contenteditable="true"> 
                         Name
                     </h1>
-                    <!--Last Modified needs to be added with javascript-->
+                <!--Last Modified needs to be added with javascript-->
+                </div>
+
+                <div class="ExistingProjectPage-Description">
+                    <h1 contenteditable="true"> 
+                        Description
+                    </h1>
+                
                 </div>
                 
                 <div class="ExistingProjectPage-Scroll">
@@ -54,38 +47,19 @@
                     <br> Project Log (25/12/24) </br>
                     <br> Project Log (25/12/24) </br>
                 </div>
-            
+                
+                  
+                <button class = "ExistingProjectPage-Generate-report" onclick="">Generate Report</button>
+                
                 <div class="ExistingProjectPage-ButtonContainer">
-                    <button onclick="document.location='default.asp'">Edit</button>
-                    <button onclick="document.location='default.asp'">Delete</button>
+                    <button class = "ExistingProjectPage-Button" onclick="">Edit</button>
+                    <button class = "ExistingProjectPage-Button" onclick="">Save</button>
+                    <button class = "ExistingProjectPage-Button" onclick="">Delete</button>
                 </div>
-
-                <div class="ExistingProjectPage-Generate-report">
-                    <button onclick="document.location='default.asp'">Generate Report</button>
-                </div>
+                
             </div>
+            
         </div>
         <object type="text/html" data="Footer.html"></object>
     </body>
-    <footer>
-        <script>
-            var xhr1 = new XMLHttpRequest();
-            xhr1.open('GET', 'Footer.html', true);
-            xhr1.onload = function () {
-                if (xhr1.status == 200) {
-                    console.log("footer.html loaded successfully");
-                    $("#includedContent").html(xhr1.responseText);
-                } else {
-                    console.error("Error loading footer.html: " + xhr1.status);
-                    $("#includedContent").html("Error loading Nav.html");
-                }
-            };
-            xhr1.onerror = function () {
-                console.error("Request failed");
-                $("#includedContent").html("Error loading footer.html");
-            };
-            xhr1.send();
-        </script>
-        <div id="includedContent"></div>
-    </footer>
 </html>
