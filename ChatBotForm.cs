@@ -51,6 +51,7 @@ public class ChatBotForm : Form
             {
                 if (browser.IsBrowserInitialized)
                 {
+                    browser.ShowDevTools();
                     Console.WriteLine("Browser initialized successfully.");
                 }
             };
