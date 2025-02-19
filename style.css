@@ -28,6 +28,7 @@ section
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 20px;
 }
 
 .navbar {
@@ -94,7 +95,6 @@ section
 .title
 {
   font-size: 3rem;
-  margin: 2rem 0;
 }
 
 .FAQ
