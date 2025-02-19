@@ -2,6 +2,28 @@
 <html lang="en">
 
 <head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'Nav.html', true);
+        xhr.onload = function () {
+            if (xhr.status == 200) {
+                console.log("Nav.html loaded successfully");
+                $("#includedNavContent").html(xhr.responseText);
+            } else {
+                console.error("Error loading Nav.html: " + xhr.status);
+                $("#includedNavContent").html("Error loading Nav.html");
+            }
+        };
+        xhr.onerror = function () {
+            console.error("Request failed");
+            $("#includedNavContent").html("Error loading Nav.html");
+        };
+        xhr.send();
+
+    </script>
+
     <script src="jquery.js"></script> 
     <script> 
     $(function(){
@@ -12,11 +34,15 @@
 </head>
 <html>
     <body class="ExistingProjectPage-Body">
-        <object type="text/html" data="Nav.html"></object>
+        <div id="includedNavContent"></div>
+        <link rel="stylesheet" type="text/css" href="style.css" >
+
+        <!-- <object type="text/html" data="Nav.html"></object>  Need to check if this line is still needed-->
+
         <div class="ExistingProjectPage-Center">
             
             <div class="ExistingProjectPage-Image">
-                <img src="example_image.png" alt="Trulli" width="380px" height="380px">
+                <img src="Assets\example_image.png" alt="Trulli" width="380px" height="380px">
             </div>
     
             <div class="ExistingProjectPage-RightContainer">
@@ -60,6 +86,27 @@
             </div>
             
         </div>
-        <object type="text/html" data="Footer.html"></object>
+        <!-- <object type="text/html" data="Footer.html"></object> Need to check if this line is still needed-->
     </body>
+    <footer>
+        <script>
+            var xhr1 = new XMLHttpRequest();
+            xhr1.open('GET', 'Footer.html', true);
+            xhr1.onload = function () {
+                if (xhr1.status == 200) {
+                    console.log("footer.html loaded successfully");
+                    $("#includedContent").html(xhr1.responseText);
+                } else {
+                    console.error("Error loading footer.html: " + xhr1.status);
+                    $("#includedContent").html("Error loading Nav.html");
+                }
+            };
+            xhr1.onerror = function () {
+                console.error("Request failed");
+                $("#includedContent").html("Error loading footer.html");
+            };
+            xhr1.send();
+        </script>
+        <div id="includedContent"></div>
+    </footer>
 </html>
