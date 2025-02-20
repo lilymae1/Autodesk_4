@@ -12,7 +12,8 @@ body {
   height: 100vh; /* Full screen height */
 }
 #profile_top{
-margin-left:20px;
+  margin-top: 40px;
+margin-left:30px;
 background-color:white;
 }
 #profile_line{
@@ -46,7 +47,7 @@ border-width:2px;
 background-color: #f9f9f9;
 box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
 border-color: #f9f9f9;
-margin-top:20px;
+margin-top:10px;
 }
 #t_revit {
   width: 100%; 
@@ -98,8 +99,9 @@ height: 250px;
 
 #profile_bottom{
 float:right;
-margin-top: 20px;
+margin-top: 40px;
 width:100%; 
+margin-bottom: 50px;
 }
 #profile_archie{
 float:left;
