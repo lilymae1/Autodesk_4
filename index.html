@@ -61,6 +61,7 @@
     }
     .container > div > a > img:hover {
       opacity: 0.9;
+      cursor: pointer;
     }
     
     .Title{
@@ -68,7 +69,8 @@
       padding: 1%;
       font-family: AutodeskFontBold;
     }
-    .Title > button{
+    .Title > a > .newbutton{
+      text-align: center;
       cursor: pointer;
       border: none;
       color:white;
@@ -79,6 +81,7 @@
       border: #ffffff;
       font-size: 25px;
       font-family: AutodeskFont;
+
     }
     </style>
 
@@ -88,8 +91,8 @@
     
 
     <div class="Title">
-      Recent Chatted With
-      <button type="button">New</button>
+      Recent Chatted With 
+      <a href="CreateNewChat.html"><div class="newbutton">New</div></a>
     </div>
     <div class="container">
       <div>1<a href="ExistingProjectPage.html"><img src="Assets/example_image.png" alt="Example Image"></a></div>
