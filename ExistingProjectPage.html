@@ -111,7 +111,7 @@
             
         </div>
         <!-- <object type="text/html" data="Footer.html"></object> Need to check if this line is still needed-->
-
+        <!-- Script Makes Edit Button Access Editing Page-->
         <script>
             function myFunction() {
               var original = document.querySelector(".EP-RightContainer-Original");
@@ -127,27 +127,6 @@
               document.getElementById("EP-RightContainer-EditVersion").style.display = "none";
             });
           </script>
-          <!--
-          <script>
-            function myFunction() {
-              var original = document.querySelector(".EP-RightContainer-Original");
-              var editVersion = document.getElementById("EP-RightContainer-EditVersion");
-        
-              if (editVersion.style.display === "none" || editVersion.style.display === "") {
-                editVersion.style.display = "block"; // Show edit version
-                original.style.display = "none"; // Hide original
-              } else {
-                editVersion.style.display = "none"; // Hide edit version
-                original.style.display = "block"; // Show original
-              }
-            }
-        
-          // Ensure the edit version is hidden on page load
-          document.addEventListener("DOMContentLoaded", function () {
-            document.getElementById("EP-RightContainer-EditVersion").style.display = "none";
-          });
-        </script>
-      -->
 
     </body>
     <footer>
