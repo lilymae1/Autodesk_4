@@ -118,8 +118,8 @@
             // Append elements together
             inbox.appendChild(message);
             inbox.appendChild(timestamp);
-            receivedChats.appendChild(archieImg);
             receivedChats.appendChild(inbox);
+            receivedChats.appendChild(archieImg);
             receivedDiv.appendChild(receivedChats);
 
             document.getElementById("chat").appendChild(receivedDiv);
@@ -154,9 +154,9 @@
 
             // Append elements together
             msgBox.appendChild(msgText);
-            msgBox.appendChild(timestamp);
-            outgoingChats.appendChild(userImg);
+            msgBox.appendChild(timestamp); 
             outgoingChats.appendChild(msgBox);
+            outgoingChats.appendChild(userImg);
             outgoingDiv.appendChild(outgoingChats);
 
             document.getElementById("chat").appendChild(outgoingDiv);
