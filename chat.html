@@ -3,15 +3,42 @@
 
 <html>
     <head>
-        <link rel="stylesheet" href="style.css">
+        <title>Chat</title>
+        <link rel="stylesheet" href="chatEnlargedStyle.css">
     </head>
 
     <body>
         <div class="chatNav">
             <button class="menuButton" id="active"><a href="#">Current chat</a></button>
-            <button class="menuButton"><a href="chatLog.html">Old chats</a></button>
+            <button class="menuButton"><a href="chatHistory.html">Old chats</a></button>
+            <button class="menuButton"><a href="chatEnlarged.html">Fullscreen</a></button>
         </div>
-
-
+        
+        <div class="received-chats">      
+            <div class="received-msg">
+                <div class="received-msg-inbox">
+                    <p>Hi!! This is message from Archie Forklift. Word word word word word word word word word!</p>
+                    <span class="received-time">18:06 PM | July 24 </span>
+                </div>
+            </div>
+            <img class = "chatImage" src="Assets/PFP2.png">
+        </div>
+        <div class="outgoing-chats">
+            <div class="outgoing-msg">
+                <div class="outgoing-chats-msg">
+                    <p class="multi-msg">Hi!! This is a response. Word word, word word word word word.</p>
+                    <p class="multi-msg">Word word word word word!</p>
+                    <span class="outgoing-time">18:30 PM | July 24 </span>
+                </div>
+            </div>
+            <img img class = "userImage" src="Assets/ProfileIcon.png">
+        </div>
+    </div>
     </body>
+    <footer>
+        <div id="textbox">
+            <input type="text" id="input" placeholder="Type a message..." />
+            <button id="send" href="#">Send</button>
+        </div>
+    </footer>
 </html>   

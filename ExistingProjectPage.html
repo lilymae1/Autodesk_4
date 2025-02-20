@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-
+    <title>Viewing project</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
         var xhr = new XMLHttpRequest();
@@ -38,19 +38,10 @@
             </div>
     
             <div class="ExistingProjectPage-RightContainer">
-                <div class="ExistingProjectPage-Name">
-                    <h1 contenteditable="true"> 
-                        Name
-                    </h1>
-                <!--Last Modified needs to be added with javascript-->
-                </div>
-
-                <div class="ExistingProjectPage-Description">
-                    <h1 contenteditable="true"> 
-                        Description
-                    </h1>
-                
-                </div>
+                <form>
+                    <input id=EP_N_input placeholder="Name..">
+                    <input id=EP_D_input placeholder="Description"> <!--Need to make text description go to top left not just left-->
+                </form>
                 
                 <div class="ExistingProjectPage-Scroll">
                     <br> Project Log (25/12/24) </br>
@@ -67,12 +58,12 @@
                 </div>
                 
                   
-                <button class = "ExistingProjectPage-Generate-report" onclick="">Generate Report</button>
+                <button id = "ExistingProjectPage-Generate-report" onclick="">Generate Report</button>
                 
                 <div class="ExistingProjectPage-ButtonContainer">
-                    <button class = "ExistingProjectPage-Button" onclick="">Edit</button>
-                    <button class = "ExistingProjectPage-Button" onclick="">Save</button>
-                    <button class = "ExistingProjectPage-Button" onclick="">Delete</button>
+                    <button id = "ExistingProjectPage-Button" onclick="">Edit</button>
+                    <button id = "ExistingProjectPage-Button" onclick="">Save</button>
+                    <button id = "ExistingProjectPage-Button" onclick="">Delete</button>
                 </div>
                 
             </div>
