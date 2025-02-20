@@ -189,7 +189,7 @@ section
   box-shadow: 2px 2px 3px #141417;
 }
 
-.ExistingProjectPage-Name {
+#EP_N_input {
   float:right;
   background-color: #F0EFEF;
   width:430px;
@@ -207,7 +207,7 @@ section
   border: none;
 }
 
-.ExistingProjectPage-Description {
+#EP_D_input {
   float:left;
   width:205px;
   height:100px;
@@ -243,7 +243,7 @@ section
   border: none;
 }
 
-.ExistingProjectPage-Generate-report {
+#ExistingProjectPage-Generate-report {
   float:left;
   margin-top:20px;
   margin-left:30px;
@@ -260,7 +260,7 @@ section
   cursor: pointer;
 }
 
-.ExistingProjectPage-Generate-report:hover {
+#ExistingProjectPage-Generate-report:hover {
   background-color: #414BB2;
   color: white;
 }
@@ -271,7 +271,7 @@ section
   display: flex;
 }
 
-.ExistingProjectPage-Button {
+#ExistingProjectPage-Button {
   float:right;
   display: flex;
   margin-top:20px;
@@ -289,7 +289,7 @@ section
   cursor: pointer;
 }
 
-.ExistingProjectPage-Button:hover {
+#ExistingProjectPage-Button:hover {
   background-color: #414BB2;
   color: white;
 }
