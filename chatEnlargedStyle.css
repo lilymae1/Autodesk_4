@@ -43,7 +43,7 @@ html, body {
     padding: 5px;
 }
 
-#textbox {
+#message_sender {
     display: flex;
     background-color: white;
     align-items: center;
