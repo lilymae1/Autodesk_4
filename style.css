@@ -169,6 +169,8 @@ section
   margin-top: 100px;
   margin-right:100;
   box-shadow: 2px 2px 3px #141417;
+  border-radius: 4px;
+  border-color:#141417;
 }
 
 .ExistingProjectPage-Image {
@@ -177,9 +179,11 @@ section
   min-width:400px;
   height:400px;
   box-shadow: 2px 2px 3px #141417;
+  border-radius: 4px;
+  border-color:#141417;
 }
 
-.ExistingProjectPage-RightContainer {
+.EP-RightContainer-Original {
   float:right;
   background-color: grey;
   width:550px;
@@ -187,6 +191,20 @@ section
   margin-right:20px;
   margin-top:10px;
   box-shadow: 2px 2px 3px #141417;
+  border-radius: 4px;
+  border-color:#141417;
+}
+
+.EP-RightContainer-EditVersion{
+  float:right;
+  background-color: grey;
+  width:550px;
+  height:380px;
+  margin-right:20px;
+  margin-top:10px;
+  box-shadow: 2px 2px 3px #141417;
+  border-radius: 4px;
+  border-color:#141417;
 }
 
 #EP_N_input {
@@ -201,10 +219,10 @@ section
   padding: 10px 30px;
   text-align: center;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 20px;
   font-family: AutodeskFont;
   box-shadow: 2px 2px 3px #141417; 
-  border: none;
+  border-radius: 4px;
 }
 
 #EP_D_input {
@@ -218,10 +236,10 @@ section
   padding: 5px 15px;
   text-align: left;
   text-decoration: none;
-  font-size: 6px;
+  font-size: 10px;
   font-family: AutodeskFont;
   box-shadow: 2px 2px 2px #141417; 
-  border: none;
+  border-radius: 4px;
 }
 
 .ExistingProjectPage-Scroll {
@@ -240,7 +258,7 @@ section
   font-size: 10px;
   font-family: AutodeskFont;
   box-shadow: 2px 2px 2px #141417; 
-  border: none;
+  border-radius: 4px;
 }
 
 #ExistingProjectPage-Generate-report {
@@ -258,11 +276,15 @@ section
   border: none;
   transition-duration: 0.4s;
   cursor: pointer;
+  border-radius: 4px;
+  border-color:#141417;
 }
 
 #ExistingProjectPage-Generate-report:hover {
   background-color: #414BB2;
   color: white;
+  border-radius: 4px;
+  border-color:#414BB2;
 }
 
 
@@ -278,6 +300,33 @@ section
   margin-right:30px;
   color: #141417;
   background-color: #F0EFEF;
+  padding: 10px 98px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  font-family: AutodeskFont;
+  box-shadow: 2px 2px 3px #141417; 
+  border: none;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 4px;
+  border-color:#141417;
+}
+
+#ExistingProjectPage-Button:hover {
+  background-color: #414BB2;
+  color: white;
+  border-radius: 4px;
+  border-color:#414BB2;
+}
+
+#EP-Button-EditVer {
+  float:right;
+  display: flex;
+  margin-top:20px;
+  margin-right:30px;
+  color: #141417;
+  background-color: #F0EFEF;
   padding: 10px 55px;
   text-align: center;
   text-decoration: none;
@@ -287,11 +336,15 @@ section
   border: none;
   transition-duration: 0.4s;
   cursor: pointer;
+  border-radius: 4px;
+  border-color:#141417;
 }
 
-#ExistingProjectPage-Button:hover {
+#EP-Button-EditVer:hover {
   background-color: #414BB2;
   color: white;
+  border-radius: 4px;
+  border-color:#414BB2;
 }
 
 /* CreateNewChat CSS Portion */
