@@ -441,27 +441,3 @@ section
   width:70%;
   margin-top:10px;
 }
-
-.chatNav {
-  background-color: #166AFA;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-  box-shadow: 3px 0px 2px #141417;
-}
-
-.chatNav button {
-  padding: 10px;
-}
-
-.chatNav a {
-  color: white;
-}
-.chatNav button:hover {
-  background-color: #275EDD;
-}
-
-#active {
-  background-color: #275EDD;
-  color: white;
-}

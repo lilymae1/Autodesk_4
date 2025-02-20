@@ -142,3 +142,51 @@ received-chats-img {
     height: 25px; /* Adjust as needed */
     flex-shrink: 0; /* Prevents shrinking */
 }
+
+.chatNav {
+    background-color: #166AFA;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    box-shadow: 3px 0px 2px #141417;
+    margin-bottom: 5%;
+  }
+  
+  .chatNav button {
+    padding: 10px;
+  }
+  
+  .chatNav a {
+    color: white;
+    text-decoration: none;
+  }
+  .chatNav button:hover {
+    background-color: #275EDD;
+  }
+  
+  #active {
+    background-color: #275EDD;
+    color: white;
+  }
+  
+  .menuButton, .previousChat button{
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .previousChat img{
+    max-width: 30%;
+    float: left;  
+    margin-right: 10%;
+  }
+
+  .previousChat h4 {}
+
+  .text{
+    text-align: left;
+    margin-left: 0;
+  }
+  .previousChat button:hover {
+    background-color: #ecebed;
+  }
