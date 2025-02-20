@@ -2,18 +2,32 @@
 <html lang="en">
 
     <head>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script src="jquery.js"></script> 
-        <script> 
-            $(function(){$("#navbar").load("Nav.html")});
-            $(function(){$("#footer").load("Footer.html")});
-        </script> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'Nav.html', true);
+        xhr.onload = function () {
+            if (xhr.status == 200) {
+                console.log("Nav.html loaded successfully");
+                $("#includedNavContent").html(xhr.responseText);
+            } else {
+                console.error("Error loading Nav.html: " + xhr.status);
+                $("#includedNavContent").html("Error loading Nav.html");
+            }
+        };
+        xhr.onerror = function () {
+            console.error("Request failed");
+            $("#includedNavContent").html("Error loading Nav.html");
+        };
+        xhr.send();
+
+    </script>
     </head>
 
     <body>
-        <div id="navbar"></div>
+        <div id="navbar"></div><div id="includedNavContent"></div>
 
-        <div class="">
+        <section>
             <h3 class="Title">Terms and Conditions</h3>
             <p> Condition Conidition Condition Conidition Condition Conidition Condition Conidition 
                 Condition Conidition Condition Conidition Condition Conidition Condition Conidition 
@@ -32,9 +46,41 @@
                 Condition Conidition Condition Conidition Condition Conidition Condition Conidition
                 Condition Conidition Condition Conidition Condition Conidition Condition Conidition 
                 Condition Conidition Condition Conidition Condition Conidition Condition Conidition 
+                Condition Conidition Condition Conidition Condition Conidition Condition Conidition
+                Condition Conidition Condition Conidition Condition Conidition Condition Conidition 
+                Condition Conidition Condition Conidition Condition Conidition Condition Conidition 
+                Condition Conidition Condition Conidition Condition Conidition Condition Conidition
+                Condition Conidition Condition Conidition Condition Conidition Condition Conidition 
+                Condition Conidition Condition Conidition Condition Conidition Condition Conidition 
+                Condition Conidition Condition Conidition Condition Conidition Condition Conidition
+                Condition Conidition Condition Conidition Condition Conidition Condition Conidition 
+                Condition Conidition Condition Conidition Condition Conidition Condition Conidition 
+                Condition Conidition Condition Conidition Condition Conidition Condition Conidition
+                Condition Conidition Condition Conidition Condition Conidition Condition Conidition 
+                Condition Conidition Condition Conidition Condition Conidition Condition Conidition 
                 Condition Conidition Condition Conidition Condition Conidition Condition Conidition </p>
-        </div>
+            </section>
 
-        <div id="footer"></div>
     </body>
+    <footer>
+        <script>
+            var xhr1 = new XMLHttpRequest();
+            xhr1.open('GET', 'Footer.html', true);
+            xhr1.onload = function () {
+                if (xhr1.status == 200) {
+                    console.log("footer.html loaded successfully");
+                    $("#includedContent").html(xhr1.responseText);
+                } else {
+                    console.error("Error loading footer.html: " + xhr1.status);
+                    $("#includedContent").html("Error loading Nav.html");
+                }
+            };
+            xhr1.onerror = function () {
+                console.error("Request failed");
+                $("#includedContent").html("Error loading footer.html");
+            };
+            xhr1.send();
+        </script>
+        <div id="includedContent"></div>
+    </footer>
 </html>
