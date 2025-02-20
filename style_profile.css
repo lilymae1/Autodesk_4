@@ -88,7 +88,7 @@ body{
   border-color:#414BB2;
   display: inline-block;
   border-style:solid;
-  
+  margin-bottom: 20px;
   overflow:hidden;
 }
 #profile_img{
