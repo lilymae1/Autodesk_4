@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<div id = "chat-enlarged-head">
     <meta charset="UTF-8">
     <title>Archie Forklift</title>
     <link rel="stylesheet" href="chatEnlargedStyle.css">
@@ -25,61 +25,61 @@
         xhr.send();
 
     </script>
-</head>
-<body>
+</div>
+<div id ="chat-enlarged-body">
     <div id="includedNavContent"></div>
     <div id="chat-top"></div>
     <div id="chat">
         <div class="received-chats">
-            <div class="received-chats-img">
-                <img src="user2.png">
-
-            </div>
+            
             <div class="received-msg">
                 <div class="received-msg-inbox">
                     <p>Hi !! This is message from Archie Forklift . Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non quas nemo eum, earum sunt, nobis similique quisquam eveniet pariatur commodi modi voluptatibus iusto omnis harum illumiste distinctio expedita illo!</p>
                     <span class="received-time">18:06 PM | July 24 </span>
                 </div>
             </div>
+            <div class="received-chats-img">
+                <img src="C:\Users\richa\Documents\Autodesk Project\Autodesk_4\Assets\archie.png" width="42" height="42" style="border-radius: 21px;">
+            </div>  
+        </div>
         <div class="outgoing-chats">
-            <div class="outgoing-chats-img">
-                <img src="user1.png">
-
-            </div>
             <div class="outgoing-msg">
                 <div class="outgoing-chats-msg">
                     <p class="multi-msg">Hi riya , Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo nobis deleniti earum magni recusandae assumenda.
                     </p>
                     <p class="multi-msg">Lorem ipsum dolor sit amet consectetur.</p>
-
-
                     <span class="outgoing-time">18:30 PM | July 24 </span>
                 </div>
             </div>
+            <div class="outgoing-chats-img">
+                <img src="C:\Users\richa\Documents\Autodesk Project\Autodesk_4\Assets\ProfileIcon.png" width="42" height="42" style="border-radius: 21px;"width="42" height="42" style="border-radius: 21px;">
+            </div>
         </div>
-     </div>
-     <input type="text" id="input" placeholder="Type a message..." />
-     <button id="send">Send</button>
-</body>
-<footer>
+    </div>
+    <div id="input-container">
+        <input type="text" id="input" placeholder="Type a message..." />
+        <button id="send">Send</button>
+    </div>
+</div>
+<div id = "chat-enlarged-footer">
     <script>
         var xhr1 = new XMLHttpRequest();
         xhr1.open('GET', 'Footer.html', true);
         xhr1.onload = function () {
             if (xhr1.status == 200) {
                 console.log("footer.html loaded successfully");
-                $("#includedContent").html(xhr1.responseText);
+                $("#includedFooterContent").html(xhr1.responseText);
             } else {
                 console.error("Error loading footer.html: " + xhr1.status);
-                $("#includedContent").html("Error loading Nav.html");
+                $("#includedFooterContent").html("Error loading Nav.html");
             }
         };
         xhr1.onerror = function () {
             console.error("Request failed");
-            $("#includedContent").html("Error loading footer.html");
+            $("#includedFooterContent").html("Error loading footer.html");
         };
         xhr1.send();
     </script>
-    <div id="includedContent"></div>
-</footer>
+    <div id="includedFooterContent"></div>
+</div>
 </html>

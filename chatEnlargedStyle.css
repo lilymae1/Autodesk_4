@@ -3,54 +3,67 @@
     src: url(WOFF/ArtifaktElementExtraLight.woff);
 }
 
-body {
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+#chat-enlarged-body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Ensure it takes full screen height */
     background-color: white;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 10px;
-    font: AutodeskFont;
+    font-family: AutodeskFont;
 }
 
 #chat-top {
-    height: 20px;
+    height: 40px;
     background-color: #808080;
-    padding: 5px;
+    flex-shrink: 0; /* Prevents shrinking */
+    margin: 30px 30px 0 30px; /* Space around top, right, and left *//
 }
 
 #chat {
-    height: 200px;
-    overflow-y: scroll;
+    flex-grow: 1; /* Takes up available space */
+    overflow-y: auto;
     background-color: #E6E6E6;
     padding: 5px;
-    position: relative;
-    
+    margin: 0 30px 0 30px; /* Space around right, and left *//
 }
 
-#input{
-  height: 25px;
-  width: 475px;
-
-  padding: 5px;
-  border: none;
-  border-radius: 3px;
-  position: absolute;
-  bottom: 5px;
+#input-container {
+    display: flex;
+    background-color: white;
+    padding: 10px;
+    flex-shrink: 0; /* Prevent it from shrinking */
+    align-items: center;
 }
 
-#send{
-  height: 30px;
-  width: 50px;
-  background-color: #414BB2;
-  color: white;
-  border: none;
-  border-radius: 3px;
-  position: absolute;
-  bottom: 8px;
-  right: 5px;
+#input {
+    flex-grow: 1; /* Take up available space */
+    height: 30px;
+    padding: 5px;
+    border-color: #808080;
+    border-radius: 3px;
+}
+
+#send {
+    height: 34px;
+    width: 60px;
+    background-color: #414BB2;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    margin-left: 10px;
+}
+
+#input-container{
+    background-color: white;
+    padding: 5px;
 }
 
 received-chats-img {
-    display: inline-block;
     width: 50px;
     float: left;
 }
@@ -75,46 +88,16 @@ received-chats-img {
     margin-left: 20px;
     padding: 10px;
     width: 100%;
-}
-    p {
-    overflow-wrap: break-word;
-}
+    }
+        p {
+        overflow-wrap: break-word;
+    }
 
 .received-time {
     color: #777;
     display: block;
     font-size: 12px;
     margin: 0px 25px 0;
-}
-
-.outgoing-chats {
-    overflow: hidden;
-    margin: 26px 20px;
-}
-
-.outgoing-chats-msg p {
-    background-color: #808080;
-    color: #fff;
-    border-radius: 10px;
-    font-family: AutodeskFont;
-    src: url(WOFF/ArtifaktElementExtraLight.woff);
-    font-size: 14px;
-    color: #fff;
-    padding: 5px 10px 5px 12px;
-    width: 100%;
-    padding: 10px;
-}
-.outgoing-chats-msg {
-        float: right;
-        width: 46%;
-    }
-
-/* Styling the avatar */
-.outgoing-chats-img {
-    display: inline-block;
-    width: 50px;
-    float: right;
-    margin-right: 20px;
 }
 
 .outgoing-time {
@@ -124,3 +107,92 @@ received-chats-img {
     margin: 0 0 0 20px;
     text-align: right;
 }
+
+.outgoing-chats {
+    display: flex;
+    flex-direction: column; /* Stack messages and image vertically */
+    align-items: flex-end; /* Align messages to the right */
+    overflow: hidden;
+    margin: 26px 20px;
+}
+
+.outgoing-chats-msg p {
+    background-color: #808080;
+    color: #fff;
+    font-family: AutodeskFont;
+    src: url(WOFF/ArtifaktElementExtraLight.woff);
+    border-radius: 10px;
+    font-size: 14px;
+    color: #fff;
+    padding: 5px 10px 5px 12px;
+    width: 100%;
+    padding: 1rem;
+    margin-right: 10px; /* Avoid sticking to the edge */
+}
+.outgoing-chats-msg {
+    width: 92%; /* Match received messages width */
+    float: right;  
+}
+
+/* Styling the avatar */
+.outgoing-chats-img {
+    width: 50px;
+    float: right;
+}
+
+.multi-msg{
+    margin-top: 5px;
+}
+
+#chat-enlarged-footer {
+    height: 25px; /* Adjust as needed */
+    flex-shrink: 0; /* Prevents shrinking */
+}
+
+.chatNav {
+    background-color: #166AFA;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    box-shadow: 3px 0px 2px #141417;
+    margin-bottom: 5%;
+  }
+  
+  .chatNav button {
+    padding: 10px;
+  }
+  
+  .chatNav a {
+    color: white;
+    text-decoration: none;
+  }
+  .chatNav button:hover {
+    background-color: #275EDD;
+  }
+  
+  #active {
+    background-color: #275EDD;
+    color: white;
+  }
+  
+  .menuButton, .previousChat button{
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .previousChat img{
+    max-width: 30%;
+    float: left;  
+    margin-right: 10%;
+  }
+
+  .previousChat h4 {}
+
+  .text{
+    text-align: left;
+    margin-left: 0;
+  }
+  .previousChat button:hover {
+    background-color: #ecebed;
+  }
