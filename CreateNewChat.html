@@ -29,67 +29,51 @@
     <body>
         <div id="includedNavContent"></div>
         <link rel="stylesheet" type="text/css" href="style.css" >
-        <form>
-            <!--These two buttons should switch the right to either create new with a standard photo-->
-            <!-- or use previous project/chatbox for new chatbox so a scroll etc.-->
-            <!--Need to change all button links-->
-            <div class="CreatingNewChat-ProjectChoice">
-                <!--When option below is clicked shows Project Info with ability to write down info-->
-                <!--Basically creating a new chatbox for a new project, should allow you to write some info dowm -->
-                <!--Should then send you to revit page where you make new project -->
-                <div class="CreatingNewChat-CreateNew"> 
-                    <button onclick="document.location='default.asp'"></button>
-                </div>
-                <div class="CreatingNewChat-CreateNewFont">
-                    <p>Create Entirely New Project</p>
-                </div> 
-                <!--You can access your previous projects you've made and import them to make a chatbox /  -->
-                <!--Basically same process of wroiting info down for chatbox but you use a project rather than make a new one-->
-                <div class="CreatingNewChat-ImportInfo"> <!-- Imports chatbox from projects user has worked on -->
-                    <button onclick="document.location='default.asp'"></button>
-                </div>
-                <div class="CreatingNewChat-ImportInfoFont">
-                    <p>Import Existing Project</p>
-                </div>
-                <div class="CreatingNewChat-Done">
-                    <button onclick="document.location='default.asp'">Done</button>
-                </div>
+        <div id="create_new_leftdiv">
+            <div id="create_ChatboxChoice">
+              <h1 id ="CreateNewChat-Title"> Create New Chatbox: </h1>
+              <input type="checkbox">
+              <button class = "CreateNewChat-Button" onclick="" >Create new project</button><br></br>
+              <input type="checkbox">
+              <button class = "CreateNewChat-Button" onclick="" >Import existing project</button>    
             </div>
-            
-            <div class="CreatingNewChat-ProjectInfo">
-                <div class="ExistingProjectPage-Name">
-                    <h1 contenteditable="true"> 
-                        Name
-                    </h1>
-                    <!--Last Modified needs to be added with javascript-->
-                </div>
-                <div class="ExistingProjectPage-Description">
-                    <h1 contenteditable="true"> 
-                        Description
-                    </h1>
-                    <!--Last Modified needs to be added with javascript-->
-                </div>
-                <!--Need to somehow using javascript make buttons switch to either image or scroll of previous projects-->
-                <div class="CreatingNewChat-Image">
-                    <img src="Assets/example_image.png" alt="Trulli" class="img">
-                </div>
-                <div class="CreatingNewChat-PreviousProjects">
-                    <br> Project (25/12/24) </br>
-                    <br> Project (25/12/24) </br>
-                    <br> Project (25/12/24) </br>
-                    <br> Project (25/12/24) </br>
-                    <br> Project (25/12/24) </br>
-                    <br> Project (25/12/24) </br>
-                    <br> Project (25/12/24) </br>
-                    <br> Project (25/12/24) </br>
-                    <br> Project (25/12/24) </br>
-                    <br> Project (25/12/24) </br>
-                    <br> Project (25/12/24) </br>
-                    <br> Project (25/12/24) </br>
-                </div>
+        </div>
+        
+        <div id ="create_new_rightdiv">
+          
+            <div id="createnew_ChatboxDescription">
+                <form>
+                    <input id=CN_c_input placeholder="Name..">
+                    <input id=CN_d_input placeholder="Description"> Need to make text description go to top left not just left
+                    <input id="CreateNewChat_Done_button" type="Submit" value="Done">
+                </form>
             </div>
-        </form>
-        <object type="text/html" data="Footer.html"></object>
+        
+            <!--
+            <div id="choose_project">
+                <form>
+                    <input id=CP_c_input placeholder="Name..">
+                    <input id=CP_d_input placeholder="Description"> Need to make text description go to top left not just left
+                    <div id="PreviousProjects_scroll">
+                        <br> Project (25/12/24) </br>
+                        <br> Project (25/12/24) </br>
+                        <br> Project (25/12/24) </br>
+                        <br> Project (25/12/24) </br>
+                        <br> Project (25/12/24) </br>
+                        <br> Project (25/12/24) </br>
+                        <br> Project (25/12/24) </br>
+                        <br> Project (25/12/24) </br>
+                        <br> Project (25/12/24) </br>
+                        <br> Project (25/12/24) </br>
+                        <br> Project (25/12/24) </br>
+                        <br> Project (25/12/24) </br>
+                    </div>
+                    <input id="ChooseProject_Done_button" type="Submit" value="Done">
+                </form>
+            </div>
+            -->
+        </div> 
+      <object type="text/html" data="Footer.html"></object>
     </body>
     <footer>
         <script>
@@ -116,38 +100,3 @@
 
 
 
-<!--lilys reworked layout-->
-
-<html>
-<body>
-   <div id="create_new_leftdiv">
-    <h2>left</h2>
-    
-    <div id="create_import">
-        <input type="checkbox">
-        <button>Create new project</button><br></br>
-        <input type="checkbox">
-        <button>Import existing project</button>    
-    </div>
-      
-  </div>
-    <div id ="create_new_rightdiv">
-    <h2>right</h2>
-    <div id="name_description">
-      <form>
-        <input id=c_input placeholder="Name..">
-        <h3 id=description >Description...</h3>
-        <input id=d_input> <br></br>
-        <input type="Submit" value="done">
-      </form>
-    </div>
-    <div id="choose_project">
-       <form>
-       <!--add the scroll box-->
-         <input type ="Submit" value="done">
-       </form>
-       
-    </div>
-  </div> 
-</body>
-</html>
