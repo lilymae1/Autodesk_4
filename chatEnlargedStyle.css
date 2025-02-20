@@ -6,7 +6,8 @@
 html, body {
     margin: 0;
     padding: 0;
-    height: 100%;
+    height: 110%;
+    border: none;
 }
 
 #chat-enlarged-body {
@@ -38,10 +39,24 @@ html, body {
     padding: 10px;
     flex-shrink: 0; /* Prevent it from shrinking */
     align-items: center;
+    background-color: white;
+    padding: 5px;
 }
 
+#textbox {
+    display: flex;
+    background-color: white;
+    align-items: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%; 
+    border-top: 1px solid #ccc;   
+  }
+
 #input {
-    flex-grow: 1; /* Take up available space */
+    flex-grow: 1;
     height: 30px;
     padding: 5px;
     border-color: #808080;
@@ -56,11 +71,12 @@ html, body {
     border: none;
     border-radius: 3px;
     margin-left: 10px;
+    margin-right: 20px;
+    cursor: pointer;
 }
 
-#input-container{
-    background-color: white;
-    padding: 5px;
+#send:hover {
+    background-color: #3740a1;
 }
 
 received-chats-img {
@@ -130,8 +146,10 @@ received-chats-img {
     margin-right: 10px; /* Avoid sticking to the edge */
 }
 .outgoing-chats-msg {
-    width: 92%; /* Match received messages width */
-    float: right;  
+    display: inline-block;
+    padding: 0 0 0 10px;
+    vertical-align: top;
+    width: 92%;
 }
 
 /* Styling the avatar */
@@ -187,7 +205,13 @@ received-chats-img {
     margin-right: 10%;
   }
 
-  .previousChat h4 {}
+    .chatImage {
+        max-width: 10%;
+    }
+
+    .userImage {
+        max-width: 8%;  
+    }
 
   .text{
     text-align: left;
