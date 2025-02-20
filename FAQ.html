@@ -2,11 +2,30 @@
 <html lang="en">
 
     <head>
-        <link rel="stylesheet" href="style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'Nav.html', true);
+        xhr.onload = function () {
+            if (xhr.status == 200) {
+                console.log("Nav.html loaded successfully");
+                $("#includedNavContent").html(xhr.responseText);
+            } else {
+                console.error("Error loading Nav.html: " + xhr.status);
+                $("#includedNavContent").html("Error loading Nav.html");
+            }
+        };
+        xhr.onerror = function () {
+            console.error("Request failed");
+            $("#includedNavContent").html("Error loading Nav.html");
+        };
+        xhr.send();
+
+    </script>
     </head>
 
     <body>
-        <object type="text/html" data="Nav.html"></object>
+        <div id="includedNavContent"></div>
         
         <section>
             <h2 class="title">FAQs</h2>
@@ -64,8 +83,6 @@
                 </div>
             </div>
         </section>
-    
-        <object type="text/html" data="Footer.html"></object>
     
         <script>
             document.querySelectorAll('.question').forEach(question => {
