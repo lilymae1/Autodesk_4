@@ -581,3 +581,8 @@ section
   background-color: #414BB2;
   color: white;
 }
+
+.newChatContainer {
+  display: flex;
+  width: 100%;
+}
