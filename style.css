@@ -255,7 +255,7 @@ section
   padding: 5px 15px;
   text-align: left;
   text-decoration: none;
-  font-size: 10px;
+  font-size: 14px;
   font-family: AutodeskFont;
   box-shadow: 2px 2px 2px #141417; 
   border-radius: 4px;
@@ -348,6 +348,10 @@ section
 }
 
 /* CreateNewChat CSS Portion */
+.NewChatBox-Container {
+  display: flex;
+  width: 100%;
+}
 
 #create_new_leftdiv{
   float:left;
@@ -411,6 +415,7 @@ section
 #create_new_rightdiv{
   float:right;
   width:50%;
+  margin-bottom: 10%;
 }
 
   #createnew_ChatboxDescription{
@@ -581,3 +586,4 @@ section
   background-color: #414BB2;
   color: white;
 }
+

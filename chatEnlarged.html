@@ -30,7 +30,12 @@
 
 <div id ="chat-enlarged-body">
     <div id="includedNavContent"></div>
-    <div id="chat-top"></div>
+    <div id="chat-top">
+    <button class="menuButton" id="active"><a href="#">Current chat</a></button>
+    <button class="menuButton"><a href="chatHistoryEnlarged.html">Old chats</a></button>
+    <button class="menuButton"><a href="chat.html">Minimise</a></button>    
+    </div>
+    </div>
     <div id="chat">
             
         <div class="received-msg">
@@ -40,7 +45,7 @@
                     <span class="received-time">18:06 PM | July 24</span>
                 </div>
                 <div class="received-chats-img">
-                    <img src="C:\Users\richa\Documents\Autodesk Project\Autodesk_4\Assets\archie.png" width="42" height="42" style="border-radius: 21px;">
+                    <img src="Assets/archie.png" width="42" height="42" style="border-radius: 21px;">
                 </div>
             </div>
         </div>
@@ -51,7 +56,7 @@
                     <span class="outgoing-time">18:30 PM | July 24</span>
                 </div>
                 <div class="outgoing-chats-img">
-                    <img src="C:\Users\richa\Documents\Autodesk Project\Autodesk_4\Assets\ProfileIcon.png" width="42" height="42" style="border-radius: 21px;">
+                    <img src="Assets/ProfileIcon.png" width="42" height="42" style="border-radius: 21px;">
                 </div>
             </div>
         </div>
@@ -59,8 +64,10 @@
         
     </div>
     <div id="input-container">
-        <input type="text" id="input" placeholder="Type a message..." />
-        <button id="send">Send</button>
+        <form onsubmit="send_message(event)" id="message_sender">
+            Enter message: <input type="text" id="input">
+            <button id="send">Send</button>
+        </form>
     </div>
 </div>
 
@@ -85,40 +92,80 @@
     </script>
     <div id="includedFooterContent"></div>
 </div>
-</html>
+    
+    <script>
+        function archie_message() {
+            let receivedDiv = document.createElement('div');
+            receivedDiv.className = 'received-msg';
 
-<html>
-<body>
+            let receivedChats = document.createElement('div');
+            receivedChats.className = 'received-chats';
 
-<form onsubmit="send_message(event)" id=message_sender>
-  Enter message: <input type="text" id=message_input>
-  <input type="submit">
-</form>
+            let archieImg = document.createElement('div');
+            archieImg.className = 'received-chats-img';
+            archieImg.innerHTML = '<img src="Assets/archie.png" width="42" height="42" style="border-radius: 21px;">';
 
-<script>
+            let inbox = document.createElement('div');
+            inbox.className = 'received-msg-inbox';
 
-function archie_message(){
-	let div = document.createElement('div');
-  div.className = 'received_msg_inbox';
-  let text = document.createTextNode("Archie is here to help!");
-  div.appendChild(text);
-  document.body.appendChild(div);
-}
+            let message = document.createElement('p');
+            message.textContent = "Archie is here to help!"; // Archie should have a static message
 
-function send_message(event){
-	event.preventDefault();
-  var message = document.getElementById("message_input").value;
-	let div = document.createElement('div');
-	div.className = 'outgoing_chats_msg';
-	let text = document.createTextNode(message);
-	div.appendChild(text);
-	document.body.appendChild(div);
-  document.getElementById("message_input").value = "";
-  archie_message.call();
-  
-}
+            let timestamp = document.createElement('span');
+            timestamp.className = 'received-time';
+            timestamp.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
+            // Append elements together
+            inbox.appendChild(message);
+            inbox.appendChild(timestamp);
+            receivedChats.appendChild(archieImg);
+            receivedChats.appendChild(inbox);
+            receivedDiv.appendChild(receivedChats);
 
-</script>
-</body>
+            document.getElementById("chat").appendChild(receivedDiv);
+        }
+
+        function send_message(event) {
+            event.preventDefault();
+            let messageInput = document.getElementById("input");
+
+            if (messageInput.value.trim() === "") return; // Prevent sending empty messages
+
+            let outgoingDiv = document.createElement('div');
+            outgoingDiv.className = 'outgoing-msg';
+
+            let outgoingChats = document.createElement('div');
+            outgoingChats.className = 'outgoing-chats';
+
+            let msgBox = document.createElement('div');
+            msgBox.className = 'outgoing-chats-msg';
+
+            let msgText = document.createElement('p');
+            msgText.className = 'multi-msg';
+            msgText.textContent = messageInput.value;
+
+            let timestamp = document.createElement('span');
+            timestamp.className = 'outgoing-time';
+            timestamp.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            let userImg = document.createElement('div');
+            userImg.className = 'outgoing-chats-img';
+            userImg.innerHTML = '<img src="Assets/ProfileIcon.png" width="42" height="42" style="border-radius: 21px;">';
+
+            // Append elements together
+            msgBox.appendChild(msgText);
+            msgBox.appendChild(timestamp);
+            outgoingChats.appendChild(userImg);
+            outgoingChats.appendChild(msgBox);
+            outgoingDiv.appendChild(outgoingChats);
+
+            document.getElementById("chat").appendChild(outgoingDiv);
+            messageInput.value = "";
+
+            // Simulate Archie's response after 1 second
+            setTimeout(archie_message, 1000);
+        }
+
+        document.getElementById("send").addEventListener("click", send_message);
+    </script>
 </html>
