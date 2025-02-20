@@ -14,15 +14,32 @@ body{
   width:95%;
   size: 2;
 }
+#revit_line{
+  background-color:black;
+  width:80%;
+  size:2;
+}
 #profile_right{
-  margin-right: 50px;
+  margin-right: 40px;
   background-color:white;
-  margin-top: 50px;
+  margin-top: 20px;
   width:50%;
   float: right;
 }
 #revit_title{
-  margin-left: 80px;
+  float:right;
+  margin-right:40px;
+  margin-top:30px;
+  padding-bottom:10px;
+}
+#revit_logo{
+  margin-left:20px;
+  margin-top:15px;
+  padding-bottom:10px;
+}
+.r{
+  text-align:center;
+  font-size:15px;
 }
 #revit_info{
   
@@ -46,14 +63,16 @@ body{
   justify-content: center;
   align-items: center;
 }
+#profile_leftbelow{
+  float:left;
+  width:30%;
+  
+}
 #profile_bottom{
   
   float:right;
   margin-top: 20px;
-  width:100%;
- 
- 
- 
+  width:100%; 
 }
 #profile_archie{
   float:left;
@@ -78,7 +97,7 @@ body{
   height: 125px;
   
 }
-button.profile_button{
+.profile_button{
   
   padding-left:15px;
   padding-right:15px;
@@ -88,7 +107,9 @@ button.profile_button{
   border-radius:5px;
   border-color: #414BB2;
   color: white;
-  margin:10px;
+  margin-left:80px;
+  
+  
 }
 #speech_box{
   margin-left:20px;
@@ -115,6 +136,6 @@ button.profile_button{
 	border-right: 20px solid lightgrey;
 	border-bottom: 5px solid transparent;
 }
-#archie{
-  
+#t_revit{
+  padding-bottom:20px;
 }

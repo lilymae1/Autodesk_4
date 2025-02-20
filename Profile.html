@@ -1,4 +1,5 @@
 <head>
+    <link rel="stylesheet" href="style_profile.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
         var xhr = new XMLHttpRequest();
@@ -22,10 +23,11 @@
     <!--navbar-->
 </head>
 
+
 <body>
   <div id="includedNavContent"></div>
     <div id= profile_top>
-    <h2>Name</h2>
+    <h3>Welcome, Piper Pavers</h3>
     </div>
     <hr id=profile_line>
     <div id = profile_left>
@@ -33,18 +35,26 @@
         <!--image-->
         <img id= profile_img src = "https://ociacc.com/wp-content/uploads/2019/03/blank-profile-picture-973460_1280-1030x1030.png" >
         <!--figure out how to get the details from the user-->
+        
     </div>
+        
     <div id = profile_right>
-        <a href = "https://www.autodesk.com/buying/plans">Your Plan</a>
-        <p>This will take you to your current subscription and show you</p>
+        
         <div id=revit_info>
-            <h3 id = revit_title>Revit resources</h3>
-            <p>Setting up your first Revit</p>
-            <button class=profile_button onclick="window.location.href = 'https://www.autodesk.com/learn/ondemand/curated/revit-quick-start-guide'" >Getting started</button>
-            <br></br>
-            <p>Autodesk Revit tutorials</p>
-            <button class=profile_button onclick="window.location.href = 'https://www.autodesk.com/learn'" >Learn more </button>
+            <table id="t_revit">
+              <tr>
+                <img id="revit_logo" src="https://ociacc.com/wp-content/uploads/2019/03/blank-profile-picture-973460_1280-1030x1030.png" width="50" height="50">
+                <h3 id = revit_title>Revit resources</h3>
+              </tr>
+              <tr><hr id="revit_line"></tr>
+              <tr><p class="r">Setting up your first Revit</p></tr>
+              <tr><button class=profile_button onclick="window.open('https://www.autodesk.com/learn/ondemand/curated/revit-quick-start-guide','_blank')" >Getting started</button></tr>
+              <tr><p class="r">Autodesk Revit tutorials</p></tr>
+              <tr><button class=profile_button onclick="window.open('https://www.autodesk.com/learn','_blank')">Learn more</button></tr>
+            </table>
         </div>
+        
+       
     </div> 
       
       
@@ -58,8 +68,7 @@
         <td>
           <div id="triangle"></div>
           <div id= "speech_box">
-            <h3>Hi! I'm Archie</h3>
-            <p></p>
+            <p>Hi! I'm Archie your personal chatbot. I'm here to help with any of your Revit needs.</p>
           </div>
         </td>
       </table>
@@ -67,6 +76,7 @@
     
     
 </body>
+
 <footer>
   <script>
       var xhr1 = new XMLHttpRequest();
