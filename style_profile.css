@@ -1,141 +1,140 @@
 @font-face {
-    font-family: AutodeskFont;
-    src: url(WOFF/ArtifaktElementExtraLight.woff);
+  font-family: AutodeskFont;
+  src: url(WOFF/ArtifaktElementExtraLight.woff);
 }
-body{
-    background-color: white;
-    font-family: ArtifaktElement, Arial, sans-serif
+body {
+  background-color: white;
+  font-family: ArtifaktElement, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full screen height */
 }
 #profile_top{
-  margin-left:20px;
-  background-color:white;
+margin-left:20px;
+background-color:white;
 }
 #profile_line{
-  width:95%;
-  size: 2;
+width:95%;
+size: 2;
 }
 #revit_line{
-  background-color:black;
-  width:80%;
-  size:2;
+background-color:black;
+width:80%;
+size:2;
 }
-#profile_right{
-  margin-right: 40px;
-  background-color:white;
+#profile_container {
+  display: flex;
+  justify-content: space-between; 
   margin-top: 20px;
-  width:50%;
+  width: 100%; 
+}
+#profile_right {
   float: right;
-}
-#revit_title{
-  float:right;
-  margin-right:40px;
-  margin-top:30px;
-  padding-bottom:10px;
-}
-#revit_logo{
-  margin-left:20px;
-  margin-top:15px;
-  padding-bottom:10px;
-}
-.r{
-  text-align:center;
-  font-size:15px;
+  margin-right: 40px;
+  background-color: white;
+  width: 60%;
+  margin-left: 15px;
 }
 #revit_info{
-  
-  border-style:solid;
-  border-radius:10px;
-  border-width:2px;
-  background-color: #f9f9f9;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
-  border-color: #f9f9f9;
-  margin-top:20px;
-  
+border-style:solid;
+border-radius:10px;
+border-width:2px;
+background-color: #f9f9f9;
+box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+border-color: #f9f9f9;
+margin-top:20px;
 }
-#profile_left{
+#t_revit {
+  width: 100%; 
+  padding-bottom: 20px;
+}
+#revit_title{
+float:right;
+margin-right:40px;
+margin-top:30px;
+padding-bottom:10px;
+}
+#revit_logo{
+margin-left:20px;
+margin-top:15px;
+padding-bottom:10px;
+}
+.r{
+text-align:center;
+font-size:15px;
+}
+.profile_button {
+  padding: 10px 20px;
+  background-color: #414BB2;
+  border-radius: 5px;
+  border-color: #414BB2;
+  color: white;
+  margin: 10px auto;
+  display: block;
+  width: 150px; 
+}
+
+#profile_left {
   margin-left: 20px;
   background-color: white;
   float: left;
-  padding-bottom:20px;
+  padding-bottom: 20px;
   width: 30%;
-  height:200px;
+  height: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-#profile_leftbelow{
-  float:left;
-  width:30%;
-  
+
+#profile_img{
+width: 125px;
+height: 125px;
 }
+
+
 #profile_bottom{
-  
-  float:right;
-  margin-top: 20px;
-  width:100%; 
+float:right;
+margin-top: 20px;
+width:100%; 
 }
 #profile_archie{
-  float:left;
-  width:10%;
-  margin-bottom:0;
+float:left;
+width:10%;
+margin-bottom:0;
 }
 .dot {
-  float: left;
-  height: 50px;
-  width: 50px;
-  background-color: white;
-  border-radius: 50%;
-  border-color:#414BB2;
-  display: inline-block;
-  border-style:solid;
-  
-  overflow:hidden;
-}
-#profile_img{
-  
-  width: 125px;
-  height: 125px;
-  
-}
-.profile_button{
-  
-  padding-left:15px;
-  padding-right:15px;
-  padding-top:5px;
-  padding-bottom:5px;
-  background-color: #414BB2;
-  border-radius:5px;
-  border-color: #414BB2;
-  color: white;
-  margin-left:80px;
-  
-  
+height: 50px;
+width: 50px;
+background-color: white;
+border-radius: 50%;
+border-color:#414BB2;
+display: inline-block;
+border-style:solid;
+overflow:hidden;
 }
 #speech_box{
-  margin-left:20px;
-  margin-bottom: 40px;
-  border-style:solid;
-  border-color: lightgrey;
-  border-radius:10px;
-  border-width:2px;
-  color: #212121;
-  background-color: lightgrey;
-  width:85%;
+margin-left:20px;
+margin-bottom: 40px;
+border-style:solid;
+border-color: lightgrey;
+border-radius:10px;
+border-width:2px;
+color: #212121;
+background-color: lightgrey;
+width:85%;
 }
 #dot_box{
-  width:9%;
+width:9%;
 }
 #triangle{
-  width: 0;
-	height: 0;
-  margin-top:45px;
-  float:left;
-  padding:0;
-  
-	border-top: 5px solid transparent;
-	border-right: 20px solid lightgrey;
-	border-bottom: 5px solid transparent;
-}
-#t_revit{
-  padding-bottom:20px;
+width: 0;
+height: 0;
+margin-top:35px;
+float:left;
+padding:0;
+border-top: 5px solid transparent;
+border-right: 20px solid lightgrey;
+border-bottom: 5px solid transparent;
 }

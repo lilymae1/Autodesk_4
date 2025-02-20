@@ -27,55 +27,67 @@
 
 <body>
   <div id="includedNavContent"></div>
-    <div id= profile_top>
+  
+  <div id=profile_top>
     <h3>Welcome, Piper Pavers</h3>
+  </div>
+
+  <hr id=profile_line>
+  <div id="profile_container">
+    <div id="profile_left">
+      <img id="profile_img" src="https://ociacc.com/wp-content/uploads/2019/03/blank-profile-picture-973460_1280-1030x1030.png">
     </div>
-    <hr id=profile_line>
-    <div id = profile_left>
-        
-        <!--image-->
-        <img id= profile_img src = "https://ociacc.com/wp-content/uploads/2019/03/blank-profile-picture-973460_1280-1030x1030.png" >
-        <!--figure out how to get the details from the user-->
-        
+
+    <div id="profile_right">
+      <div id="revit_info">
+        <table id="t_revit">
+          <tr>
+            <img id="revit_logo" src="Assets/revitlogo.jpg" width="50" height="50">
+            <h3 id="revit_title">Revit resources</h3>
+          </tr>
+          <tr>
+            <hr id="revit_line">
+          </tr>
+          <tr>
+            <p class="r">Setting up your first Revit</p>
+          </tr>
+          <tr>
+            <td colspan="2" style="text-align:center;">
+              <button class="profile_button" onclick="window.open('https://www.autodesk.com/learn/ondemand/curated/revit-quick-start-guide','_blank')">Getting started</button>
+            </td>
+          </tr>
+          <tr>
+            <p class="r">Learn more</p>
+          </tr>
+          <tr>
+            <td colspan="2" style="text-align:center;">
+              <button class="profile_button" onclick="window.open('https://www.autodesk.com/learn','_blank')">Learn more</button>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
-        
-    <div id = profile_right>
-        
-        <div id=revit_info>
-            <table id="t_revit">
-              <tr>
-                <img id="revit_logo" src="Assets/revitlogo.jpg" width="50" height="50">
-                <h3 id = revit_title>Revit resources</h3>
-              </tr>
-              <tr><hr id="revit_line"></tr>
-              <tr><p class="r">Setting up your first Revit</p></tr>
-              <tr><button class=profile_button onclick="window.open('https://www.autodesk.com/learn/ondemand/curated/revit-quick-start-guide','_blank')" >Getting started</button></tr>
-              <tr><p class="r">Autodesk Revit tutorials</p></tr>
-              <tr><button class=profile_button onclick="window.open('https://www.autodesk.com/learn','_blank')">Learn more</button></tr>
-            </table>
-        </div>
-        
-       
-    </div> 
-      
-      
-      
-      <table id=profile_bottom>
-        <td id= "dot_box">
-        <span class="dot" >
-          <img id="archie" src="Assets/archie.png" width="50" height="50">
-        </span>
-        </td>
-        <td>
-          <div id="triangle"></div>
-          <div id= "speech_box">
-            <p>Hi! I'm Archie your personal chatbot. I'm here to help with any of your Revit needs.</p>
-          </div>
-        </td>
-      </table>
-    
-    
-    
+  </div>
+
+
+
+
+  <table id=profile_bottom>
+    <td id="dot_box">
+      <span class="dot">
+        <img id="archie" src="Assets/archie.png" width="50" height="50">
+      </span>
+    </td>
+    <td>
+      <div id="triangle"></div>
+      <div id="speech_box">
+        <p>Hi! I'm Archie your personal chatbot. I'm here to help with any of your Revit needs.</p>
+      </div>
+    </td>
+  </table>
+
+
+
 </body>
 
 <footer>
