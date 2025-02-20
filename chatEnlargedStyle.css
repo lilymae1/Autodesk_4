@@ -30,7 +30,10 @@ html, body {
 }
 
 #History-top {
-    margin: 30px 15% 0 15%;
+    
+    width: 100%;
+    top: 0px;
+    margin: 0px 15% 0 15%;
 }
 
 #chat-top a, #History-top a{
