@@ -88,10 +88,10 @@ received-chats-img {
     margin-left: 20px;
     padding: 10px;
     width: 100%;
-}
-    p {
-    overflow-wrap: break-word;
-}
+    }
+        p {
+        overflow-wrap: break-word;
+    }
 
 .received-time {
     color: #777;
@@ -100,7 +100,18 @@ received-chats-img {
     margin: 0px 25px 0;
 }
 
+.outgoing-time {
+    color: #777;
+    display: block;
+    font-size: 12px;
+    margin: 0 0 0 20px;
+    text-align: right;
+}
+
 .outgoing-chats {
+    display: flex;
+    flex-direction: column; /* Stack messages and image vertically */
+    align-items: flex-end; /* Align messages to the right */
     overflow: hidden;
     margin: 26px 20px;
 }
@@ -108,34 +119,29 @@ received-chats-img {
 .outgoing-chats-msg p {
     background-color: #808080;
     color: #fff;
-    border-radius: 10px;
     font-family: AutodeskFont;
     src: url(WOFF/ArtifaktElementExtraLight.woff);
+    border-radius: 10px;
     font-size: 14px;
     color: #fff;
     padding: 5px 10px 5px 12px;
     width: 100%;
-    padding: 10px;
+    padding: 1rem;
+    margin-right: 10px; /* Avoid sticking to the edge */
 }
 .outgoing-chats-msg {
-        float: right;
-        width: 46%;
-    }
-
-
-.outgoing-chats-img {
-    display: inline-block;
-    width: 50px;
-    float: right;
-    margin-right: 20px;
+    width: 92%; /* Match received messages width */
+    float: right;  
 }
 
-.outgoing-time {
-    color: #777;
-    display: block;
-    font-size: 12px;
-    margin: 0 0 0 20px;
-    text-align: right;
+/* Styling the avatar */
+.outgoing-chats-img {
+    width: 50px;
+    float: right;
+}
+
+.multi-msg{
+    margin-top: 5px;
 }
 
 #chat-enlarged-footer {
