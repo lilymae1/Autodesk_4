@@ -13,16 +13,28 @@ html, body {
 #chat-enlarged-body {
     display: flex;
     flex-direction: column;
-    height: 100vh; /* Ensure it takes full screen height */
     background-color: white;
     font-family: AutodeskFont;
 }
 
-#chat-top {
+#chat-top, .history-top {
     height: 40px;
     background-color: #808080;
     flex-shrink: 0; /* Prevents shrinking */
-    margin: 30px 30px 0 30px; /* Space around top, right, and left *//
+    justify-content: space-between;
+    align-items: center;
+}
+
+#chat-top {
+    margin: 30px 30px 0 30px; /* Space around top, right, and left */
+}
+
+.history-top {
+    margin: 30px 15% 0 15%;
+}
+
+#chat-top a, .history-top a{
+    color: white;
 }
 
 #chat {
@@ -91,6 +103,8 @@ html, body {
     display: flex;
     flex-direction: column; /* Stack messages above image */
     align-items: flex-start;
+    width: auto; 
+    max-width: 70%;
 }
 
 .received-msg-inbox p {
@@ -122,7 +136,6 @@ html, body {
 
 
 
-
 .outgoing-msg {
     display: flex;
     justify-content: flex-end; /* Align messages to the right */
@@ -133,8 +146,7 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    width: 57%;
-    margin: 10px 20px; /* Ensures margin from edges */
+    margin: 10px 40px 10px 20px; 
 }
 
 .outgoing-chats-msg p {
@@ -179,7 +191,7 @@ html, body {
     margin-bottom: 5%;
   }
   
-  .chatNav button {
+  .chatNav button, #chat-top button, .history-top button{
     padding: 10px;
   }
   
@@ -187,12 +199,10 @@ html, body {
     color: white;
     text-decoration: none;
   }
-  .chatNav button:hover {
-    background-color: #275EDD;
-  }
-  
-  #active {
-    background-color: #275EDD;
+
+  #active, .chatNav button:hover, #button:hover {
+    background-color: #000000;
+    opacity: 0.2;
     color: white;
   }
   
@@ -222,4 +232,13 @@ html, body {
   }
   .previousChat button:hover {
     background-color: #ecebed;
+  }
+
+  #enlargedHistory {
+    max-width: 20%;
+  }
+
+  .chatHistory {
+    margin-left: 15%;
+    margin-right: 15%;
   }
