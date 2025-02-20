@@ -26,6 +26,8 @@
 
     </script>
 </div>
+
+
 <div id ="chat-enlarged-body">
     <div id="includedNavContent"></div>
     <div id="chat-top"></div>
@@ -61,6 +63,7 @@
         <button id="send">Send</button>
     </div>
 </div>
+
 <div id = "chat-enlarged-footer">
     <script>
         var xhr1 = new XMLHttpRequest();
@@ -82,4 +85,40 @@
     </script>
     <div id="includedFooterContent"></div>
 </div>
+</html>
+
+<html>
+<body>
+
+<form onsubmit="send_message(event)" id=message_sender>
+  Enter message: <input type="text" id=message_input>
+  <input type="submit">
+</form>
+
+<script>
+
+function archie_message(){
+	let div = document.createElement('div');
+  div.className = 'received_msg_inbox';
+  let text = document.createTextNode("Archie is here to help!");
+  div.appendChild(text);
+  document.body.appendChild(div);
+}
+
+function send_message(event){
+	event.preventDefault();
+  var message = document.getElementById("message_input").value;
+	let div = document.createElement('div');
+	div.className = 'outgoing_chats_msg';
+	let text = document.createTextNode(message);
+	div.appendChild(text);
+	document.body.appendChild(div);
+  document.getElementById("message_input").value = "";
+  archie_message.call();
+  
+}
+
+
+</script>
+</body>
 </html>
