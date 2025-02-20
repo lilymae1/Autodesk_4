@@ -583,7 +583,7 @@ section
   color: white;
 }
 
-.newChatContainer {
+.container {
   display: flex;
   width: 100%;
 }
