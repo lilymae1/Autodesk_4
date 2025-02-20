@@ -206,11 +206,11 @@ received-chats-img {
   }
 
     .chatImage {
-        max-width: 10%;
+        max-width: 65px;
     }
 
     .userImage {
-        max-width: 8%;  
+        max-width: 45px;  
     }
 
   .text{
