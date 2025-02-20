@@ -3,54 +3,67 @@
     src: url(WOFF/ArtifaktElementExtraLight.woff);
 }
 
-body {
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+#chat-enlarged-body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Ensure it takes full screen height */
     background-color: white;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 10px;
-    font: AutodeskFont;
+    font-family: AutodeskFont;
 }
 
 #chat-top {
-    height: 20px;
+    height: 40px;
     background-color: #808080;
-    padding: 5px;
+    flex-shrink: 0; /* Prevents shrinking */
+    margin: 30px 30px 0 30px; /* Space around top, right, and left *//
 }
 
 #chat {
-    height: 200px;
-    overflow-y: scroll;
+    flex-grow: 1; /* Takes up available space */
+    overflow-y: auto;
     background-color: #E6E6E6;
     padding: 5px;
-    position: relative;
-    
+    margin: 0 30px 0 30px; /* Space around right, and left *//
 }
 
-#input{
-  height: 25px;
-  width: 475px;
-
-  padding: 5px;
-  border: none;
-  border-radius: 3px;
-  position: absolute;
-  bottom: 5px;
+#input-container {
+    display: flex;
+    background-color: white;
+    padding: 10px;
+    flex-shrink: 0; /* Prevent it from shrinking */
+    align-items: center;
 }
 
-#send{
-  height: 30px;
-  width: 50px;
-  background-color: #414BB2;
-  color: white;
-  border: none;
-  border-radius: 3px;
-  position: absolute;
-  bottom: 8px;
-  right: 5px;
+#input {
+    flex-grow: 1; /* Take up available space */
+    height: 30px;
+    padding: 5px;
+    border-color: #808080;
+    border-radius: 3px;
+}
+
+#send {
+    height: 34px;
+    width: 60px;
+    background-color: #414BB2;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    margin-left: 10px;
+}
+
+#input-container{
+    background-color: white;
+    padding: 5px;
 }
 
 received-chats-img {
-    display: inline-block;
     width: 50px;
     float: left;
 }
@@ -109,7 +122,7 @@ received-chats-img {
         width: 46%;
     }
 
-/* Styling the avatar */
+
 .outgoing-chats-img {
     display: inline-block;
     width: 50px;
@@ -123,4 +136,9 @@ received-chats-img {
     font-size: 12px;
     margin: 0 0 0 20px;
     text-align: right;
+}
+
+#chat-enlarged-footer {
+    height: 25px; /* Adjust as needed */
+    flex-shrink: 0; /* Prevents shrinking */
 }
