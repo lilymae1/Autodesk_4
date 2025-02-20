@@ -413,3 +413,31 @@ section
   font-family: AutodeskFont;
   box-shadow: 2px 2px 3px #141417;
 }
+/* lilys stuff*/
+#create_new_leftdiv{
+  float:left;
+  width:50%;
+  background-color:yellow;
+  
+}
+#create_import{
+  background-color:black;
+  width:60%;
+}
+
+#create_new_rightdiv{
+  float:right;
+  width:50%;
+  background-color:red;
+}
+
+#name_description{
+  background-color:black;
+  width:70%;
+}
+
+#choose_project{
+  background-color:black;
+  width:70%;
+  margin-top:10px;
+}
