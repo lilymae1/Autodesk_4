@@ -34,7 +34,7 @@ public class ChatBotForm : Form
         string dllFolderPath = Directory.GetParent(Directory.GetParent((Directory.GetParent(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))).FullName).FullName).FullName;
 
         // Get the correct path to chatbot.html
-        string htmlFilePath = Path.Combine(dllFolderPath, "chatEnlarged.html");
+        string htmlFilePath = Path.Combine(dllFolderPath, "chat.html");
 
         // Ensure the file exists before setting it
         if (File.Exists(htmlFilePath))
