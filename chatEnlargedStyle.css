@@ -79,41 +79,81 @@ html, body {
     background-color: #3740a1;
 }
 
-received-chats-img {
-    width: 50px;
-    float: left;
+.received-msg {
+    display: flex;
+    flex-direction: column; /* Stack messages and image */
+    align-items: flex-start; /* Align everything to the left */
+    width: 57%;
+    margin: 10px 20px;
 }
 
-.received-msg {
-    display: inline-block;
-    padding: 0 0 0 10px;
-    vertical-align: top;
-    width: 92%;
-}
-.received-msg-inbox {
-    width: 57%;
+.received-chats {
+    display: flex;
+    flex-direction: column; /* Stack messages above image */
+    align-items: flex-start;
 }
 
 .received-msg-inbox p {
-    background:  #414BB2 none repeat scroll 0 0;
-    border-radius: 10px;
+    background: #414BB2;
     color: white;
     font-family: AutodeskFont;
-    src: url(WOFF/ArtifaktElementExtraLight.woff);
+    border-radius: 10px;
     font-size: 14px;
-    margin-left: 20px;
     padding: 10px;
     width: 100%;
-    }
-        p {
-        overflow-wrap: break-word;
-    }
+    margin-bottom: 5px; /* Space between message and image */
+}
 
 .received-time {
     color: #777;
-    display: block;
     font-size: 12px;
-    margin: 0px 25px 0;
+    margin-left: 10px;
+}
+
+.received-chats-img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+}
+
+
+
+
+
+
+
+
+.outgoing-msg {
+    display: flex;
+    justify-content: flex-end; /* Align messages to the right */
+    width: 100%;
+}
+
+.outgoing-chats {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 57%;
+    margin: 10px 20px; /* Ensures margin from edges */
+}
+
+.outgoing-chats-msg p {
+    background-color: #808080;
+    color: #fff;
+    font-family: AutodeskFont;
+    border-radius: 10px;
+    font-size: 14px;
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 5px; /* Adds spacing between multi-messages */
+}
+
+
+.outgoing-chats-img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    margin-top: 5px; /* Adds some space between message and image */
 }
 
 .outgoing-time {
@@ -124,43 +164,6 @@ received-chats-img {
     text-align: right;
 }
 
-.outgoing-chats {
-    display: flex;
-    flex-direction: column; /* Stack messages and image vertically */
-    align-items: flex-end; /* Align messages to the right */
-    overflow: hidden;
-    margin: 26px 20px;
-}
-
-.outgoing-chats-msg p {
-    background-color: #808080;
-    color: #fff;
-    font-family: AutodeskFont;
-    src: url(WOFF/ArtifaktElementExtraLight.woff);
-    border-radius: 10px;
-    font-size: 14px;
-    color: #fff;
-    padding: 5px 10px 5px 12px;
-    width: 100%;
-    padding: 1rem;
-    margin-right: 10px; /* Avoid sticking to the edge */
-}
-.outgoing-chats-msg {
-    display: inline-block;
-    padding: 0 0 0 10px;
-    vertical-align: top;
-    width: 92%;
-}
-
-/* Styling the avatar */
-.outgoing-chats-img {
-    width: 50px;
-    float: right;
-}
-
-.multi-msg{
-    margin-top: 5px;
-}
 
 #chat-enlarged-footer {
     height: 25px; /* Adjust as needed */
