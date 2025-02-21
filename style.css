@@ -534,7 +534,7 @@ section
 #create_ChatboxChoice{
   float:left;
   width:450px;
-  height:400px;
+  height:300px;
   margin-top:100px;
   margin-left:140px;
   color: black;
@@ -546,6 +546,10 @@ section
   font-family: AutodeskFont;
   box-shadow: 2px 2px 2px #141417; 
   border: none;
+}
+
+#CreateNewChat {
+  width: 100%;
 }
 
 #CreateNewChat-Title {
@@ -566,6 +570,50 @@ section
   border: none;
 }
 
+#checkbox_container {
+  float:left;
+  width:50%;
+  display: inline-block;
+}
+
+#CreateNProj{
+  width: 100%;
+  display: inline;
+  float:left;
+  margin-top:40px;
+  margin-left:50px;
+  color: black;
+  background-color: lightgray;
+  padding: 10px 65px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  font-family: AutodeskFont;
+  box-shadow: 2px 2px 3px #141417; 
+  border: none;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+#ImportNProj{
+  width: 100%;
+  display: inline;
+  float:left;
+  margin-top:40px;
+  margin-left:50px;
+  color: black;
+  background-color: lightgray;
+  padding: 10px 65px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  font-family: AutodeskFont;
+  box-shadow: 2px 2px 3px #141417; 
+  border: none;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
 #checkbox {
   float:left;
   margin-top:70px;
@@ -582,8 +630,6 @@ section
   transition-duration: 0.4s;
   cursor: pointer;
 }
-
-
 
 #create_new_rightdiv{
   float:right;

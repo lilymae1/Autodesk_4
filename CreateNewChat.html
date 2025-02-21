@@ -40,18 +40,28 @@
     <div id="includedNavContent"></div>
     <link rel="stylesheet" type="text/css" href="style.css">
     <div class="NewChatBox-Container">
-        <div id="create_new_leftdiv">
-            <div id="create_ChatboxChoice">
-                <h1 id="CreateNewChat-Title"> Create New Chatbox: </h1>
-                <input type="checkbox" id="top_check">
-                <button id="CreateNewChat-Button">Create new project</button><br>
-                <input type="checkbox" id="bottom_check">
-                <button id="CreateNewChat-Button">Import existing project</button>    
+        
+        <div id="create_new_leftdiv" >
+            <div id="create_ChatboxChoice" >
+
+                <div id="CreateNewChat">
+                    <h1 id="CreateNewChat-Title"> Create New Chatbox:
+                </div>
+
+                <div id="checkbox_container">
+                    <div id="CreateNProj">
+                        <input type="checkbox" id="top_check">Create new project</input>
+                    </div>
+
+                    <div id="ImportNProj">
+                        <input type="checkbox" id="bottom_check">Import existing project</input>
+                    </div>
+                </div>    
             </div>
         </div>
         
         <div id="create_new_rightdiv">
-            <div id="createnew_ChatboxDescription" >
+            <div id="createnew_ChatboxDescription" style="display: none;">
                 <form>
                     <input id="CN_c_input" placeholder="Name..">
                     <input id="CN_d_input" placeholder="Description">
