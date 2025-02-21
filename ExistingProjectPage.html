@@ -127,11 +127,16 @@
                     <button id = "EP-Button-EditVer" onclick="exitEditMode()">Exit</button>
                     <button id = "EP-Button-EditVer" onclick="">Save</button>
                     <button id = "EP-Button-EditVer" onclick="">Delete</button>
-                </div>
-                
+                </div> 
             </div>
-            
         </div>
+
+        <div id="EP-DeleteContainer" >
+            <h3 id = EP-Delete-Question>Do you want to delete Chatbox for (projectname)?</h3>
+            <button id = "EP-Button-DeleteVer" onclick="document.location='index.html'">Yes</button>
+            <button id = "EP-Button-DeleteVer" onclick="document.location='ExistingProjectPage.html'">No</button>
+        </div>
+
         <!-- <object type="text/html" data="Footer.html"></object> Need to check if this line is still needed-->
         <!-- Script Makes Edit Button Access Editing Page-->
         <script>
@@ -152,14 +157,38 @@
                 original.style.display = "block";
                 editVersion.style.display = "none";
             }
+
+            function DeleteChatbox() {
+                var original = document.querySelector(".EP-RightContainer-Original");
+                var editVersion = document.getElementById("EP-RightContainer-EditVersion");
+
+            // Show original, hide edit mode
+                original.style.display = "block";
+                editVersion.style.display = "none";
+            }
           
             // Ensure the edit version is hidden on page load
             document.addEventListener("DOMContentLoaded", function () {
               document.getElementById("EP-RightContainer-EditVersion").style.display = "none";
             });
-          </script>
 
+            //DeleteContainer
+            document.addEventListener("DOMContentLoaded", function () {
+                const deleteButton = document.querySelector(".ExistingProjectPage-ButtonContainer button:nth-child(2)");
+                const deleteContainer = document.getElementById("EP-DeleteContainer");
+                const mainContent = document.querySelector(".ExistingProjectPage-Center");
+
+                deleteButton.addEventListener("click", function () {
+                    // Hide everything else with fade effect
+                    mainContent.classList.add("DeleteVer-fade-out");
+
+                // Show delete container
+                    deleteContainer.classList.add("DeleteVer-show-delete");
+                });
+            });
+          </script>
     </body>
+    
     <footer>
         <script>
             var xhr1 = new XMLHttpRequest();
