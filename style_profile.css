@@ -41,6 +41,7 @@ margin:auto;
   margin-left: 15px;
 }
 #revit_info{
+  width:65%;
 border-style:solid;
 border-radius:10px;
 border-width:2px;
@@ -101,7 +102,7 @@ height: 250px;
 float:right;
 margin-top: 40px;
 width:100%; 
-margin-bottom: 50px;
+margin-bottom: 70px;
 }
 #profile_archie{
 float:left;
