@@ -125,7 +125,7 @@ border-style:solid;
 overflow:hidden;
 }
 #speech_box{
-margin-left:20px;
+margin-left:50px;
 margin-bottom: 40px;
 border-style:solid;
 border-color: lightgrey;
@@ -143,6 +143,7 @@ width:20%;
 #triangle{
 width: 0;
 height: 0;
+margin-left:30px;
 margin-top:25px;
 float:left;
 padding:0;
