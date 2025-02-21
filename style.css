@@ -488,7 +488,9 @@ section
   transition-duration: 0.4s;
   cursor: pointer;
 }
-
+.check{
+  margin-top:30px;
+}
 
 
 #create_new_rightdiv{
