@@ -51,9 +51,6 @@ section
   border: none;
   cursor: pointer;
 }
-.menuButton:hover{
-  opacity: 0.8;
-}
 
 .dropdown {
   position: absolute;
@@ -65,7 +62,6 @@ section
   flex-direction: column;
   background: #F0EFEF;
   box-shadow: 3px 0px 5px #ceced2;
-  z-index: 9999;
 }
 
 .dropdown.active {
@@ -428,6 +424,97 @@ section
   border-radius: 4px;
   border-color:#414BB2;
 }
+/* Initially hide the delete confirmation box */
+#EP-DeleteChatLog-Container {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  background-color: grey;
+  width:550px;
+  height:250px;
+  transform: translate(-50%, -50%);
+  background: #141417;
+  padding: 20px;
+  box-shadow: 2px 2px 3px #141417;
+  border-radius: 4px;
+  border-color:#141417;
+  z-index: 10;
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Make DeleteContainer visible */
+.DeleteVer-show-delete {
+  display: block !important;
+  opacity: 1;
+}
+
+#EP-Delete-Question{
+  float:right;
+  background-color: #F0EFEF;
+  width:430px;
+  height:65px;
+  margin-right:30px;
+  margin-top:40px;
+  color: black;
+  background-color: #F0EFEF;
+  padding: 10px 30px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 20px;
+  font-family: AutodeskFont;
+  box-shadow: 2px 2px 3px #141417; 
+  border-radius: 4px;
+}
+
+#EP-Button-DeleteVer {
+  float:right;
+  display: flex;
+  margin-top:40px;
+  margin-right:30px;
+  color: #141417;
+  background-color: #F0EFEF;
+  padding: 15px 105px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  font-family: AutodeskFont;
+  box-shadow: 2px 2px 3px #141417; 
+  border: none;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 4px;
+  border-color:#141417;
+}
+
+#EP-Button-DeleteVer:hover {
+  background-color: #414BB2;
+  color: white;
+  border-radius: 4px;
+  border-color:#414BB2;
+}
+
+.selected {
+  background-color: #ffcccb;
+  cursor: pointer;
+}
+
+.delete-btn {
+  margin-left: 10px;
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 2px 5px;
+}
+
+
+
+.DeleteVer-show-delete {
+  display: block; /* Adjust as necessary for your layout */
+}
+
+
 
 /* CreateNewChat CSS Portion */
 .NewChatBox-Container {
@@ -491,9 +578,7 @@ section
   transition-duration: 0.4s;
   cursor: pointer;
 }
-#top_check{
-  margin-top:100px;
-}
+
 
 
 #create_new_rightdiv{
