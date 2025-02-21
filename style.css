@@ -491,8 +491,8 @@ section
   transition-duration: 0.4s;
   cursor: pointer;
 }
-.check{
-  margin-top:30px;
+#top_check{
+  margin-top:100px;
 }
 
 
