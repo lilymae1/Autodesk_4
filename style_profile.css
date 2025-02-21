@@ -12,9 +12,12 @@ body {
   height: 100vh; /* Full screen height */
 }
 #profile_top{
-  margin-top: 40px;
-margin-left:30px;
+margin-top: 40px;
 background-color:white;
+margin-bottom: 20px;
+}
+h2{
+  margin-left: 30px;
 }
 #profile_line{
 width:95%;
@@ -75,7 +78,7 @@ font-size:15px;
   border-radius: 5px;
   border-color: #414BB2;
   color: white;
-  margin: 10px auto;
+  margin: 20px auto;
   display: block;
   width: 150px; 
 }
@@ -103,6 +106,7 @@ float:right;
 margin-top: 40px;
 width:100%; 
 margin-bottom: 70px;
+margin-right: 35px;
 }
 #profile_archie{
 float:left;
