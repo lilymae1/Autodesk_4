@@ -51,11 +51,12 @@ background-color: #f9f9f9;
 box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
 border-color: #f9f9f9;
 margin-top:10px;
-margin-right:50px;
+margin-right:40px;
 }
 #t_revit {
   width: 100%; 
   padding-bottom: 20px;
+  margin-top:20px;
 }
 #revit_title{
 float:right;
@@ -133,8 +134,10 @@ border-width:2px;
 color: #212121;
 background-color: lightgrey;
 width:85%;
+padding-bottom: 30px;
 }
 #dot_box{
+  float:right;
 width:20%;
 }
 #triangle{
