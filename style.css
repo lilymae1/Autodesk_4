@@ -782,6 +782,9 @@ section
   box-shadow: 2px 2px 2px #141417; 
   border: none;
 }
+#check_top{
+  margin-top:150px;
+}
 
 #ChooseProject_Done_button {
   float:right;
