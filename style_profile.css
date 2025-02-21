@@ -82,6 +82,10 @@ font-size:15px;
   display: block;
   width: 150px; 
 }
+.profile_button:hover{
+  opacity: 0.9;
+  cursor: pointer;
+}
 
 #profile_left {
   margin-left: 20px;
