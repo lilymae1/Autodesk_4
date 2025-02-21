@@ -51,6 +51,9 @@ section
   border: none;
   cursor: pointer;
 }
+.menuButton:hover{
+  opacity: 0.8;
+}
 
 .dropdown {
   position: absolute;
