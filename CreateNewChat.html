@@ -22,41 +22,62 @@
         };
         xhr.send();
 
+        // Temporary Fix - toggle visibility of descriptions based on checkbox states
+        $(document).ready(function() {
+            $("#top_check").change(function() {
+                $("#createnew_ChatboxDescription").toggle(this.checked);
+            });
+
+            $("#bottom_check").change(function() {
+                $("#choose_project").toggle(this.checked);
+            });
+        });
+
     </script>
 </head>
 
 <html>
-    <body>
+    <div id="includedNavContent"></div>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <div class="NewChatBox-Container">
+        
+        <div id="create_new_leftdiv" >
+            <div id="create_ChatboxChoice" >
 
-        <div id="includedNavContent"></div>
-        <link rel="stylesheet" type="text/css" href="style.css" >
-        <div class="NewChatBox-Container">
-        <div id="create_new_leftdiv">
-            <div id="create_ChatboxChoice">
-              <h1 id ="CreateNewChat-Title"> Create New Chatbox: </h1>
-              <input type="checkbox">
-              <button class = "CreateNewChat-Button" onclick="" >Create new project</button><br></br>
-              <input type="checkbox">
-              <button class = "CreateNewChat-Button" onclick="" >Import existing project</button>    
+                <div id="CreateNewChat">
+                    <h1 id="CreateNewChat-Title"> Create New Chatbox:
+                </div>
+
+                <div id="checkbox_container">
+                    <div id="CreateNProj">
+                        <input type="checkbox" id="top_check">Create new project</input>
+                    </div>
+
+                    <div id="ImportNProj">
+                        <input type="checkbox" id="bottom_check">Import existing project</input>
+                    </div>
+                </div>    
             </div>
         </div>
         
-        <div id ="create_new_rightdiv">
-          
-            <div id="createnew_ChatboxDescription">
+        <div id="create_new_rightdiv">
+            <div id="createnew_ChatboxDescription" style="display: none;">
                 <form>
-                    <input id=CN_c_input placeholder="Name..">
-                    <input id=CN_d_input placeholder="Description"> Need to make text description go to top left not just left
+                    <input id="CN_c_input" placeholder="Name..">
+                    <input id="CN_d_input" placeholder="Description">
                     <input id="CreateNewChat_Done_button" type="Submit" value="Done">
                 </form>
             </div>
         
-            <!--
-            <div id="choose_project">
+            <div id="choose_project" style="display: none;">
                 <form>
-                    <input id=CP_c_input placeholder="Name..">
-                    <input id=CP_d_input placeholder="Description"> Need to make text description go to top left not just left
+                    <input id="CP_c_input" placeholder="Name..">
+                    <input id="CP_d_input" placeholder="Description">
                     <div id="PreviousProjects_scroll">
+                        <br> Project (25/12/24) </br>
+                        <br> Project (25/12/24) </br>
+                        <br> Project (25/12/24) </br>
+                        <br> Project (25/12/24) </br>
                         <br> Project (25/12/24) </br>
                         <br> Project (25/12/24) </br>
                         <br> Project (25/12/24) </br>
@@ -73,7 +94,6 @@
                     <input id="ChooseProject_Done_button" type="Submit" value="Done">
                 </form>
             </div>
-            -->
         </div> 
     </div>
     </body>
