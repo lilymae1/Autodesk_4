@@ -8,13 +8,6 @@
     <PlatformTarget>x64</PlatformTarget>
 	</PropertyGroup>
 
-	<ItemGroup>
-	  <PackageReference Include="cef.redist.x64" Version="120.2.7" />
-	  <PackageReference Include="CefSharp.Common" Version="120.2.7" />
-	  <PackageReference Include="CefSharp.WinForms" Version="120.2.7" />
-	  <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2045.28" />
-	</ItemGroup>
-
   <ItemGroup>
     <None Update="chatbot.html">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
