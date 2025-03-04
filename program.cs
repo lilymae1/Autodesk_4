@@ -18,7 +18,7 @@ public class StartElectronApp
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
                 FileName = nodePath,  // Use Node.js to run Electron
-                Arguments = $"\"{appPath}\\node_modules\\electron\\dist\\electron.exe\" \"{appPath}\"",
+                Arguments = $"\\node_modules\\electron\\dist\\electron.exe\" \"{appPath}\"",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
