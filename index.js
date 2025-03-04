@@ -13,7 +13,7 @@ function createWindow() {
     }
   });
 
-  win.loadFile('index.html');
+  win.loadFile('chatEnlarged.html');
 }
 
 app.whenReady().then(createWindow);
