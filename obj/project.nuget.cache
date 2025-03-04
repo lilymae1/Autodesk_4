@@ -1,45 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "GOhlabnoK2c=",
+  "dgSpecHash": "4eNi/CCz3T0=",
   "success": true,
   "projectFilePath": "C:\\Users\\richa\\Documents\\Autodesk Project\\Autodesk_4\\RevitChatBotPrototype1.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\richa\\.nuget\\packages\\cef.redist.x64\\120.2.7\\cef.redist.x64.120.2.7.nupkg.sha512",
-    "C:\\Users\\richa\\.nuget\\packages\\cef.redist.x86\\120.2.5\\cef.redist.x86.120.2.5.nupkg.sha512",
-    "C:\\Users\\richa\\.nuget\\packages\\cefsharp.common\\120.2.50\\cefsharp.common.120.2.50.nupkg.sha512",
-    "C:\\Users\\richa\\.nuget\\packages\\cefsharp.winforms\\120.2.50\\cefsharp.winforms.120.2.50.nupkg.sha512",
-    "C:\\Users\\richa\\.nuget\\packages\\microsoft.web.webview2\\1.0.2045.28\\microsoft.web.webview2.1.0.2045.28.nupkg.sha512"
-  ],
-  "logs": [
-    {
-      "code": "NU1603",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "RevitChatBotPrototype1 depends on CefSharp.Common (>= 120.2.7) but CefSharp.Common 120.2.7 was not found. CefSharp.Common 120.2.50 was resolved instead.",
-      "libraryId": "CefSharp.Common",
-      "targetGraphs": [
-        ".NETFramework,Version=v4.8"
-      ]
-    },
-    {
-      "code": "NU1603",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "RevitChatBotPrototype1 depends on CefSharp.WinForms (>= 120.2.7) but CefSharp.WinForms 120.2.7 was not found. CefSharp.WinForms 120.2.50 was resolved instead.",
-      "libraryId": "CefSharp.WinForms",
-      "targetGraphs": [
-        ".NETFramework,Version=v4.8"
-      ]
-    },
-    {
-      "code": "NU1608",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Detected package version outside of dependency constraint: CefSharp.Common 120.2.50 requires cef.redist.x64 (= 120.2.5) but version cef.redist.x64 120.2.7 was resolved.",
-      "libraryId": "cef.redist.x64",
-      "targetGraphs": [
-        ".NETFramework,Version=v4.8"
-      ]
-    }
-  ]
+  "expectedPackageFiles": [],
+  "logs": []
 }

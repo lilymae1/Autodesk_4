@@ -50,24 +50,6 @@
       "frameworks": {
         "net48": {
           "targetAlias": "net48",
-          "dependencies": {
-            "CefSharp.Common": {
-              "target": "Package",
-              "version": "[120.2.7, )"
-            },
-            "CefSharp.WinForms": {
-              "target": "Package",
-              "version": "[120.2.7, )"
-            },
-            "Microsoft.Web.WebView2": {
-              "target": "Package",
-              "version": "[1.0.2045.28, )"
-            },
-            "cef.redist.x64": {
-              "target": "Package",
-              "version": "[120.2.7, )"
-            }
-          },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102\\RuntimeIdentifierGraph.json"
         }
       }

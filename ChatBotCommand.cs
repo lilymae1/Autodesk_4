@@ -17,16 +17,19 @@ namespace RevitChatBotPrototype1
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            // attempt to make windows form
             try
             {
-                ChatBotForm chatForm = new ChatBotForm();
-                chatForm.Show();  // Opens the chatbot window
+                // Start the Electron app
+                StartElectronApp.StartElectron();
+
+                TaskDialog.Show("Electron", "Electron app started successfully!");
+
                 return Result.Succeeded;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: {ex.Message}");
+                // Handle errors gracefully
+                message = "Failed to start Electron app: " + ex.Message;
                 return Result.Failed;
             }
         }
