@@ -8,3 +8,5 @@ obj/Debug/net48/RevitChatBotPrototype1.csproj.CoreCompileInputs.cache
 obj/Debug/net48/RevitChatBotPrototype1.dll
 obj/Debug/net48/RevitChatBotPrototype1.pdb
 obj/Debug/net48/RevitChatBotPrototype1.sourcelink.json
+node_modules/
+.vscode/
