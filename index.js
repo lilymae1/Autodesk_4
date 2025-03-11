@@ -9,11 +9,11 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-      preload: path.join(__dirname, 'renderer.js') // Preload script for UI logic
+      preload: path.join(__dirname, 'preload.js') // Preload script for UI logic
     }
   });
 
-  win.loadFile('chatEnlarged.html');
+  win.loadFile('UI\\chatEnlarged.html');
 }
 
 app.whenReady().then(createWindow);
