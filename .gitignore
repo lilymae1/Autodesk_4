@@ -1,12 +1,10 @@
-bin/Debug/net48/libcef.dll
-obj/Debug/net48/RevitChatBotPrototype1.AssemblyInfo.cs
-bin/Debug/net48/RevitChatBotPrototype1.dll
-bin/Debug/net48/RevitChatBotPrototype1.pdb
-obj/Debug/net48/RevitChatBotPrototype1.AssemblyInfo.cs
-obj/Debug/net48/RevitChatBotPrototype1.AssemblyInfoInputs.cache
-obj/Debug/net48/RevitChatBotPrototype1.csproj.CoreCompileInputs.cache
-obj/Debug/net48/RevitChatBotPrototype1.dll
-obj/Debug/net48/RevitChatBotPrototype1.pdb
-obj/Debug/net48/RevitChatBotPrototype1.sourcelink.json
+# Node.js
 node_modules/
+*.log
+
+# .NET
+bin/
+obj/
+
+# Visual Studio COde
 .vscode/
