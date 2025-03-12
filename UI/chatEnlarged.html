@@ -94,35 +94,29 @@
 </div>
     
     <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (window.chatAPI) {
+                console.log("chatAPI is available");
+                archie_message(); // Start listening for Archie's responses
+            } else {
+                console.error("chatAPI is undefined");
+            }
+        });
         function archie_message() {
-            let receivedDiv = document.createElement('div');
-            receivedDiv.className = 'received-msg';
+            if (window.chatAPI) {
+                window.chatAPI.onResponse((response) => {
+                    // Remove "Thinking..." once response is received
+                    const thinkingMsg = document.querySelector('.bot-msg');
+                    if (thinkingMsg && thinkingMsg.textContent === 'Thinking...') {
+                        thinkingMsg.remove();
+                    }
 
-            let receivedChats = document.createElement('div');
-            receivedChats.className = 'received-chats';
-
-            let archieImg = document.createElement('div');
-            archieImg.className = 'received-chats-img';
-            archieImg.innerHTML = '<img src="Assets/archie.png" width="42" height="42" style="border-radius: 21px;">';
-
-            let inbox = document.createElement('div');
-            inbox.className = 'received-msg-inbox';
-
-            let message = document.createElement('p');
-            message.textContent = "Archie is here to help!"; // Archie should have a static message
-
-            let timestamp = document.createElement('span');
-            timestamp.className = 'received-time';
-            timestamp.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-            // Append elements together
-            inbox.appendChild(message);
-            inbox.appendChild(timestamp);
-            receivedChats.appendChild(inbox);
-            receivedChats.appendChild(archieImg);
-            receivedDiv.appendChild(receivedChats);
-
-            document.getElementById("chat").appendChild(receivedDiv);
+                    // Display Archie's Response
+                    appendMessage('bot', response);
+                });
+            } else {
+                console.error("chatAPI is undefined inside archie_message");
+            }
         }
 
         function send_message(event) {
@@ -131,41 +125,78 @@
 
             if (messageInput.value.trim() === "") return; // Prevent sending empty messages
 
-            let outgoingDiv = document.createElement('div');
-            outgoingDiv.className = 'outgoing-msg';
+            // Display User Message
+            appendMessage('user', messageInput.value);
 
-            let outgoingChats = document.createElement('div');
-            outgoingChats.className = 'outgoing-chats';
+            // Send the message to the backend (C# API)
+            if (window.chatAPI) {
+                window.chatAPI.sendMessage(messageInput.value);
+            } else {
+                console.error('chatAPI is undefined');
+            }
 
-            let msgBox = document.createElement('div');
-            msgBox.className = 'outgoing-chats-msg';
+        // Display a "thinking" indicator
+        appendMessage('bot', 'Thinking...');
 
-            let msgText = document.createElement('p');
-            msgText.className = 'multi-msg';
-            msgText.textContent = messageInput.value;
+        messageInput.value = "";
 
-            let timestamp = document.createElement('span');
-            timestamp.className = 'outgoing-time';
+        // Make an HTTP POST request to the C# backend API for a response
+        fetch('http://localhost:5000/api/chatbot/getResponse', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                message: messageInput.value
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Handle the response (display chatbot reply)
+            const botResponse = data.response;
+            appendMessage('bot', botResponse);
+        })
+        .catch(error => {
+            console.error('Error communicating with the backend:', error);
+        });
+    }
+
+
+        document.getElementById("send").addEventListener("click", send_message);
+
+        function appendMessage(sender, message) {
+            const chatlog = document.getElementById('chat');
+
+            const msgDiv = document.createElement('div');
+            msgDiv.classList.add(sender === 'user' ? 'outgoing-msg' : 'received-msg');
+
+            const chatsDiv = document.createElement('div');
+            chatsDiv.classList.add(sender === 'user' ? 'outgoing-chats' : 'received-chats');
+
+            const msgBox = document.createElement('div');
+            msgBox.classList.add(sender === 'user' ? 'outgoing-chats-msg' : 'received-msg-inbox');
+
+            const msgText = document.createElement('p');
+            msgText.textContent = message;
+
+            const timestamp = document.createElement('span');
+            timestamp.className = sender === 'user' ? 'outgoing-time' : 'received-time';
             timestamp.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-            let userImg = document.createElement('div');
-            userImg.className = 'outgoing-chats-img';
-            userImg.innerHTML = '<img src="Assets/ProfileIcon.png" width="42" height="42" style="border-radius: 21px;">';
+            const imgDiv = document.createElement('div');
+            imgDiv.className = sender === 'user' ? 'outgoing-chats-img' : 'received-chats-img';
+            imgDiv.innerHTML = `<img src="${sender === 'user' ? 'Assets/ProfileIcon.png' : 'Assets/archie.png'}" width="42" height="42" style="border-radius: 21px;">`;
 
             // Append elements together
             msgBox.appendChild(msgText);
-            msgBox.appendChild(timestamp); 
-            outgoingChats.appendChild(msgBox);
-            outgoingChats.appendChild(userImg);
-            outgoingDiv.appendChild(outgoingChats);
+            msgBox.appendChild(timestamp);
+            chatsDiv.appendChild(msgBox);
+            chatsDiv.appendChild(imgDiv);
+            msgDiv.appendChild(chatsDiv);
 
-            document.getElementById("chat").appendChild(outgoingDiv);
-            messageInput.value = "";
-
-            // Simulate Archie's response after 1 second
-            setTimeout(archie_message, 1000);
+            chatlog.appendChild(msgDiv);
+            chatlog.scrollTop = chatlog.scrollHeight; // Auto-scroll to bottom
         }
 
-        document.getElementById("send").addEventListener("click", send_message);
     </script>
 </html>

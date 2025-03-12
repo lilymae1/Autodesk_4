@@ -1,5 +1,4 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
-const { spawn } = require('child_process');
 const path = require('path');
 
 function createWindow() {
@@ -7,14 +6,15 @@ function createWindow() {
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
+      nodeIntegration: false, // Ensure nodeIntegration is false for security
+      contextIsolation: true, // Ensure contextIsolation is enabled for security
       preload: path.join(__dirname, 'preload.js') // Preload script for UI logic
     }
   });
 
-  win.loadFile('UI\\chatEnlarged.html');
+  win.loadFile(path.join(__dirname, '..', 'UI', 'chatEnlarged.html'));
 }
+
 
 app.whenReady().then(createWindow);
 
@@ -26,13 +26,11 @@ app.on('window-all-closed', () => {
 
 // Handling messages from the UI
 ipcMain.on('chat-message', (event, userInput) => {
-  const chatbotProcess = spawn('dotnet', ['Autodesk_4/bin/Release/net7.0/chatbot.dll', userInput]);
+  console.log('User input:', userInput);
 
-  chatbotProcess.stdout.on('data', (data) => {
-    event.reply('chat-response', data.toString());
-  });
-
-  chatbotProcess.stderr.on('data', (data) => {
-    console.error(`Chatbot error: ${data}`);
-  });
+  // Send a fixed response for now as a test
+  const response = "Hello, I am Archie! How can I assist you today?";
+  
+  // Send the response back to the renderer (chat window)
+  event.reply('chat-response', response);
 });
