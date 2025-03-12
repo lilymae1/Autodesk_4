@@ -12,7 +12,7 @@ function createWindow() {
     }
   });
 
-  win.loadFile(path.join(__dirname, '..', 'UI', 'chatEnlarged.html'));
+  win.loadFile(path.join(__dirname, 'UI', 'chatEnlarged.html'));
 }
 
 
