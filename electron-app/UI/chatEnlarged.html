@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<div id = "chat-enlarged-head">
+    <meta charset="UTF-8">
+    <title>Archie Forklift</title>
+    <link rel="stylesheet" href="chatEnlargedStyle.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'Nav.html', true);
+        xhr.onload = function () {
+            if (xhr.status == 200) {
+                console.log("Nav.html loaded successfully");
+                $("#includedNavContent").html(xhr.responseText);
+            } else {
+                console.error("Error loading Nav.html: " + xhr.status);
+                $("#includedNavContent").html("Error loading Nav.html");
+            }
+        };
+        xhr.onerror = function () {
+            console.error("Request failed");
+            $("#includedNavContent").html("Error loading Nav.html");
+        };
+        xhr.send();
+
+    </script>
+</div>
+
+
+<div id ="chat-enlarged-body">
+    <div id="includedNavContent"></div>
+    <div id="chat-top">
+    <button class="menuButton" id="active"><a href="#">Current chat</a></button>
+    <button class="menuButton"><a href="chatHistoryEnlarged.html">Old chats</a></button>
+    <button class="menuButton"><a href="chat.html">Minimise</a></button>    
+    </div>
+    </div>
+    <div id="chat">
+            
+        <div class="received-msg">
+            <div class="received-chats">
+                <div class="received-msg-inbox">
+                    <p>Hi !! This is a message from Archie Forklift. Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                    <span class="received-time">18:06 PM | July 24</span>
+                </div>
+                <div class="received-chats-img">
+                    <img src="Assets/archie.png" width="42" height="42" style="border-radius: 21px;">
+                </div>
+            </div>
+        </div>
+        <div class="outgoing-msg">
+            <div class="outgoing-chats">
+                <div class="outgoing-chats-msg">
+                    <p>Hi Riya, Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                    <span class="outgoing-time">18:30 PM | July 24</span>
+                </div>
+                <div class="outgoing-chats-img">
+                    <img src="Assets/ProfileIcon.png" width="42" height="42" style="border-radius: 21px;">
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+    <div id="input-container">
+        <form onsubmit="send_message(event)" id="message_sender">
+            Enter message: <input type="text" id="input">
+            <button id="send">Send</button>
+        </form>
+    </div>
+</div>
+
+<div id = "chat-enlarged-footer">
+    <script>
+        var xhr1 = new XMLHttpRequest();
+        xhr1.open('GET', 'Footer.html', true);
+        xhr1.onload = function () {
+            if (xhr1.status == 200) {
+                console.log("footer.html loaded successfully");
+                $("#includedFooterContent").html(xhr1.responseText);
+            } else {
+                console.error("Error loading footer.html: " + xhr1.status);
+                $("#includedFooterContent").html("Error loading Nav.html");
+            }
+        };
+        xhr1.onerror = function () {
+            console.error("Request failed");
+            $("#includedFooterContent").html("Error loading footer.html");
+        };
+        xhr1.send();
+    </script>
+    <div id="includedFooterContent"></div>
+</div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (window.chatAPI) {
+                console.log("chatAPI is available");
+                archie_message(); // Start listening for Archie's responses
+            } else {
+                console.error("chatAPI is undefined");
+            }
+        });
+        function archie_message() {
+            if (window.chatAPI) {
+                window.chatAPI.onResponse((response) => {
+                    // Remove "Thinking..." once response is received
+                    const thinkingMsg = document.querySelector('.bot-msg');
+                    if (thinkingMsg && thinkingMsg.textContent === 'Thinking...') {
+                        thinkingMsg.remove();
+                    }
+
+                    // Display Archie's Response
+                    appendMessage('bot', response);
+                });
+            } else {
+                console.error("chatAPI is undefined inside archie_message");
+            }
+        }
+
+        function send_message(event) {
+            event.preventDefault();
+            let messageInput = document.getElementById("input");
+
+            if (messageInput.value.trim() === "") return; // Prevent sending empty messages
+
+            // Display User Message
+            appendMessage('user', messageInput.value);
+
+            // Send the message to the backend (C# API)
+            if (window.chatAPI) {
+                window.chatAPI.sendMessage(messageInput.value);
+            } else {
+                console.error('chatAPI is undefined');
+            }
+
+        // Display a "thinking" indicator
+        appendMessage('bot', 'Thinking...');
+
+        messageInput.value = "";
+
+        // Make an HTTP POST request to the C# backend API for a response
+        fetch('http://localhost:5000/api/chatbot/getResponse', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                message: messageInput.value
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Handle the response (display chatbot reply)
+            const botResponse = data.response;
+            appendMessage('bot', botResponse);
+        })
+        .catch(error => {
+            console.error('Error communicating with the backend:', error);
+        });
+    }
+
+
+        document.getElementById("send").addEventListener("click", send_message);
+
+        function appendMessage(sender, message) {
+            const chatlog = document.getElementById('chat');
+
+            const msgDiv = document.createElement('div');
+            msgDiv.classList.add(sender === 'user' ? 'outgoing-msg' : 'received-msg');
+
+            const chatsDiv = document.createElement('div');
+            chatsDiv.classList.add(sender === 'user' ? 'outgoing-chats' : 'received-chats');
+
+            const msgBox = document.createElement('div');
+            msgBox.classList.add(sender === 'user' ? 'outgoing-chats-msg' : 'received-msg-inbox');
+
+            const msgText = document.createElement('p');
+            msgText.textContent = message;
+
+            const timestamp = document.createElement('span');
+            timestamp.className = sender === 'user' ? 'outgoing-time' : 'received-time';
+            timestamp.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            const imgDiv = document.createElement('div');
+            imgDiv.className = sender === 'user' ? 'outgoing-chats-img' : 'received-chats-img';
+            imgDiv.innerHTML = `<img src="${sender === 'user' ? 'Assets/ProfileIcon.png' : 'Assets/archie.png'}" width="42" height="42" style="border-radius: 21px;">`;
+
+            // Append elements together
+            msgBox.appendChild(msgText);
+            msgBox.appendChild(timestamp);
+            chatsDiv.appendChild(msgBox);
+            chatsDiv.appendChild(imgDiv);
+            msgDiv.appendChild(chatsDiv);
+
+            chatlog.appendChild(msgDiv);
+            chatlog.scrollTop = chatlog.scrollHeight; // Auto-scroll to bottom
+        }
+
+    </script>
+</html>

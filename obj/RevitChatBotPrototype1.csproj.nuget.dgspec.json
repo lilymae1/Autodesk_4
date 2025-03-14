@@ -51,21 +51,13 @@
         "net48": {
           "targetAlias": "net48",
           "dependencies": {
-            "CefSharp.Common": {
+            "Microsoft.AspNetCore.Mvc": {
               "target": "Package",
-              "version": "[120.2.7, )"
+              "version": "[2.3.0, )"
             },
-            "CefSharp.WinForms": {
+            "Microsoft.Extensions.Hosting": {
               "target": "Package",
-              "version": "[120.2.7, )"
-            },
-            "Microsoft.Web.WebView2": {
-              "target": "Package",
-              "version": "[1.0.2045.28, )"
-            },
-            "cef.redist.x64": {
-              "target": "Package",
-              "version": "[120.2.7, )"
+              "version": "[9.0.3, )"
             }
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102\\RuntimeIdentifierGraph.json"

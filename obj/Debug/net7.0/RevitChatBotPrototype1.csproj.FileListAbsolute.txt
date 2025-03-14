@@ -1,0 +1,6 @@
+C:\Users\richa\Documents\Autodesk Project\Autodesk_4\obj\Debug\net7.0\RevitChatBotPrototype1.csproj.AssemblyReference.cache
+C:\Users\richa\Documents\Autodesk Project\Autodesk_4\obj\Debug\net7.0\RevitChatBotPrototype1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\richa\Documents\Autodesk Project\Autodesk_4\obj\Debug\net7.0\RevitChatBotPrototype1.AssemblyInfoInputs.cache
+C:\Users\richa\Documents\Autodesk Project\Autodesk_4\obj\Debug\net7.0\RevitChatBotPrototype1.AssemblyInfo.cs
+C:\Users\richa\Documents\Autodesk Project\Autodesk_4\obj\Debug\net7.0\RevitChatBotPrototype1.csproj.CoreCompileInputs.cache
+C:\Users\richa\Documents\Autodesk Project\Autodesk_4\obj\Debug\net7.0\RevitChatBotPrototype1.sourcelink.json
