@@ -17,7 +17,7 @@ namespace AutodeskRevitAPI.Controllers
         {
             // Simulate chatbot logic (replace this with your AI model or logic)
             if (message.ToLower().Contains("hello")) 
-                return "Hi! I'm Archie Forklift. How can I assist you today? 😊";
+                return "Hi! I'm Archie Forklift. How can I assist you today?";
             
             return $"You said: {message}";
         }
