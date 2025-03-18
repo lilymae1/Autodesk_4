@@ -9,7 +9,7 @@
             "request": "launch",
             "reAttach": true,
             "name": "Launch index.html",
-            "file": "${workspaceFolder}/index.html"
+            "file": "${workspaceFolder}/electron-app/UI/index.html"
         }
     ]
 }
