@@ -1,9 +1,13 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
+
 const http = require('http'); // Using native HTTP module
 
 console.log('🚀 Electron app starting...');
+const axios = require('axios');  // Import axios
 
+
+// Create the Electron window
 function createWindow() {
     const win = new BrowserWindow({
         width: 800,
@@ -20,6 +24,7 @@ function createWindow() {
 
 app.whenReady().then(createWindow);
 
+// Close the app when all windows are closed
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
         app.quit();
@@ -72,4 +77,5 @@ ipcMain.on('chat-message', (event, userInput) => {
 
     req.write(requestData);
     req.end();
+
 });
