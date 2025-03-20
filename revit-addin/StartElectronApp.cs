@@ -6,42 +6,55 @@ using Microsoft.Extensions.Hosting;
 
 public class StartElectronApp
 {
-    public static void StartElectron()
+    public static async void StartElectron()
     {
-        // Start the C# Web API
-        CreateHostBuilder().Build().Start();
-
-        // Start Electron as before
         string nodePath = @"C:\Program Files\nodejs\node.exe";
-        string appPath = @"C:\Users\richa\Documents\Autodesk Project\Autodesk_4";
+        string electronPath = @"C:\Users\richa\Documents\Autodesk Project\Autodesk_4\electron-app\node_modules\electron\dist\electron.exe";
+        string appPath = @"C:\Users\richa\Documents\Autodesk Project\Autodesk_4\electron-app";
 
         try
         {
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
-                FileName = nodePath,
-                Arguments = $"\"{appPath}\\node_modules\\electron\\dist\\electron.exe\" \"{appPath}\"",
+                FileName = electronPath,  // Direct path to electron.exe
+                Arguments = $"\"{appPath}\"",
+                WorkingDirectory = appPath,
                 UseShellExecute = false,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                CreateNoWindow = true
+                RedirectStandardOutput = true, // Capture console output for debugging
+                RedirectStandardError = true,  // Capture error messages for clarity
+                CreateNoWindow = false
             };
 
             Process electronProcess = new Process { StartInfo = startInfo };
+
+            electronProcess.OutputDataReceived += (sender, e) => 
+                TaskDialog.Show("Electron Log", e.Data ?? "No output");
+            electronProcess.ErrorDataReceived += (sender, e) => 
+                TaskDialog.Show("Electron Error", e.Data ?? "No error");
+
             electronProcess.Start();
+
+             // Read the output asynchronously
+            string output = await electronProcess.StandardOutput.ReadToEndAsync();
+            string error = await electronProcess.StandardError.ReadToEndAsync();
+            // Write logs to a file for easier tracking
+            string logPath = Path.Combine(appPath, "revit-electron-log.txt");
+            File.WriteAllText(logPath, $"Output:\n{output}\n\nError:\n{error}");
+
+            TaskDialog.Show("Electron", "Electron app started successfully!");
         }
         catch (Exception ex)
         {
             TaskDialog.Show("Debug", "Error starting Electron: " + ex.Message);
         }
     }
-
-    // Host the Web API
-    public static IHostBuilder CreateHostBuilder() =>
-        Host.CreateDefaultBuilder()
-            .ConfigureWebHostDefaults(webBuilder =>
-            {
-                webBuilder.UseUrls("http://localhost:5000");
-                webBuilder.UseStartup<Startup>();
-            });
+    public static void LogMessage(string message)
+    {   
+        string logPath = @"C:\Users\richa\Documents\Autodesk Project\Autodesk_4\revit-backend-log.txt";
+        using (StreamWriter writer = new StreamWriter(logPath, true))
+        {
+            writer.WriteLine($"{DateTime.Now}: {message}");
+        }
+    }
 }
+

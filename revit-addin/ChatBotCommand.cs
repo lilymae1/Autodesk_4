@@ -21,7 +21,7 @@ namespace RevitChatBotPrototype1
                 // Start the Electron app
                 StartElectronApp.StartElectron();
 
-                TaskDialog.Show("Electron", "Electron app started successfully!");
+                
 
                 return Result.Succeeded;
             }
