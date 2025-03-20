@@ -9,17 +9,16 @@ namespace AutodeskRevitAPI.Controllers
         [HttpPost("getResponse")]
         public IActionResult GetResponse([FromBody] ChatRequest request)
         {
-            string aiResponse = GenerateAIResponse(request.Message);
-            return Ok(new { response = aiResponse });
-        }
+            Console.WriteLine($"Received message: {request?.Message}"); // Log the received message
 
-        private string GenerateAIResponse(string message)
-        {
-            // Simulate chatbot logic (replace this with your AI model or logic)
-            if (message.ToLower().Contains("hello")) 
-                return "Hi! I'm Archie Forklift. How can I assist you today?";
-            
-            return $"You said: {message}";
+            if (request?.Message == null)
+            {
+                return BadRequest(new { response = "Error: Message was null or empty." });
+            }
+
+            var response = $"You said: {request.Message}";
+            Console.WriteLine($"Sending response: {response}"); // Log the response
+            return Ok(new { response });
         }
     }
 

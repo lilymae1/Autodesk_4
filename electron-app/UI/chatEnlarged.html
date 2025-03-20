@@ -102,9 +102,12 @@
                 console.error("chatAPI is undefined");
             }
         });
+
         function archie_message() {
             if (window.chatAPI) {
                 window.chatAPI.onResponse((response) => {
+                    console.log('Received response from backend:', response);
+
                     // Remove "Thinking..." once response is received
                     const thinkingMsg = document.querySelector('.bot-msg');
                     if (thinkingMsg && thinkingMsg.textContent === 'Thinking...') {
@@ -126,45 +129,24 @@
             if (messageInput.value.trim() === "") return; // Prevent sending empty messages
 
             // Display User Message
-            appendMessage('user', messageInput.value);
+            appendMessage('user', messageInput.value);  // Append user message here
 
-            // Send the message to the backend (C# API)
+            // Display a "thinking" indicator
+            appendMessage('bot', 'Thinking...', true);  // Add a class for removal
+
+            // Send message using Electron's IPC via chatAPI
             if (window.chatAPI) {
-                window.chatAPI.sendMessage(messageInput.value);
+                window.chatAPI.sendMessage(messageInput.value); // This triggers the message to backend
             } else {
                 console.error('chatAPI is undefined');
+                appendMessage('bot', 'Error: Unable to connect to the backend.');
             }
 
-        // Display a "thinking" indicator
-        appendMessage('bot', 'Thinking...');
+            messageInput.value = ""; // Clear input after sending
+        }
 
-        messageInput.value = "";
-
-        // Make an HTTP POST request to the C# backend API for a response
-        fetch('http://localhost:5000/api/chatbot/getResponse', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                message: messageInput.value
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Handle the response (display chatbot reply)
-            const botResponse = data.response;
-            appendMessage('bot', botResponse);
-        })
-        .catch(error => {
-            console.error('Error communicating with the backend:', error);
-        });
-    }
-
-
-        document.getElementById("send").addEventListener("click", send_message);
-
-        function appendMessage(sender, message) {
+        // Updated appendMessage to handle "Thinking..." correctly
+        function appendMessage(sender, message, isThinking = false) {
             const chatlog = document.getElementById('chat');
 
             const msgDiv = document.createElement('div');
@@ -179,6 +161,10 @@
             const msgText = document.createElement('p');
             msgText.textContent = message;
 
+            if (isThinking) {
+                msgText.classList.add('bot-msg');  // Add class for easier removal
+            }
+
             const timestamp = document.createElement('span');
             timestamp.className = sender === 'user' ? 'outgoing-time' : 'received-time';
             timestamp.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -187,7 +173,6 @@
             imgDiv.className = sender === 'user' ? 'outgoing-chats-img' : 'received-chats-img';
             imgDiv.innerHTML = `<img src="${sender === 'user' ? 'Assets/ProfileIcon.png' : 'Assets/archie.png'}" width="42" height="42" style="border-radius: 21px;">`;
 
-            // Append elements together
             msgBox.appendChild(msgText);
             msgBox.appendChild(timestamp);
             chatsDiv.appendChild(msgBox);
@@ -195,7 +180,7 @@
             msgDiv.appendChild(chatsDiv);
 
             chatlog.appendChild(msgDiv);
-            chatlog.scrollTop = chatlog.scrollHeight; // Auto-scroll to bottom
+            chatlog.scrollTop = chatlog.scrollHeight;
         }
 
     </script>
