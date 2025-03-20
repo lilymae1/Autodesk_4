@@ -13,32 +13,32 @@
             <button class="menuButton"><a href="chatHistory.html">Old chats</a></button>
             <button class="menuButton"><a href="chatEnlarged.html">Fullscreen</a></button>
         </div>
-        
-        <div class="received-chats">      
-            <div class="received-msg">
-                <div class="received-msg-inbox">
-                    <p>Hi!! This is message from Archie Forklift. Word word word word word word word word word!</p>
-                    <span class="received-time">18:06 PM | July 24 </span>
-                </div>
-            </div>
-            <img class = "chatImage" src="Assets/PFP2.png">
-        </div>
-        <div class="outgoing-chats">
-            <div class="outgoing-msg">
-                <div class="outgoing-chats-msg">
-                    <p class="multi-msg">Hi!! This is a response. Word word, word word word word word.</p>
-                    <p class="multi-msg">Word word word word word!</p>
-                    <span class="outgoing-time">18:30 PM | July 24 </span>
-                </div>
-            </div>
-            <img img class = "userImage" src="Assets/ProfileIcon.png">
+        <div id="chat">
+            
         </div>
     </div>
     </body>
     <footer>
         <div id="message_sender">
-            <input type="text" id="input" placeholder="Type a message..." />
-            <button id="send" href="#">Send</button>
+            <form onsubmit="send_message(event)" id="message_sender">
+                Enter message: <input type="text" id="input">
+                <button id="send">Send</button>
+            </form>
         </div>
     </footer>
+     <!-- Load render.js for shared chat functionality -->
+     <script src="../render.js"></script>    
+     <script>
+         document.addEventListener("DOMContentLoaded", () => {
+             if (window.chatAPI) {
+                 console.log("chatAPI is available");
+                 // Determine the time of day and send the appropriate welcome message
+                 sendWelcomeMessage();
+                 archie_message(); // Start listening for Archie's responses
+                 loadMessages(); // Load chat history
+             } else {
+                 console.error("chatAPI is undefined");
+             }
+         });
+     </script>
 </html>   

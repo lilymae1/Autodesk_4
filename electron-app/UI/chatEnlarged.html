@@ -36,32 +36,7 @@
     <button class="menuButton"><a href="chat.html">Minimise</a></button>    
     </div>
     </div>
-    <div id="chat">
-            
-        <div class="received-msg">
-            <div class="received-chats">
-                <div class="received-msg-inbox">
-                    <p>Hi !! This is a message from Archie Forklift. Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    <span class="received-time">18:06 PM | July 24</span>
-                </div>
-                <div class="received-chats-img">
-                    <img src="Assets/archie.png" width="42" height="42" style="border-radius: 21px;">
-                </div>
-            </div>
-        </div>
-        <div class="outgoing-msg">
-            <div class="outgoing-chats">
-                <div class="outgoing-chats-msg">
-                    <p>Hi Riya, Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    <span class="outgoing-time">18:30 PM | July 24</span>
-                </div>
-                <div class="outgoing-chats-img">
-                    <img src="Assets/ProfileIcon.png" width="42" height="42" style="border-radius: 21px;">
-                </div>
-            </div>
-        </div>
-        
-        
+    <div id="chat">    
     </div>
     <div id="input-container">
         <form onsubmit="send_message(event)" id="message_sender">
@@ -92,96 +67,19 @@
     </script>
     <div id="includedFooterContent"></div>
 </div>
-    
+    <!-- Load render.js for shared chat functionality -->
+    <script src="../render.js"></script>    
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             if (window.chatAPI) {
                 console.log("chatAPI is available");
+                // Determine the time of day and send the appropriate welcome message
+                sendWelcomeMessage();
                 archie_message(); // Start listening for Archie's responses
+                loadMessages(); // Load chat history
             } else {
                 console.error("chatAPI is undefined");
             }
         });
-
-        function archie_message() {
-            if (window.chatAPI) {
-                window.chatAPI.onResponse((response) => {
-                    console.log('Received response from backend:', response);
-
-                    // Remove "Thinking..." once response is received
-                    const thinkingMsg = document.querySelector('.bot-msg');
-                    if (thinkingMsg && thinkingMsg.textContent === 'Thinking...') {
-                        thinkingMsg.remove();
-                    }
-
-                    // Display Archie's Response
-                    appendMessage('bot', response);
-                });
-            } else {
-                console.error("chatAPI is undefined inside archie_message");
-            }
-        }
-
-        function send_message(event) {
-            event.preventDefault();
-            let messageInput = document.getElementById("input");
-
-            if (messageInput.value.trim() === "") return; // Prevent sending empty messages
-
-            // Display User Message
-            appendMessage('user', messageInput.value);  // Append user message here
-
-            // Display a "thinking" indicator
-            appendMessage('bot', 'Thinking...', true);  // Add a class for removal
-
-            // Send message using Electron's IPC via chatAPI
-            if (window.chatAPI) {
-                window.chatAPI.sendMessage(messageInput.value); // This triggers the message to backend
-            } else {
-                console.error('chatAPI is undefined');
-                appendMessage('bot', 'Error: Unable to connect to the backend.');
-            }
-
-            messageInput.value = ""; // Clear input after sending
-        }
-
-        // Updated appendMessage to handle "Thinking..." correctly
-        function appendMessage(sender, message, isThinking = false) {
-            const chatlog = document.getElementById('chat');
-
-            const msgDiv = document.createElement('div');
-            msgDiv.classList.add(sender === 'user' ? 'outgoing-msg' : 'received-msg');
-
-            const chatsDiv = document.createElement('div');
-            chatsDiv.classList.add(sender === 'user' ? 'outgoing-chats' : 'received-chats');
-
-            const msgBox = document.createElement('div');
-            msgBox.classList.add(sender === 'user' ? 'outgoing-chats-msg' : 'received-msg-inbox');
-
-            const msgText = document.createElement('p');
-            msgText.textContent = message;
-
-            if (isThinking) {
-                msgText.classList.add('bot-msg');  // Add class for easier removal
-            }
-
-            const timestamp = document.createElement('span');
-            timestamp.className = sender === 'user' ? 'outgoing-time' : 'received-time';
-            timestamp.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-            const imgDiv = document.createElement('div');
-            imgDiv.className = sender === 'user' ? 'outgoing-chats-img' : 'received-chats-img';
-            imgDiv.innerHTML = `<img src="${sender === 'user' ? 'Assets/ProfileIcon.png' : 'Assets/archie.png'}" width="42" height="42" style="border-radius: 21px;">`;
-
-            msgBox.appendChild(msgText);
-            msgBox.appendChild(timestamp);
-            chatsDiv.appendChild(msgBox);
-            chatsDiv.appendChild(imgDiv);
-            msgDiv.appendChild(chatsDiv);
-
-            chatlog.appendChild(msgDiv);
-            chatlog.scrollTop = chatlog.scrollHeight;
-        }
-
     </script>
 </html>

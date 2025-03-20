@@ -11,6 +11,7 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
+    frame: true,  // Disable the default window frame (title bar)
     webPreferences: {
       nodeIntegration: false, // Ensure nodeIntegration is false for security
       contextIsolation: true, // Ensure contextIsolation is enabled for security
@@ -18,7 +19,7 @@ function createWindow() {
     }
   });
 
-  win.loadFile(path.join(__dirname, 'UI', 'chatEnlarged.html'));
+  win.loadFile(path.join(__dirname, 'UI', 'index.html'));
 }
 
 app.whenReady().then(createWindow);
