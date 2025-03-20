@@ -1,9 +1,9 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, screen } = require('electron');
 const path = require('path');
 
 const http = require('http'); // Using native HTTP module
 
-console.log('🚀 Electron app starting...');
+console.log(' Electron app starting...');
 const axios = require('axios');  // Import axios
 
 // Create the Electron window
@@ -11,7 +11,8 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
-    frame: true,  // Disable the default window frame (title bar)
+    frame: true,    
+    resizable: false, 
     webPreferences: {
       nodeIntegration: false, // Ensure nodeIntegration is false for security
       contextIsolation: true, // Ensure contextIsolation is enabled for security
@@ -20,6 +21,12 @@ function createWindow() {
   });
 
   win.loadFile(path.join(__dirname, 'UI', 'index.html'));
+
+  win.webContents.on('did-finish-load', () => {
+    // Send 'apply-dragging' message after the window has finished loading
+    win.webContents.send('apply-dragging');
+  });
+
 }
 
 app.whenReady().then(createWindow);
@@ -56,5 +63,38 @@ ipcMain.on('chat-message', async (event, userInput) => {
   } catch (error) {
     console.error('Error communicating with Ollama:', error);
     event.reply('chat-response', 'Sorry, something went wrong. Please try again.');
+  }
+});
+
+ipcMain.on('minimize-chat', (event) => {
+  let win = BrowserWindow.getFocusedWindow();
+  if (win) {
+      win.setResizable(true);
+      win.setSize(400, 600); // Adjust the minimized window size
+      win.setResizable(false);
+  }
+});
+
+ipcMain.on('fullscreen-chat', () => {
+  let win = BrowserWindow.getFocusedWindow();
+  if (win) {
+      const { width, height } = screen.getPrimaryDisplay().workAreaSize;
+      win.setResizable(true);
+      win.setSize(width, height);
+      win.setBounds({ x: 0, y: 0, width: width, height: height });
+      win.setResizable(false);
+  }
+});
+
+ipcMain.on('move-window', (event, dx, dy) => {
+  let win = BrowserWindow.getFocusedWindow();
+  if (win) {
+    const currentBounds = win.getBounds();
+    win.setBounds({
+      x: currentBounds.x + dx,
+      y: currentBounds.y + dy,
+      width: currentBounds.width,
+      height: currentBounds.height
+    });
   }
 });

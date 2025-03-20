@@ -8,13 +8,15 @@
     </head>
 
     <body>
-        <div class="chatNav">
-            <button class="menuButton" id="active"><a href="#">Current chat</a></button>
-            <button class="menuButton"><a href="chatHistory.html">Old chats</a></button>
-            <button class="menuButton"><a href="chatEnlarged.html">Fullscreen</a></button>
+        <div id="chat-head" class="navbar" style="cursor: move;">
+            <div class="chatNav">
+                <button class="menuButton" id="active"><a href="#">Current chat</a></button>
+                <button class="menuButton"><a href="chatHistory.html">Old chats</a></button>
+                <button id="fullscreenButton"><a href="#">Fullscreen</a></button>
+            </div>
         </div>
         <div id="chat">
-            
+
         </div>
     </div>
     </body>
@@ -29,16 +31,61 @@
      <!-- Load render.js for shared chat functionality -->
      <script src="../render.js"></script>    
      <script>
-         document.addEventListener("DOMContentLoaded", () => {
-             if (window.chatAPI) {
-                 console.log("chatAPI is available");
-                 // Determine the time of day and send the appropriate welcome message
-                 sendWelcomeMessage();
-                 archie_message(); // Start listening for Archie's responses
-                 loadMessages(); // Load chat history
-             } else {
-                 console.error("chatAPI is undefined");
-             }
-         });
+        document.addEventListener("DOMContentLoaded", () => {
+            if (window.chatAPI) {
+                console.log("chatAPI is available");
+                // Determine the time of day and send the appropriate welcome message
+                sendWelcomeMessage();
+                archie_message(); // Start listening for Archie's responses
+                loadMessages(); // Load chat history
+
+                // Fullscreen Button Click Event
+                document.getElementById("fullscreenButton")?.addEventListener("click", (event) => {
+                    event.preventDefault();
+                    window.location.href = "chatEnlarged.html"; // Navigate to chatEnlarged.html
+                    window.chatAPI.fullscreenChat();           // Request fullscreen from main process
+                });
+            } else {
+                console.error("chatAPI is undefined");
+            }
+        });
+        const { ipcRenderer } = require('electron');
+
+        // Listen for 'apply-dragging' message from main process
+        ipcRenderer.on('apply-dragging', () => {
+            let isMouseDown = false;
+            let offsetX = 0, offsetY = 0;
+
+            const navbar = document.getElementById('chat-head');
+
+            // When mouse is pressed down on the navbar
+            navbar.addEventListener('mousedown', (event) => {
+                isMouseDown = true;
+                offsetX = event.clientX;
+                offsetY = event.clientY;
+                document.body.style.userSelect = 'none'; // Prevent text selection while dragging
+            });
+
+            // When mouse is moved, drag the window
+            window.addEventListener('mousemove', (event) => {
+                if (isMouseDown) {
+                    const dx = event.clientX - offsetX;
+                    const dy = event.clientY - offsetY;
+                    
+                    // Send the movement data to the main process to move the window
+                    ipcRenderer.send('move-window', dx, dy);
+                    
+                    // Update offset to track new mouse position
+                    offsetX = event.clientX;
+                    offsetY = event.clientY;
+                }
+            });
+
+            // Stop dragging when mouse is released
+            window.addEventListener('mouseup', () => {
+                isMouseDown = false;
+                document.body.style.userSelect = ''; // Re-enable text selection after dragging
+            });
+        });
      </script>
 </html>   

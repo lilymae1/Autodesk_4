@@ -33,7 +33,7 @@
     <div id="chat-top">
     <button class="menuButton" id="active"><a href="#">Current chat</a></button>
     <button class="menuButton"><a href="chatHistoryEnlarged.html">Old chats</a></button>
-    <button class="menuButton"><a href="chat.html">Minimise</a></button>    
+    <button class="menuButton" id="minimizeButton"><a href="chat.html">Minimise</a></button>   
     </div>
     </div>
     <div id="chat">    
@@ -77,6 +77,15 @@
                 sendWelcomeMessage();
                 archie_message(); // Start listening for Archie's responses
                 loadMessages(); // Load chat history
+
+                // Minimise Button Click Event
+                document.getElementById("minimizeButton").addEventListener("click", (event) => {
+                    if (window.chatAPI.minimizeChat) {
+                        window.chatAPI.minimizeChat(); // Calls Electron backend to resize the window
+                    } else {
+                        console.error("minimizeChat function is not available");
+                    }
+                });
             } else {
                 console.error("chatAPI is undefined");
             }

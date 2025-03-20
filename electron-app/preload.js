@@ -30,5 +30,7 @@ contextBridge.exposeInMainWorld('chatAPI', {
             console.log('Response received in frontend:', response);
             callback(response);
         });
-    }
+    },
+    minimizeChat: () => ipcRenderer.send('minimize-chat'), 
+    fullscreenChat: () => ipcRenderer.send('fullscreen-chat')
 });
