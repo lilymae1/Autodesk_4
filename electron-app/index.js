@@ -3,7 +3,7 @@ const path = require('path');
 
 const http = require('http'); // Using native HTTP module
 
-console.log('🚀 Electron app starting...');
+console.log('Electron app starting...');
 const axios = require('axios');  // Import axios
 
 
