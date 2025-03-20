@@ -64,7 +64,7 @@
     "yauzl": "^2.10.0"
   },
   "devDependencies": {
-    "electron": "^35.0.0"
+    "electron": "^35.0.3"
   },
   "scripts": {
     "start": "electron \"index.js\""
