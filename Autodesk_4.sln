@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet-backend", "dotnet-backend\dotnet-backend.csproj", "{AA8DC99E-D2A3-F21C-5FDF-4F3D396A1846}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RevitChatBotPrototype1", "revit-addin\RevitChatBotPrototype1.csproj", "{37588CD8-1904-19C5-7336-1B63379856A6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AA8DC99E-D2A3-F21C-5FDF-4F3D396A1846}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA8DC99E-D2A3-F21C-5FDF-4F3D396A1846}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA8DC99E-D2A3-F21C-5FDF-4F3D396A1846}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA8DC99E-D2A3-F21C-5FDF-4F3D396A1846}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37588CD8-1904-19C5-7336-1B63379856A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37588CD8-1904-19C5-7336-1B63379856A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37588CD8-1904-19C5-7336-1B63379856A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37588CD8-1904-19C5-7336-1B63379856A6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {857A85EC-29C9-44BB-A117-E551D1CFE8A1}
+	EndGlobalSection
+EndGlobal
