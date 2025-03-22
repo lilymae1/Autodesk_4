@@ -11,7 +11,7 @@
         <div class="chatNav">
             <button class="menuButton"><a href="chat.html">Current chat</a></button>
             <button class="menuButton" id="active"><a href="#">Old chats</a></button>
-            <button class="menuButton"><a href="chatHistoryEnlarged.html">Fullscreen</a></button>
+            <button id="fullscreenButton"><a href="#">Fullscreen</a></button>
         </div>
 
         <div class ="previousChat">
@@ -71,4 +71,19 @@
             </button>
          </div>
     </body>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (window.chatAPI) {
+
+                // Fullscreen Button Click Event
+                document.getElementById("fullscreenButton")?.addEventListener("click", (event) => {
+                    event.preventDefault();
+                    window.location.href = "chatHistoryEnlarged.html"; // Navigate to chatEnlarged.html
+                    window.chatAPI.fullscreenChat();           // Request fullscreen from main process
+                });
+            } else {
+                console.error("chatAPI is undefined");
+            }
+        });
+    </script>
 </html>  

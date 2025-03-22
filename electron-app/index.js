@@ -1,35 +1,40 @@
 const { app, BrowserWindow, ipcMain, screen } = require('electron');
 const path = require('path');
-
 const http = require('http'); // Using native HTTP module
-
-console.log(' Electron app starting...');
 const axios = require('axios');  // Import axios
 
-// Create the Electron window
-function createWindow() {
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    frame: true,    
-    resizable: false, 
-    webPreferences: {
-      nodeIntegration: false, // Ensure nodeIntegration is false for security
-      contextIsolation: true, // Ensure contextIsolation is enabled for security
-      preload: path.join(__dirname, 'preload.js') // Preload script for UI logic
-    }
+app.whenReady().then(() => {
+  console.log('Electron app is ready');
+
+  const { width, height } = screen.getPrimaryDisplay().workAreaSize; // Move this inside `whenReady`
+
+  function createWindow() {
+    const win = new BrowserWindow({
+      width: width,
+      height: height,
+      frame: true,    
+      resizable: false, 
+      webPreferences: {
+        nodeIntegration: false,
+        contextIsolation: true,
+        preload: path.join(__dirname, 'preload.js')
+      }
+    });
+
+    win.loadFile(path.join(__dirname, 'UI', 'index.html'));
+
+    win.webContents.on('did-finish-load', () => {
+      win.webContents.send('apply-dragging');
+    });
+  }
+
+  createWindow();
+
+  app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
+});
 
-  win.loadFile(path.join(__dirname, 'UI', 'index.html'));
-
-  win.webContents.on('did-finish-load', () => {
-    // Send 'apply-dragging' message after the window has finished loading
-    win.webContents.send('apply-dragging');
-  });
-
-}
-
-app.whenReady().then(createWindow);
 
 // Close the app when all windows are closed
 app.on('window-all-closed', () => {
