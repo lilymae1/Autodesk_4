@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<html>
     <head>
         <title>Chat</title>
         <link rel="stylesheet" href="chatEnlargedStyle.css">
     </head>
 
     <body>
-        <div id="chat-head" class="navbar" style="cursor: move;">
+        <div id="chat-head" class="navbar" style="cursor: move; -webkit-app-region: drag;">
             <div class="chatNav">
                 <button class="menuButton" id="active"><a href="#">Current chat</a></button>
                 <button class="menuButton"><a href="chatHistory.html">Old chats</a></button>
@@ -18,7 +16,6 @@
         <div id="chat">
 
         </div>
-    </div>
     </body>
     <footer>
         <div id="message_sender">
@@ -48,44 +45,6 @@
             } else {
                 console.error("chatAPI is undefined");
             }
-        });
-        const { ipcRenderer } = require('electron');
-
-        // Listen for 'apply-dragging' message from main process
-        ipcRenderer.on('apply-dragging', () => {
-            let isMouseDown = false;
-            let offsetX = 0, offsetY = 0;
-
-            const navbar = document.getElementById('chat-head');
-
-            // When mouse is pressed down on the navbar
-            navbar.addEventListener('mousedown', (event) => {
-                isMouseDown = true;
-                offsetX = event.clientX;
-                offsetY = event.clientY;
-                document.body.style.userSelect = 'none'; // Prevent text selection while dragging
-            });
-
-            // When mouse is moved, drag the window
-            window.addEventListener('mousemove', (event) => {
-                if (isMouseDown) {
-                    const dx = event.clientX - offsetX;
-                    const dy = event.clientY - offsetY;
-                    
-                    // Send the movement data to the main process to move the window
-                    ipcRenderer.send('move-window', dx, dy);
-                    
-                    // Update offset to track new mouse position
-                    offsetX = event.clientX;
-                    offsetY = event.clientY;
-                }
-            });
-
-            // Stop dragging when mouse is released
-            window.addEventListener('mouseup', () => {
-                isMouseDown = false;
-                document.body.style.userSelect = ''; // Re-enable text selection after dragging
-            });
         });
      </script>
 </html>   

@@ -32,5 +32,6 @@ contextBridge.exposeInMainWorld('chatAPI', {
         });
     },
     minimizeChat: () => ipcRenderer.send('minimize-chat'), 
-    fullscreenChat: () => ipcRenderer.send('fullscreen-chat')
+    fullscreenChat: () => ipcRenderer.send('fullscreen-chat'),
+    moveWindow: (dx, dy) => ipcRenderer.send('move-window', dx, dy)
 });
