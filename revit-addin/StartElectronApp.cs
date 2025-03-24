@@ -61,7 +61,7 @@
 using System;
 using System.Diagnostics;
 using Autodesk.Revit.UI;
-
+using System.Reflection;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -69,9 +69,20 @@ public class StartElectronApp
 {
     public static async void StartElectron()
     {
-        string nodePath = @"C:\Program Files\nodejs\node.exe";
-        string electronPath = @"C:\Users\joann\Documents\Autodesk Project\Autodesk_4\electron-app\node_modules\electron\dist\electron.exe";
-        string appPath = @"C:\Users\joann\Documents\Autodesk Project\Autodesk_4\electron-app";
+        // Get the directory where the add-in DLL is located
+        string addinDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        
+        // Move two directory up
+        string projectRoot = Path.GetFullPath(Path.Combine(addinDirectory, "..","..","..",".."));
+        
+        // Construct Electron paths
+        string electronPath = Path.Combine(projectRoot, "electron-app", "node_modules", "electron", "dist", "electron.exe");
+        string appPath = Path.Combine(projectRoot, "electron-app");
+
+        TaskDialog.Show("Electron Log", $"Add-in Directory: {addinDirectory}");
+        TaskDialog.Show("Electron Log", $"Project Root (Parent Directory): {projectRoot}");
+        TaskDialog.Show("Electron Log", $"Electron Path: {electronPath}");
+        TaskDialog.Show("Electron Log",$"App Path: {appPath}");
 
         try
         {

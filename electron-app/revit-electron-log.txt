@@ -1,9 +1,6 @@
 Output:
 
-ðŸš€ Electron app starting...
-Received user input: You said: hello
-Received response from backend: You said: You said: hello
-Response sent back to renderer: You said: You said: hello
+Electron app is ready
 
 
 Error:
