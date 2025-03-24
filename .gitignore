@@ -8,3 +8,4 @@ obj/
 
 # Visual Studio COde
 .vscode/
+revit-addin/StartElectronApp.cs

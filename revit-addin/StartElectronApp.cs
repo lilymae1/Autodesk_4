@@ -123,7 +123,7 @@ public class StartElectronApp
 
     public static void LogMessage(string message)
     {   
-        string logPath = @"C:\Users\richa\Documents\Autodesk Project\Autodesk_4\revit-backend-log.txt";
+        string logPath = @"C:\Users\Aaron Wass\Documents\Autodesk Project\Autodesk_4\revit-backend-log.txt";
         using (StreamWriter writer = new StreamWriter(logPath, true))
         {
             writer.WriteLine($"{DateTime.Now}: {message}");
