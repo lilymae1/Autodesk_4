@@ -45,30 +45,11 @@ app.on('window-all-closed', () => {
 });
 
 // Handling messages from the UI and integrating with either Ollama API or your chatbot backend API
-ipcMain.on('chat-message', async (event, userInput, useOllama = false) => {
+ipcMain.on('chat-message', async (event, userInput) => {
   console.log('User input:', userInput);
 
   try {
-    let response;
-    if (useOllama) {
-      // Use Ollama API
-      response = await axios.post('http://localhost:11434/api/generate', {
-        input: userInput
-      }, {
-        headers: {
-          'Authorization': 'Bearer your_api_key_here', // Replace with your Ollama API key
-          'Content-Type': 'application/json'
-        }
-      });
-
-      const ollamaResponse = response.data.response; // Adjust based on Ollama's API response structure
-      console.log('Ollama AI Response:', ollamaResponse);
-
-      // Send the response back to the renderer (chat window)
-      event.reply('chat-response', ollamaResponse);
-    } else {
-      // Use your backend chatbot API
-      response = await axios.post('http://localhost:5000/api/chatbot/getResponse', {
+    let response = await axios.post('http://localhost:5000/api/chatbot/getResponse', {
         message: userInput
       });
 
@@ -77,7 +58,7 @@ ipcMain.on('chat-message', async (event, userInput, useOllama = false) => {
 
       // Send response back to UI
       event.reply('chat-response', botResponse);
-    }
+  
   } catch (error) {
     console.error('Error communicating with API:', error);
     event.reply('chat-response', 'Error: Unable to process your request.');

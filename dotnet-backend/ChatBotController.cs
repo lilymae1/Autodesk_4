@@ -47,10 +47,18 @@ namespace AutodeskRevitAPI.Controllers
                     if (apiResponse.IsSuccessStatusCode)
                     {
                         string jsonResponse = await apiResponse.Content.ReadAsStringAsync();
-                        // Log the API response for debugging
-                        Console.WriteLine("Response from Ollama:");
-                        Console.WriteLine(jsonResponse);
-                        return Ok(new { response = jsonResponse });
+                        var jsonDoc = JsonDocument.Parse(jsonResponse);
+
+                        // Make sure you're getting the AI's response, not the input
+                        if (jsonDoc.RootElement.TryGetProperty("response", out var responseElement))
+                        {
+                            string responseText = responseElement.GetString();
+                            return Ok(new { response = responseText });
+                        }
+                        else
+                        {
+                            return BadRequest("Invalid API response format.");
+                        }
                     }
                     else
                     {
