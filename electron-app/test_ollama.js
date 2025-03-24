@@ -2,7 +2,7 @@ const axios = require('axios');
 
 async function testModel(input) {
   try {
-    const response = await axios.post('http://127.0.0.1:11434', {
+    const response = await axios.post('http://127.0.0.1:5000', {
       question: input
     }, {
       headers: {

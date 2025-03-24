@@ -45,7 +45,7 @@ app.on('window-all-closed', () => {
 });
 
 // Handling messages from the UI and integrating with either Ollama API or your chatbot backend API
-ipcMain.on('chat-message', async (event, userInput, useOllama = true) => {
+ipcMain.on('chat-message', async (event, userInput, useOllama = false) => {
   console.log('User input:', userInput);
 
   try {

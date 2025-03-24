@@ -45,7 +45,7 @@ contextBridge.exposeInMainWorld('chatAPI', {
       
       if (useOllama) {
         // Use Ollama API
-        response = await fetch('http://localhost:11434/api/generate', {
+        response = await fetch('http://localhost:5000/api/generate', {
           method: 'POST',
           headers: { 
             'Content-Type': 'application/json',

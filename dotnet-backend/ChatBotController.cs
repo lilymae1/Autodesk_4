@@ -1,34 +1,8 @@
-// using Microsoft.AspNetCore.Mvc;
-
-// namespace AutodeskRevitAPI.Controllers
-// {
-//     [Route("api/[controller]")]
-//     [ApiController]
-//     public class ChatbotController : ControllerBase
-//     {
-//         [HttpPost("getResponse")]
-//         public IActionResult GetResponse([FromBody] ChatRequest request)
-//         {
-//             Console.WriteLine($"Received message: {request?.Message}"); // Log the received message
-
-//             if (request?.Message == null)
-//             {
-//                 return BadRequest(new { response = "Error: Message was null or empty." });
-//             }
-
-//             var response = $"You said: {request.Message}";
-//             Console.WriteLine($"Sending response: {response}"); // Log the response
-//             return Ok(new { response });
-//         }
-//     }
-
-//     public class ChatRequest
-//     {
-//         public string Message { get; set; }
-//     }
-// }
-
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using System.Net.Http;
+using System.Text.Json;
+using System.Text;
 
 namespace AutodeskRevitAPI.Controllers
 {
@@ -36,19 +10,60 @@ namespace AutodeskRevitAPI.Controllers
     [ApiController]
     public class ChatbotController : ControllerBase
     {
+        // POST method to get a response from the chatbot model
         [HttpPost("getResponse")]
-        public IActionResult GetResponse([FromBody] ChatRequest request)
+        public async Task<IActionResult> GetResponse([FromBody] ChatRequest request)
         {
-            Console.WriteLine($"Received message: {request?.Message}"); // Log the received message
+            // Log the incoming request message for debugging
+            Console.WriteLine($"Received request: {request?.Message}");
 
-            if (request?.Message == null)
+            // Check if the message is empty or null
+            if (string.IsNullOrWhiteSpace(request?.Message))
             {
                 return BadRequest(new { response = "Error: Message was null or empty." });
             }
 
-            var response = $"You said: {request.Message}";
-            Console.WriteLine($"Sending response: {response}"); // Log the response
-            return Ok(new { response });
+            // Assuming you want to interact with Ollama or another model:
+            string url = "http://localhost:11434/api/generate"; // Ollama API endpoint
+            string model = "revit/archiemodel"; // Change this to any model you want (like llama3, gemma, etc.)
+            
+            using (HttpClient client = new HttpClient())
+            {
+                var requestData = new
+                {
+                    model = model,
+                    prompt = request.Message, // Pass the message as the prompt
+                    stream = false  // Set to 'true' if you want streaming responses
+                };
+
+                string jsonRequest = JsonSerializer.Serialize(requestData);
+                var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+
+                try
+                {
+                    // Send the request to Ollama API
+                    HttpResponseMessage apiResponse = await client.PostAsync(url, content);
+
+                    if (apiResponse.IsSuccessStatusCode)
+                    {
+                        string jsonResponse = await apiResponse.Content.ReadAsStringAsync();
+                        // Log the API response for debugging
+                        Console.WriteLine("Response from Ollama:");
+                        Console.WriteLine(jsonResponse);
+                        return Ok(new { response = jsonResponse });
+                    }
+                    else
+                    {
+                        return StatusCode((int)apiResponse.StatusCode, new { response = "Error communicating with Ollama API." });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Log and return an internal error if something goes wrong
+                    Console.WriteLine($"Error: {ex.Message}");
+                    return StatusCode(500, new { response = "Internal server error." });
+                }
+            }
         }
     }
 
@@ -57,4 +72,3 @@ namespace AutodeskRevitAPI.Controllers
         public string Message { get; set; }
     }
 }
-
