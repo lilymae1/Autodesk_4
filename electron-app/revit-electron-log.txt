@@ -1,5 +1,10 @@
 Output:
 
+ðŸš€ Electron app starting...
+User input: You said: hi
+Chatbot API Response: You said: You said: hi
+User input: You said: hi
+Chatbot API Response: You said: You said: hi
 Electron app is ready
 
 
