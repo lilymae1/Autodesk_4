@@ -1,6 +1,8 @@
 {
   "devDependencies": {
-    "@actions/core": "^1.11.1"
+    "@actions/core": "^1.11.1",
+    "eslint": "^9.23.0",
+    "stylelint": "^16.16.0"
   },
   "scripts": {
     "lint:js": "eslint .",
