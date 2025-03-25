@@ -1,5 +1,9 @@
 {
   "devDependencies": {
     "@actions/core": "^1.11.1"
+  },
+  "scripts": {
+    "lint:js": "eslint .",
+    "lint:css": "stylelint '**/*.css'"
   }
 }

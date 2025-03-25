@@ -21,14 +21,14 @@ jobs:
               with:
                 node-version: 22.14
 
-            - name: Install dependancies
+            - name: Install dependencies
               run: npm ci
 
             - name: Run ESLint
-              run: npm run lint
+              run: npm run lint:js
             
             - name: Run Stylelint
-              run: npm run lint
+              run: npm run lint:css
 
             - name: Run tests
               run: npm test
