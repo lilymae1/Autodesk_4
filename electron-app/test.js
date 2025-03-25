@@ -6,7 +6,7 @@ const inputData = {
 };
 
 // Make sure to pass a valid URL and properly structure the fetch request
-const url = 'http://127.0.0.1:5000/api/ask.';  // Make sure this is the correct endpoint
+const url = 'http://127.0.0.1:3000/api/ask.';  // Make sure this is the correct endpoint
  // Ensure the URL is passed as a string
 
 // Use fetch with correct URL and request details
