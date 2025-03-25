@@ -46,9 +46,9 @@ jobs:
 
       - name: Start Electron app
         run: |
-          cd electron-app
-          npm run start & 
-          sleep 20
+            export ELECTRON_RUN_AS_NODE=true
+            cd electron-app
+            npm run start &
 
       - name: Run tests
         run: npm test
