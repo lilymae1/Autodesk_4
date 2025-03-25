@@ -26,7 +26,7 @@ jobs:
 
       - name: Start ollama
         run: |
-          $env:OLLAMA_HOST="127.0.0.1:3000"
+          export OLLAMA_HOST="127.0.0.1:5000"
           ollama serve &
           sleep 20
 
