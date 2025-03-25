@@ -1,0 +1,57 @@
+name: tests
+
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    branches:
+      - 'main'
+
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.14
+
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Install Ollama
+        run: curl -sSL https://ollama.com/install.sh | bash
+
+      - name: Install axios
+        run: npm install axios
+
+      - name: Set up .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.0'
+
+      - name: Start ollama
+        run: |
+          export OLLAMA_HOST="127.0.0.1:5000"
+          ollama serve &
+          sleep 20
+
+      - name: Start dotnet backend
+        run: |
+          cd dotnet-backend
+          dotnet run & 
+          sleep 20
+
+      - name: Start Electron app
+        run: |
+            export ELECTRON_RUN_AS_NODE=true
+            cd electron-app
+            npm run start &
+
+      - name: Run tests
+        run: npm test

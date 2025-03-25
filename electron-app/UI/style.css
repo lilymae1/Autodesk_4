@@ -672,7 +672,7 @@ section
   border: none;
 }
 
-#CN_d_input { /*Need to make text description go to top left not just left-->*/
+#CN_d_input { 
   float:right;
   width:300px;
   height:200px;
