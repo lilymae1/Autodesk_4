@@ -19,12 +19,12 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22.14
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Set Environment Variable and Start ollama
+      - name: Start ollama
         run: |
           export OLLAMA_HOST="127.0.0.1:3000"
           ollama serve &
@@ -32,16 +32,15 @@ jobs:
       - name: Start dotnet backend
         run: |
           cd dotnet-backend
-          dotnet run &
+          dotnet run & 
 
       - name: Start Electron app
         run: |
           cd electron-app
-          npm run start &
+          npm run start & 
 
-      - name: Wait for processes to finish
-        run: |
-          wait
+      - name: Wait
+        run: sleep 10  
 
       - name: Run tests
         run: npm test
