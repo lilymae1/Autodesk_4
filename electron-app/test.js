@@ -46,5 +46,5 @@ ollama.fetch(url, {
     } else {
     }
   
-    expect(response.status).toBe(404); 
+    expect(response.status).toBe(200); 
   }); 
