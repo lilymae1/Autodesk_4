@@ -30,7 +30,7 @@ ollama.fetch(url, {
   .then(data => {
   })
   .catch(error => {
-  });
+  }); 
   
   // TEST
   test('should fetch data successfully', async () => {
