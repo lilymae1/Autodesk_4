@@ -40,8 +40,10 @@ ollama.fetch(url, {
   
   // TEST
   test('should fetch data successfully', async () => {
-    const response = await fetch('http://localhost:5000/api');
-    
+    // Use environment variable or default to localhost:3000
+    const API_HOST = process.env.OLLAMA_HOST || 'http://127.0.0.1:3000';
+    const response = await fetch(`${API_HOST}/api`);
+  
     // Log the raw response
     console.log('Response Status:', response.status);
     console.log('Response Headers:', response.headers);
@@ -55,6 +57,6 @@ ollama.fetch(url, {
     } else {
       console.log('Response is not JSON:', await response.text());
     }
-      expect(response.status).toBe(404);  // Temp expectation
+  
+    expect(response.status).toBe(200); 
   });
-
