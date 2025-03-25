@@ -1,4 +1,5 @@
-import { defineConfig } from 'eslint';
+import pkg from 'eslint';
+const { defineConfig } = pkg;
 
 export default defineConfig({
   extends: ['eslint:recommended'],
