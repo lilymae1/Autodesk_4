@@ -40,7 +40,7 @@ ollama.fetch(url, {
   
   // TEST
   test('should fetch data successfully', async () => {
-    const response = await fetch('http://localhost:5000/api');
+    const response = await fetch('http://localhost:3000/api');
     
     // Log the raw response
     console.log('Response Status:', response.status);
