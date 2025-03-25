@@ -45,7 +45,7 @@ ollama.fetch(url, {
     const response = await fetch(`${API_HOST}/api`);
   
     // Log the raw response
-    console.log('Response Status:', response.status);
+    console.log('Response Status:', response.status); 
     console.log('Response Headers:', response.headers);
   
     // Check if the response is JSON before parsing
@@ -59,4 +59,4 @@ ollama.fetch(url, {
     }
   
     expect(response.status).toBe(200); 
-  });
+  }); 
