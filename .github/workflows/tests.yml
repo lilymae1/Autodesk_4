@@ -25,7 +25,7 @@ jobs:
             run: npm ci
 
           - name: Host
-            run: $env:OLLAMA_HOST="127.0.0.1:3000"
+            run: echo "OLLAMA_HOST=127.0.0.1:3000" >> $GITHUB_ENV
 
           - name: Run tests
             run: npm test
