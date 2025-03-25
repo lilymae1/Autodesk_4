@@ -1,3 +1,4 @@
+<!-- //Old Version
 <!DOCTYPE html>
 <html lang="en">
 
@@ -118,7 +119,358 @@
         </script>
         <div id="includedContent"></div>
     </footer>
+</html> -->
+
+
+<!-- Newer Version -->
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Create New Chat</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'Nav.html', true);
+        xhr.onload = function () {
+            if (xhr.status == 200) {
+                console.log("Nav.html loaded successfully");
+                $("#includedNavContent").html(xhr.responseText);
+            } else {
+                console.error("Error loading Nav.html: " + xhr.status);
+                $("#includedNavContent").html("Error loading Nav.html");
+            }
+        };
+        xhr.onerror = function () {
+            console.error("Request failed");
+            $("#includedNavContent").html("Error loading Nav.html");
+        };
+        xhr.send();
+
+        $(document).ready(function () {
+            $("#top_check").change(function () {
+                $("#createnew_ChatboxDescription").toggle(this.checked);
+            });
+
+            $("#bottom_check").change(function () {
+                $("#choose_project").toggle(this.checked);
+            });
+
+            // Select Existing Project
+            $("#ChooseProject_Done_button").click(function (event) {
+                event.preventDefault();
+                var selectedProject = $("#CP_c_input").val();
+
+                $.ajax({
+                    url: "http://localhost:5000/api/chat/create-chatbox",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({ projectName: selectedProject }),
+                    success: function (response) {
+                        alert("Chatbox Created: " + response.message);
+                        window.location.href = "ExistingProjectPage.html";
+                    },
+                    error: function () {
+                        alert("Error creating chatbox.");
+                    }
+                });
+            });
+
+            // Load Projects
+            function loadProjects() {
+                $.ajax({
+                    url: "http://localhost:5000/api/chat/projects",
+                    type: "GET",
+                    success: function (data) {
+                        var projectList = $("#PreviousProjects_scroll");
+                        projectList.empty();
+                        data.forEach(function (project) {
+                            projectList.append('<br><a href="#" onclick="selectProject(\'' + project.Name + '\', \'' + project.Description + '\')">' + project.Name + ' (' + project.Description + ')</a><br>');
+                        });
+                    }
+                });
+            }
+
+            // Set selected project and update name/description fields
+            function selectProject(name, description) {
+                $("#CP_c_input").val(name);
+                $("#CP_d_input").val(description);
+
+                // If there's no description, allow user to edit
+                if (!description) {
+                    $("#CP_d_input").prop('disabled', false); // Enable the description input if no data
+                } else {
+                    $("#CP_d_input").prop('disabled', true); // Disable description if data exists
+                }
+
+                alert("Project " + name + " selected.");
+            }
+
+            loadProjects();  // Call to load existing projects
+        });
+    </script>
+</head>
+
+<body>
+    <div id="includedNavContent"></div>
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <div class="NewChatBox-Container">
+        <div id="create_new_leftdiv">
+            <div id="create_ChatboxChoice">
+                <div id="CreateNewChat">
+                    <h1 id="CreateNewChat-Title"> Create New Chatbox:</h1>
+                </div>
+                <div id="checkbox_container">
+                    <div id="CreateNProj">
+                        <input type="checkbox" id="top_check">Create new project</input>
+                    </div>
+
+                    <div id="ImportNProj">
+                        <input type="checkbox" id="bottom_check">Import existing project</input>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="create_new_rightdiv">
+            <div id="createnew_ChatboxDescription" style="display: none;">
+                <form>
+                    <input id="CN_c_input" placeholder="Name..">
+                    <input id="CN_d_input" placeholder="Description">
+                    <input id="CreateNewChat_Done_button" type="Submit" value="Done">
+                </form>
+            </div>
+
+            <div id="choose_project" style="display: none;">
+                <form>
+                    <input id="CP_c_input" placeholder="Name..">
+                    <input id="CP_d_input" placeholder="Description">
+                    <div id="PreviousProjects_scroll">
+                        <!- Loaded Projects will be here -->
+                         <!--
+                    </div>
+                    <input id="ChooseProject_Done_button" type="Submit" value="Done">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <script>
+            var xhr1 = new XMLHttpRequest();
+            xhr1.open('GET', 'Footer.html', true);
+            xhr1.onload = function () {
+                if (xhr1.status == 200) {
+                    console.log("footer.html loaded successfully");
+                    $("#includedContent").html(xhr1.responseText);
+                } else {
+                    console.error("Error loading footer.html: " + xhr1.status);
+                    $("#includedContent").html("Error loading footer.html");
+                }
+            };
+            xhr1.onerror = function () {
+                console.error("Request failed");
+                $("#includedContent").html("Error loading footer.html");
+            };
+            xhr1.send();
+        </script>
+        <div id="includedContent"></div>
+    </footer>
+</body>
+
+</html> -->
+
+<!-- Newest Version -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Create New Chat</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        // Load Navigation
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'Nav.html', true);
+        xhr.onload = function () {
+            if (xhr.status == 200) {
+                console.log("Nav.html loaded successfully");
+                $("#includedNavContent").html(xhr.responseText);
+            } else {
+                console.error("Error loading Nav.html: " + xhr.status);
+                $("#includedNavContent").html("Error loading Nav.html");
+            }
+        };
+        xhr.onerror = function () {
+            console.error("Request failed");
+            $("#includedNavContent").html("Error loading Nav.html");
+        };
+        xhr.send();
+
+        // Temporary Fix - toggle visibility of descriptions based on checkbox states
+        $(document).ready(function () {
+            $("#top_check").change(function () {
+                $("#createnew_ChatboxDescription").toggle(this.checked);
+            });
+
+            $("#bottom_check").change(function () {
+                $("#choose_project").toggle(this.checked);
+            });
+
+            // Select Existing Project
+            $("#ChooseProject_Done_button").click(function (event) {
+                event.preventDefault();
+                var selectedProject = $("#CP_c_input").val();
+
+                $.ajax({
+                    url: "http://localhost:5000/api/chat/create-chatbox",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({ projectName: selectedProject }),
+                    success: function (response) {
+                        alert("Chatbox Created: " + response.message);
+                        window.location.href = "ExistingProjectPage.html";  // Redirect to another page
+                    },
+                    error: function () {
+                        alert("Error creating chatbox.");
+                    }
+                });
+            });
+
+            // Create New Project
+            $("#CreateNewChat_Done_button").click(function (event) {
+                event.preventDefault();
+                var name = $("#CN_c_input").val();
+                var description = $("#CN_d_input").val();
+
+                $.ajax({
+                    url: "http://localhost:5000/api/chat/create-project",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({ name: name, description: description }),
+                    success: function (response) {
+                        alert("Project Created: " + response.message);
+                        window.location.reload();  // Reload the page to reflect the new project
+                    },
+                    error: function () {
+                        alert("Error creating project.");
+                    }
+                });
+            });
+
+            // Load Existing Projects
+            function loadProjects() {
+                $.ajax({
+                    url: "http://localhost:5000/api/chat/projects",
+                    type: "GET",
+                    success: function (data) {
+                        var projectList = $("#PreviousProjects_scroll");
+                        projectList.empty();
+                        data.forEach(function (project) {
+                            projectList.append('<br><a href="#" onclick="selectProject(\'' + project.Name + '\', \'' + project.Description + '\')">' + project.Name + ' (' + project.Description + ')</a><br>');
+                        });
+                    }
+                });
+            }
+
+            // Set selected project and update name/description fields
+            function selectProject(name, description) {
+                $("#CP_c_input").val(name);
+                $("#CP_d_input").val(description);
+
+                if (!description) {
+                    $("#CP_d_input").prop('disabled', false); // Enable description if empty
+                } else {
+                    $("#CP_d_input").prop('disabled', true); // Disable description if data exists
+                }
+
+                alert("Project " + name + " selected.");
+            }
+
+            loadProjects();  // Call to load existing projects
+        });
+    </script>
+</head>
+
+<body>
+    <div id="includedNavContent"></div>
+
+    <div class="NewChatBox-Container">
+        <div id="create_new_leftdiv">
+            <div id="create_ChatboxChoice">
+                <div id="CreateNewChat">
+                    <h1>Create New Chatbox:</h1>
+                </div>
+
+                <div id="checkbox_container">
+                    <div id="CreateNProj">
+                        <input type="checkbox" id="top_check">Create new project</input>
+                    </div>
+
+                    <div id="ImportNProj">
+                        <input type="checkbox" id="bottom_check">Import existing project</input>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="create_new_rightdiv">
+            <div id="createnew_ChatboxDescription" style="display: none;">
+                <form>
+                    <input id="CN_c_input" placeholder="Name..">
+                    <input id="CN_d_input" placeholder="Description">
+                    <input id="CreateNewChat_Done_button" type="Submit" value="Done">
+                </form>
+            </div>
+
+            <div id="choose_project" style="display: none;">
+                <form>
+                    <input id="CP_c_input" placeholder="Name..">
+                    <input id="CP_d_input" placeholder="Description">
+                    <div id="PreviousProjects_scroll">
+                        <!-- Loaded Projects will be here -->
+                    </div>
+                    <input id="ChooseProject_Done_button" type="Submit" value="Done">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <script>
+            var xhr1 = new XMLHttpRequest();
+            xhr1.open('GET', 'Footer.html', true);
+            xhr1.onload = function () {
+                if (xhr1.status == 200) {
+                    console.log("footer.html loaded successfully");
+                    $("#includedContent").html(xhr1.responseText);
+                } else {
+                    console.error("Error loading footer.html: " + xhr1.status);
+                    $("#includedContent").html("Error loading footer.html");
+                }
+            };
+            xhr1.onerror = function () {
+                console.error("Request failed");
+                $("#includedContent").html("Error loading footer.html");
+            };
+            xhr1.send();
+        </script>
+        <div id="includedContent"></div>
+    </footer>
+</body>
+
 </html>
 
+<!-- // Brief Description:
+//Create New Project: When the user selects "Create new project" and fills out the form, 
+//the project is created using the /create-project API. 
+The project info (name and description) is stored in the info.json file.
+// Import Existing Project: When a project is selected from the list, the user can edit the description. 
+Upon clicking "Done," a new chatbox file is created using the /create-chatbox API.
+//Appended Chat Logs: The API handles appending new chat logs by renaming old ones with timestamps and creating new ones. 
+//Create New Project: When the user clicks "Done" after entering the name and description for a new project, it triggers the API to create the new project.
 
-
+Import Existing Project: When the user clicks "Done" for an existing project, 
+it triggers the API to create a new chatbox for that project. 
+If the project is selected and the description is editable, it enables the description field.
+-->
