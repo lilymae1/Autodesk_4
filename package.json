@@ -5,10 +5,12 @@
     "eslint": "^9.23.0",
     "jest": "^29.4.0",
     "ollama": "^0.5.14",
-    "stylelint": "^16.16.0"
+    "stylelint": "^16.16.0",
+    "axios": "^1.8.4"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "electron ."
   },
   "dependencies": {
     "axios": "^1.8.4"

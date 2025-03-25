@@ -44,18 +44,12 @@ ollama.fetch(url, {
     const API_HOST = process.env.OLLAMA_HOST || 'http://127.0.0.1:5000';
     const response = await fetch(`${API_HOST}/api`);
   
-    // Log the raw response
-    console.log('Response Status:', response.status); 
-    console.log('Response Headers:', response.headers);
-  
     // Check if the response is JSON before parsing
     const contentType = response.headers.get('Content-Type');
     
     if (contentType && contentType.includes('application/json')) {
       const data = await response.json();
-      console.log('Response Data:', data);
     } else {
-      console.log('Response is not JSON:', await response.text());
     }
   
     expect(response.status).toBe(404); 
