@@ -26,21 +26,21 @@ jobs:
 
       - name: Start ollama
         run: |
-          export OLLAMA_HOST="127.0.0.1:3000"
+          export OLLAMA_HOST="127.0.0.1:5000"
           ollama serve &
+          sleep 20
 
       - name: Start dotnet backend
         run: |
           cd dotnet-backend
           dotnet run & 
+          sleep 20
 
       - name: Start Electron app
         run: |
           cd electron-app
           npm run start & 
-
-      - name: Wait
-        run: sleep 10  
+          sleep 20
 
       - name: Run tests
         run: npm test
