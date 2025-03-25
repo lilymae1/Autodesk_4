@@ -25,10 +25,11 @@ namespace AutodeskRevitAPI.Controllers
 
             // Assuming you want to interact with Ollama or another model:
             string url = "http://localhost:11434/api/generate"; // Ollama API endpoint
-            string model = "revit/archiemodel"; // Change this to any model you want (like llama3, gemma, etc.)
+            string model = "revit/archiemodel"; // Change this to any model you want
             
             using (HttpClient client = new HttpClient())
             {
+                client.Timeout = new TimeSpan(0,5,0);//sets timeout (hours,mins,secs)
                 var requestData = new
                 {
                     model = model,
