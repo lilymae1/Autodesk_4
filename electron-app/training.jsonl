@@ -1,0 +1,72 @@
+{
+    "action": "CreateWall",
+    "parameters": {
+        "startPoint": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "endPoint": {
+            "x": 10.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "height": 10.0,
+        "wallTypeName": "Basic Wall",
+        "levelName": "Level 1"
+    }
+}
+
+{
+    "action": "ModifyWallHeights",
+    "parameters": {
+        "newHeight": 12.0
+    }
+}
+
+{
+    "action": "ChangeViewType",
+    "parameters": {
+        "viewId": "view-id-123",  // This could be the ID or a specific identifier for the view
+        "newViewType": "Floor Plan"
+    }
+}
+
+{
+    "action": "RotateCamera",
+    "parameters": {
+        "viewId": "view-id-456",  // The 3D view ID to rotate
+        "angleInDegrees": 45.0   // The angle to rotate the camera
+    }
+}
+
+{
+    "action": "DeleteWall",
+    "parameters": {
+        "wallId": "wall-id-123"
+    }
+}
+
+{
+    "action": "MoveCamera",
+    "parameters": {
+        "viewId": "view-id-456",  
+        "eyePosition": {
+            "x": 10.0,
+            "y": 15.0,
+            "z": 20.0
+        },
+        "targetPosition": {
+            "x": 5.0,
+            "y": 5.0,
+            "z": 0.0
+        }
+    }
+}
+
+{
+    "action": "ChangeWallWidth",
+    "parameters": {
+        "newWidth": 5.0
+    }
+}
