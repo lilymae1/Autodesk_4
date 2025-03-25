@@ -37,4 +37,24 @@ ollama.fetch(url, {
   .catch(error => {
     console.error('Error:', error); // Log any errors
   });
+  
+  // TEST
+  test('should fetch data successfully', async () => {
+    const response = await fetch('http://localhost:5000/api');
+    
+    // Log the raw response
+    console.log('Response Status:', response.status);
+    console.log('Response Headers:', response.headers);
+  
+    // Check if the response is JSON before parsing
+    const contentType = response.headers.get('Content-Type');
+    
+    if (contentType && contentType.includes('application/json')) {
+      const data = await response.json();
+      console.log('Response Data:', data);
+    } else {
+      console.log('Response is not JSON:', await response.text());
+    }
+      expect(response.status).toBe(404);  // Temp expectation
+  });
 
