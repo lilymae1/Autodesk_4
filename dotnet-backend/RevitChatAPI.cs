@@ -9,10 +9,12 @@ using Newtonsoft.Json;
 [Route("api/chat")]
 public class RevitChatAPI : ControllerBase
 {
-    private static readonly string BaseDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RevitChatProjects");
+    // Define the base directory for project storage
+    private static readonly string BaseDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Roaming", "Autodesk", "Revit", "Addins", "ChatProjects");
 
     public RevitChatAPI()
     {
+        // Ensure the directory exists for saving projects
         if (!Directory.Exists(BaseDirectory))
             Directory.CreateDirectory(BaseDirectory);
     }
@@ -129,12 +131,14 @@ public class RevitChatAPI : ControllerBase
         return "No description available.";
     }
 
+    // Project model for request/response
     public class ProjectModel
     {
         public string Name { get; set; }
         public string Description { get; set; }
     }
 
+    // Request model for creating a chatbox
     public class ChatboxRequest
     {
         public string ProjectName { get; set; }
