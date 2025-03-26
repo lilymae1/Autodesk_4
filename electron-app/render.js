@@ -90,39 +90,6 @@ function send_message(event) {
     messageInput.value = ""; // Clear the input field after sending
 }
 
-// Function to parse user input into command format
-function parseCommand(input) {
-    let command = null;
-    if (input.toLowerCase().includes('create a wall')) {
-        let heightMatch = input.match(/height of (\d+(\.\d+)?)\s*meters?/i);
-        if (heightMatch) {
-            command = {
-                command: "CreateWall",
-                parameters: {
-                    height: parseFloat(heightMatch[1]), // Extract height from user input
-                    wallType: "Default",  // Set the default wall type
-                    referencePlane: "",   // Default reference plane
-                    locationLine: [],     // Default location line (empty)
-                    level: ""             // Default level (empty)
-                }
-            };
-        } else {
-            command = {
-                command: "CreateWall",
-                parameters: {
-                    height: 10,  // Default height if not specified
-                    wallType: "Default",
-                    referencePlane: "",
-                    locationLine: [],
-                    level: ""
-                }
-            };
-        }
-    }
-    return command;
-}
-
-
 // Handle bot response from Electron
 function archie_message() {
     if (window.chatAPI) {
@@ -179,4 +146,3 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("chatAPI is undefined");
     }
 });
-

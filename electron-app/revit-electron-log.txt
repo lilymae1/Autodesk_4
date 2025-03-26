@@ -1,12 +1,20 @@
 Output:
 
+ðŸš€ Electron app starting...
+User input: You said: hi
+Chatbot API Response: You said: You said: hi
+User input: You said: hi
+Chatbot API Response: You said: You said: hi
 Electron app is ready
-User input: hello
-Simulated Chatbot API Response: {
-  command: 'CreateWall',
-  parameters: { height: 10, wallType: 'Default' }
-}
-Detected Revit Command! Forwarding to Revit API...
 
 
 Error:
+[7940:0324/133934.961:ERROR:cache_util_win.cc(20)] Unable to move the cache: Access is denied. (0x5)
+[7940:0324/133934.961:ERROR:cache_util_win.cc(20)] Unable to move the cache: Access is denied. (0x5)
+[7940:0324/133934.961:ERROR:cache_util_win.cc(20)] Unable to move the cache: Access is denied. (0x5)
+[7940:0324/133934.961:ERROR:disk_cache.cc(216)] Unable to create cache
+[7940:0324/133934.961:ERROR:gpu_disk_cache.cc(711)] Gpu Cache Creation failed: -2
+[7940:0324/133934.961:ERROR:disk_cache.cc(216)] Unable to create cache
+[7940:0324/133934.961:ERROR:gpu_disk_cache.cc(711)] Gpu Cache Creation failed: -2
+[7940:0324/133934.961:ERROR:disk_cache.cc(216)] Unable to create cache
+[7940:0324/133934.961:ERROR:gpu_disk_cache.cc(711)] Gpu Cache Creation failed: -2

@@ -1,6 +1,4 @@
 using System;
-using System.Net.Http;
-using System.Threading.Tasks;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
@@ -11,8 +9,6 @@ namespace RevitChatBotPrototype1
     // Command that button will perform to open chatbot window and handle Revit model changes
     public class ChatBotCommand : IExternalCommand
     {
-        private static readonly HttpClient client = new HttpClient();
-
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             try
@@ -21,7 +17,7 @@ namespace RevitChatBotPrototype1
                 StartElectronApp.StartElectron();
 
                 // Step 2: Simulate getting a response from the chatbot
-                string chatbotResponse = GetChatbotResponse().Result;
+                string chatbotResponse = GetChatbotResponse();
 
                 // Step 3: Parse the chatbot response and trigger the corresponding action
                 string command = ParseChatbotResponse(chatbotResponse);
@@ -40,28 +36,11 @@ namespace RevitChatBotPrototype1
         }
 
         // Step 1: Simulate receiving a response from the chatbot (in a real scenario, this would be dynamic)
-        private async Task<string> GetChatbotResponse()
+        private string GetChatbotResponse()
         {
-            try
-            {
-                // Set the timeout for the HTTP client (5 minutes)
-                client.Timeout = new TimeSpan(0, 5, 0);
-
-                // Assuming you're making an HTTP request to get the response from the chatbot
-                var response = await client.GetStringAsync("http://localhost:5000/api/chatbot/getResponse");
-
-                return response;
-            }
-            catch (TaskCanceledException)
-            {
-                // Handle timeout
-                return "Request timed out.";
-            }
-            catch (Exception ex)
-            {
-                // Handle other errors
-                return $"Error: {ex.Message}";
-            }
+            // For this example, the chatbot response is hardcoded.
+            // In a real-world scenario, this would come from the Electron app.
+            return "CreateWall";
         }
 
         // Step 2: Parse the chatbot response to determine the command
@@ -113,4 +92,3 @@ namespace RevitChatBotPrototype1
         }
     }
 }
-

@@ -47,37 +47,27 @@ ipcMain.on('chat-message', async (event, userInput) => {
   console.log('User input:', userInput);
 
   try {
-    // Simulate the response (for testing purposes)
-   
+    let response = await axios.post('http://localhost:5000/api/chatbot/getResponse', {
+        message: userInput
+      });
 
-    // Check if the response contains the "CreateWall" command
-    if (response.data.command && response.data.command === "CreateWall") {
-      // If the response contains the "CreateWall" command, forward it for execution
+    console.log('Chatbot API Response:', response.data);
+
+    if (response.data.RevitCommand) {
+      // If response contains a Revit command, forward it for execution
       console.log('Detected Revit Command! Forwarding to Revit API...');
-      
-      // Construct the Revit command with parameters
-      const revitCommand = {
-        type: "createWall",
-        parameters: response.data.parameters // Pass parameters directly
-      };
-
-      // Send a response to the UI to indicate the command is being executed
       event.reply('chat-response', "Executing Revit command...");
-
-      // Forward the command to the Revit API for execution
-      ipcMain.emit('execute-revit-command', null, revitCommand);
+      ipcMain.emit('execute-revit-command', null, response.data.RevitCommand);
     } else {
-      // If the response does not contain a Revit command, just send the response to the UI
+      // Otherwise, send the natural language response to the UI
       event.reply('chat-response', response.data.response);
     }
-
+  
   } catch (error) {
-    // Log any errors that occur during the API call
     console.error('Error communicating with API:', error);
     event.reply('chat-response', 'Error: Unable to process your request.');
   }
 });
-
 
 // Handling structured Revit commands and sending them to the Revit API
 ipcMain.on('execute-revit-command', async (event, revitCommand) => {
