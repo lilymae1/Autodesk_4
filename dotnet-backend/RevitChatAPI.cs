@@ -8,38 +8,54 @@ namespace RevitChatAPI.Controllers
     [ApiController]
     public class ProjectController : ControllerBase
     {
+        // POST method to create a new project
         [HttpPost]
         public IActionResult CreateProject([FromBody] Project project)
         {
+            // Define the directory path where the project will be stored
             string projectDirectory = Path.Combine("C:", "RevitChatProjects", project.ProjectId.ToString());
 
+            // Check if the project directory already exists
             if (Directory.Exists(projectDirectory))
             {
                 return BadRequest("Project already exists.");
             }
 
+            // Create the project directory
             Directory.CreateDirectory(projectDirectory);
-            string projectFile = Path.Combine(projectDirectory, "project.json");
-            File.WriteAllText(projectFile, JsonConvert.SerializeObject(project));
 
+            // Define the path for the project JSON file
+            string projectFile = Path.Combine(projectDirectory, "project.json");
+
+            // Write the project data to a JSON file using System.IO.File.WriteAllText
+            System.IO.File.WriteAllText(projectFile, JsonConvert.SerializeObject(project));
+
+            // Return the created project as a response
             return CreatedAtAction(nameof(GetProjectById), new { id = project.ProjectId }, project);
         }
 
+        // GET method to retrieve a project by its ID
         [HttpGet("{id}")]
         public IActionResult GetProjectById(int id)
         {
+            // Define the path to the project JSON file
             string projectFile = Path.Combine("C:", "RevitChatProjects", id.ToString(), "project.json");
 
+            // Check if the project file exists
             if (!System.IO.File.Exists(projectFile))
             {
                 return NotFound();
             }
 
+            // Read the project data from the JSON file and deserialize it
             var project = JsonConvert.DeserializeObject<Project>(System.IO.File.ReadAllText(projectFile));
+
+            // Return the project data as a response
             return Ok(project);
         }
     }
 
+    // Project model class to represent project data
     public class Project
     {
         public int ProjectId { get; set; }

@@ -2,12 +2,14 @@ using System;
 using Autodesk.Revit.UI;
 using System.Net.Http;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using RevitChatAPI.Controllers;
 
 namespace RevitChatAddin
 {
     public class RevitAddin : IExternalApplication
     {
-        public Result OnStartup(UIApplication app)
+        public Result OnStartup(UIControlledApplication app)
         {
             TaskDialog.Show("Revit Add-In", "Revit Add-In has started!");
 
@@ -18,7 +20,7 @@ namespace RevitChatAddin
             return Result.Succeeded;
         }
 
-        public Result OnShutdown(UIApplication app)
+        public Result OnShutdown(UIControlledApplication app)
         {
             return Result.Succeeded;
         }
