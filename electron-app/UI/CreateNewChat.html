@@ -69,7 +69,7 @@
                             console.log("Loaded project:", project);
                             const projectName = project.Name || "Unnamed Project";
                             const projectDesc = project.Description || "No description";
-                            projectList.append(`<br><a href="#" onclick="selectProject('${projectName}', '${projectDesc}')">${projectName} (${projectDesc})</a><br>`);
+                            projectList.append(`<br><a href="#" onclick="selectProject('${project.Name}', '${project.Description}')">${projectName} (${projectDesc})</a><br>`);
                         });
                     },
                     error: function () {
@@ -78,7 +78,7 @@
                 });
             }
 
-            // Select Existing Project
+            // Select Existing Project and enable editing
             window.selectProject = function (name, description) {
                 console.log("Project selected:", name, description);
 
@@ -88,21 +88,23 @@
                 alert("Project " + name + " selected. You can now edit the name and description.");
             }
 
+            // Save edited project (for existing project)
             $("#ChooseProject_Done_button").click(function (event) {
                 event.preventDefault();
-                var selectedProject = $("#CP_c_input").val();
+                var name = $("#CP_c_input").val();
+                var description = $("#CP_d_input").val();
 
                 $.ajax({
-                    url: "http://localhost:5000/api/chat/create-chatbox",
+                    url: "http://localhost:5000/api/chat/update-project", // Update endpoint
                     type: "POST",
                     contentType: "application/json",
-                    data: JSON.stringify({ projectName: selectedProject }),
+                    data: JSON.stringify({ name: name, description: description }),
                     success: function (response) {
-                        alert("Chatbox Created: " + response.message);
-                        window.location.href = "ExistingProjectPage.html";
+                        alert("Project updated: " + response.message);
+                        window.location.reload(); // Reload page after update
                     },
                     error: function () {
-                        alert("Error creating chatbox.");
+                        alert("Error updating project.");
                     }
                 });
             });

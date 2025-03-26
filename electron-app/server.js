@@ -109,8 +109,31 @@ app.get("/api/chat/projects", (req, res) => {
     }
 });
 
-// Other endpoints...
+// Update project details (name and description)
+app.post("/api/chat/update-project", (req, res) => {
+    const { name, description } = req.body;
 
-// Start server
+    if (!name) {
+        return res.status(400).json({ error: "Project name is required" });
+    }
+
+    let projects = loadProjects();
+
+    const projectIndex = projects.findIndex(project => project.Name === name);
+    if (projectIndex === -1) {
+        return res.status(404).json({ error: "Project not found" });
+    }
+
+    // Update project description
+    projects[projectIndex].Description = description;
+
+    if (!saveProjects(projects)) {
+        return res.status(500).json({ error: "Failed to save project metadata" });
+    }
+
+    res.json({ message: "Project updated successfully", project: projects[projectIndex] });
+});
+
+// Start the server
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

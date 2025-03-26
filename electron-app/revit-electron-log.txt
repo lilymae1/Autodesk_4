@@ -4,12 +4,3 @@ Electron app is ready
 
 
 Error:
-[16580:0326/085557.358:ERROR:cache_util_win.cc(20)] Unable to move the cache: Access is denied. (0x5)
-[16580:0326/085557.358:ERROR:cache_util_win.cc(20)] Unable to move the cache: Access is denied. (0x5)
-[16580:0326/085557.359:ERROR:cache_util_win.cc(20)] Unable to move the cache: Access is denied. (0x5)
-[16580:0326/085557.365:ERROR:disk_cache.cc(216)] Unable to create cache
-[16580:0326/085557.365:ERROR:gpu_disk_cache.cc(711)] Gpu Cache Creation failed: -2
-[16580:0326/085557.365:ERROR:disk_cache.cc(216)] Unable to create cache
-[16580:0326/085557.365:ERROR:gpu_disk_cache.cc(711)] Gpu Cache Creation failed: -2
-[16580:0326/085557.365:ERROR:disk_cache.cc(216)] Unable to create cache
-[16580:0326/085557.365:ERROR:gpu_disk_cache.cc(711)] Gpu Cache Creation failed: -2

@@ -11,13 +11,15 @@ namespace AutodeskRevitAPI.Controllers
     [ApiController]
     public class ChatbotController : ControllerBase
     {
-        private readonly HttpClient _httpClient = new HttpClient();
+        private HttpClient _httpClient = new HttpClient();
         private const string OLLAMA_API_URL = "http://localhost:11434/api/generate"; // Ollama API endpoint
         private const string REVIT_API_URL = "http://localhost:5000/api/revit/execute"; // Revit API endpoint
 
         [HttpPost("getResponse")]
         public async Task<IActionResult> GetResponse([FromBody] ChatRequest request)
         {
+            _httpClient.Timeout = new TimeSpan(0,5,0);//sets timeout (hours,mins,secs) not sure if this has worked but we movin
+
             Console.WriteLine($"Received request: {request?.Message}");
 
             if (string.IsNullOrWhiteSpace(request?.Message))

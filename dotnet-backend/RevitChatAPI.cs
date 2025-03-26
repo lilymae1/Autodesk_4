@@ -1,12 +1,3 @@
-//Updated Version:
-//New Project Creation (POST /create-project): 
-// It creates a new folder for the project and stores the project details (name, description) in the info.json file.
-//Existing Project Listing (GET /projects): 
-// It loads all existing projects, reads the project descriptions from the info.json file, and returns them.
-// Create Chatbox (POST /create-chatbox): 
-// It creates a new chatbox file (Chat_YYYYMMDD_HHMMSS.txt) for the selected project. 
-// It also archives the previous chatbox file if one exists.
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -85,6 +76,38 @@ public class RevitChatAPI : ControllerBase
         System.IO.File.WriteAllText(newChatPath, ""); // Start with an empty file
 
         return Ok(new { message = "New chatbox created.", newChatPath });
+    }
+
+    // Endpoint to update project description
+    [HttpPost("update-project")]
+    public IActionResult UpdateProject([FromBody] ProjectModel project)
+    {
+        if (string.IsNullOrWhiteSpace(project.Name))
+            return BadRequest("Project name cannot be empty.");
+
+        string projectPath = Path.Combine(BaseDirectory, project.Name);
+        if (!Directory.Exists(projectPath))
+            return NotFound("Project not found.");
+
+        // Load and update project info
+        string infoPath = Path.Combine(projectPath, "info.json");
+        if (!System.IO.File.Exists(infoPath))
+            return NotFound("Project info file not found.");
+
+        try
+        {
+            var existingProject = JsonConvert.DeserializeObject<ProjectModel>(System.IO.File.ReadAllText(infoPath));
+            existingProject.Description = project.Description;
+
+            // Save updated description to the info.json file
+            System.IO.File.WriteAllText(infoPath, JsonConvert.SerializeObject(existingProject));
+
+            return Ok(new { message = "Project updated successfully." });
+        }
+        catch (Exception)
+        {
+            return StatusCode(500, "Error updating project.");
+        }
     }
 
     // Load project description from its info.json file
