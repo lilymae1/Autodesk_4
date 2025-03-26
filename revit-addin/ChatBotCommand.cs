@@ -15,6 +15,7 @@ namespace RevitChatBotPrototype1
             {
                 // Step 1: Start the Electron app to open the chatbot
                 StartElectronApp.StartElectron();
+<<<<<<< Updated upstream
 
                 // Step 2: Simulate getting a response from the chatbot
                 string chatbotResponse = GetChatbotResponse();
@@ -24,17 +25,28 @@ namespace RevitChatBotPrototype1
 
                 // Step 4: Handle the parsed command and perform corresponding Revit action
                 HandleRevitCommand(commandData.Application, command);
+=======
+                
+                // Extract thumbnails
+                Thumbnails thumbnailExtractor = new Thumbnails();
+                thumbnailExtractor.ExtractThumbnails(commandData.Application);
+>>>>>>> Stashed changes
 
                 return Result.Succeeded;
             }
             catch (Exception ex)
             {
                 // Handle errors gracefully
+<<<<<<< Updated upstream
                 message = "Failed to execute command: " + ex.Message;
+=======
+                message = "Failed to start Electron app or extract thumbnails: " + ex.Message;
+>>>>>>> Stashed changes
                 return Result.Failed;
             }
         }
 
+<<<<<<< Updated upstream
         // Step 1: Simulate receiving a response from the chatbot (in a real scenario, this would be dynamic)
         private string GetChatbotResponse()
         {
@@ -90,5 +102,7 @@ namespace RevitChatBotPrototype1
                     break;
             }
         }
+=======
+>>>>>>> Stashed changes
     }
 }

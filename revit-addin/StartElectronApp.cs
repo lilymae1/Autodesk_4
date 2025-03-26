@@ -129,5 +129,6 @@ public class StartElectronApp
             writer.WriteLine($"{DateTime.Now}: {message}");
         }
     }
+    
 }
 
