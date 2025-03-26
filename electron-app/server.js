@@ -9,51 +9,45 @@ app.use(express.json());
 app.use(cors());
 
 // Define paths
-const ELECTRON_APP_PATH = path.join(__dirname); // Electron app root
 const REVIT_APPDATA_PATH = path.join(os.homedir(), "AppData", "Roaming", "Autodesk", "Revit", "Addins", "ChatProjects");
 const PROJECTS_FILE = path.join(REVIT_APPDATA_PATH, "projects.json");
-const CHAT_LOG_FILE = path.join(ELECTRON_APP_PATH, "chat_log.txt");
 
-// Ensure the Revit AppData directory exists
-if (!fs.existsSync(REVIT_APPDATA_PATH)) {
-    fs.mkdirSync(REVIT_APPDATA_PATH, { recursive: true });
-}
-
-// Ensure projects.json exists
-if (!fs.existsSync(PROJECTS_FILE)) {
-    fs.writeFileSync(PROJECTS_FILE, "[]", "utf8");
-}
-
-// Append message to chat log
-app.post("/saveMessage", (req, res) => {
-    const { message } = req.body;
-
-    if (!message) {
-        return res.status(400).json({ error: "Message is required" });
+// Ensure necessary directories exist
+try {
+    if (!fs.existsSync(REVIT_APPDATA_PATH)) {
+        fs.mkdirSync(REVIT_APPDATA_PATH, { recursive: true });
     }
 
-    const timestamp = new Date().toISOString();
-    const logEntry = `${timestamp}: ${message}\n`;
+    if (!fs.existsSync(PROJECTS_FILE)) {
+        fs.writeFileSync(PROJECTS_FILE, "[]", { encoding: "utf8", flag: "wx" }); // 'wx' prevents overwriting if it exists
+    }
+} catch (error) {
+    console.error("Error initializing project directory or file:", error);
+}
 
-    fs.appendFile(CHAT_LOG_FILE, logEntry, (err) => {
-        if (err) {
-            return res.status(500).json({ error: "Failed to save message" });
-        }
-        res.json({ success: true });
-    });
-});
+// Utility function to load projects from file
+const loadProjects = () => {
+    try {
+        const data = fs.readFileSync(PROJECTS_FILE, "utf8");
+        return JSON.parse(data) || []; // If file is empty, return an empty array
+    } catch (error) {
+        console.error("Error loading projects.json:", error);
+        return [];
+    }
+};
 
-// Retrieve chat log
-app.get("/getChatLog", (req, res) => {
-    fs.readFile(CHAT_LOG_FILE, "utf8", (err, data) => {
-        if (err) {
-            return res.status(500).json({ error: "Failed to load chat log" });
-        }
-        res.json({ chatLog: data });
-    });
-});
+// Utility function to save projects to file
+const saveProjects = (projects) => {
+    try {
+        fs.writeFileSync(PROJECTS_FILE, JSON.stringify(projects, null, 2), "utf8");
+        return true;
+    } catch (error) {
+        console.error("Error saving projects.json:", error);
+        return false;
+    }
+};
 
-// Create a new project and save it in Revit's AppData
+// Create a new project
 app.post("/api/chat/create-project", (req, res) => {
     const { name, description } = req.body;
 
@@ -62,46 +56,52 @@ app.post("/api/chat/create-project", (req, res) => {
     }
 
     const projectFolder = path.join(REVIT_APPDATA_PATH, name);
+    let projects = loadProjects();
 
-    // Create a folder for the project
-    if (!fs.existsSync(projectFolder)) {
-        fs.mkdirSync(projectFolder);
+    if (projects.some(p => p.Name === name)) {
+        return res.status(400).json({ error: "Project with this name already exists" });
     }
 
-    // Save project details in projects.json and a separate JSON file
-    const projectFile = path.join(projectFolder, "project.json");
-    const newProject = { Name: name, Description: description || "" };
+    try {
+        if (!fs.existsSync(projectFolder)) {
+            fs.mkdirSync(projectFolder, { recursive: true });
+        }
 
-    fs.readFile(PROJECTS_FILE, "utf8", (err, data) => {
-        let projects = err ? [] : JSON.parse(data);
+        const newProject = { Name: name, Description: description || "No description available" };
         projects.push(newProject);
 
-        // Save to projects.json
-        fs.writeFile(PROJECTS_FILE, JSON.stringify(projects, null, 2), (err) => {
-            if (err) {
-                return res.status(500).json({ error: "Failed to save project" });
-            }
-
-            // Also save in the project's folder
-            fs.writeFile(projectFile, JSON.stringify(newProject, null, 2), (err) => {
-                if (err) {
-                    return res.status(500).json({ error: "Failed to save project file" });
-                }
-                res.json({ message: "Project created successfully", project: newProject });
-            });
-        });
-    });
-});
-
-// Retrieve all projects from Revit AppData
-app.get("/api/chat/projects", (req, res) => {
-    fs.readFile(PROJECTS_FILE, "utf8", (err, data) => {
-        if (err) {
-            return res.status(500).json({ error: "Failed to load projects" });
+        if (!saveProjects(projects)) {
+            return res.status(500).json({ error: "Failed to save project metadata" });
         }
-        res.json(JSON.parse(data));
-    });
+
+        fs.writeFileSync(path.join(projectFolder, "project.json"), JSON.stringify(newProject, null, 2), "utf8");
+
+        res.json({ message: "Project created successfully", project: newProject });
+    } catch (error) {
+        console.error("Error creating project:", error);
+        res.status(500).json({ error: "Failed to create project" });
+    }
 });
+
+// Retrieve all projects with correct structure
+app.get("/api/chat/projects", (req, res) => {
+    try {
+        let projects = loadProjects();
+
+        // Ensure projects always return correct format
+        projects = projects.map(project => ({
+            Name: project.Name || "Unknown",  // Provide fallback if missing
+            Description: project.Description || "No description available" // Provide fallback if missing
+        }));
+
+        res.json(projects);
+    } catch (error) {
+        console.error("Error retrieving projects:", error);
+        res.status(500).json({ error: "Failed to load projects" });
+    }
+});
+
+// Other endpoints...
 
 // Start server
 const PORT = 5000;

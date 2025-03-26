@@ -49,11 +49,15 @@ public class RevitChatAPI : ControllerBase
     public IActionResult GetProjects()
     {
         var projects = Directory.GetDirectories(BaseDirectory)
-            .Select(dir => new
+            .Select(dir =>
             {
-                Name = Path.GetFileName(dir),
-                Description = LoadProjectDescription(dir),
-                ChatLogs = Directory.GetFiles(dir, "*.txt").Select(Path.GetFileName).ToList()
+                string description = LoadProjectDescription(dir);
+                return new
+                {
+                    Name = Path.GetFileName(dir),
+                    Description = description,
+                    ChatLogs = Directory.GetFiles(dir, "*.txt").Select(Path.GetFileName).ToList()
+                };
             }).ToList();
 
         return Ok(projects);
@@ -89,8 +93,15 @@ public class RevitChatAPI : ControllerBase
         string infoPath = Path.Combine(projectPath, "info.json");
         if (System.IO.File.Exists(infoPath))
         {
-            var projectData = JsonConvert.DeserializeObject<ProjectModel>(System.IO.File.ReadAllText(infoPath));
-            return projectData.Description;
+            try
+            {
+                var projectData = JsonConvert.DeserializeObject<ProjectModel>(System.IO.File.ReadAllText(infoPath));
+                return projectData?.Description ?? "No description available."; // Safe check for null Description
+            }
+            catch (Exception)
+            {
+                return "Error reading project info."; // Handle deserialization errors
+            }
         }
         return "No description available.";
     }
