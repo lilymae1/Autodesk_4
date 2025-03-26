@@ -29,7 +29,12 @@ try {
 const loadProjects = () => {
     try {
         const data = fs.readFileSync(PROJECTS_FILE, "utf8");
-        return JSON.parse(data) || []; // If file is empty, return an empty array
+        const projects = JSON.parse(data) || [];
+
+        // Log the loaded projects to verify their structure
+        console.log("Loaded projects:", projects);
+
+        return projects;
     } catch (error) {
         console.error("Error loading projects.json:", error);
         return [];
@@ -88,10 +93,13 @@ app.get("/api/chat/projects", (req, res) => {
     try {
         let projects = loadProjects();
 
+        // Log the projects being returned
+        console.log("Returning projects:", projects);
+
         // Ensure projects always return correct format
         projects = projects.map(project => ({
-            Name: project.Name || "Unknown",  // Provide fallback if missing
-            Description: project.Description || "No description available" // Provide fallback if missing
+            Name: project.Name || "Unknown",  // Use "Unknown" if Name is undefined or empty
+            Description: project.Description || "No description available"  // Use default description if undefined
         }));
 
         res.json(projects);
