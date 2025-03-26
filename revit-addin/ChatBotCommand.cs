@@ -17,17 +17,17 @@ namespace RevitChatBotPrototype1
                 StartElectronApp.StartElectron();
 
                 // Step 2: Simulate getting a response from the chatbot
-                string chatbotResponse = GetChatbotResponse();
+                //string chatbotResponse = GetChatbotResponse();
 
                 // Step 3: Parse the chatbot response and trigger the corresponding action
-                string command = ParseChatbotResponse(chatbotResponse);
+                //string command = ParseChatbotResponse(chatbotResponse);
 
                 // Step 4: Handle the parsed command and perform corresponding Revit action
-                HandleRevitCommand(commandData.Application, command);
+                //HandleRevitCommand(commandData.Application, command);
                 
                 // Extract thumbnails
-                Thumbnails thumbnailExtractor = new Thumbnails();
-                thumbnailExtractor.ExtractThumbnails(commandData.Application);
+                //Thumbnails thumbnailExtractor = new Thumbnails();
+                //thumbnailExtractor.ExtractThumbnails(commandData.Application);
 
                 return Result.Succeeded;
             }
@@ -57,36 +57,30 @@ namespace RevitChatBotPrototype1
         }
 
         // Step 3: Handle the parsed command and call the appropriate function from AICommands
-        private void HandleRevitCommand(UIApplication uiApp, string command)
+        private void HandleRevitCommand(UIApplication uiApp, string command, Dictionary<string, object> parameters)
         {
             Document doc = uiApp.ActiveUIDocument.Document;
 
-            // You can extend the switch case to add more commands as needed
             switch (command)
             {
                 case "CreateWall":
-                    // Example parameters for wall creation, this can be customized
-                    AICommands.CreateWall(doc, new XYZ(0, 0, 0), new XYZ(10, 0, 0), 10.0, "Basic Wall", "Level 1");
+                    XYZ start = new XYZ(Convert.ToDouble(parameters["startX"]), Convert.ToDouble(parameters["startY"]), 0);
+                    XYZ end = new XYZ(Convert.ToDouble(parameters["endX"]), Convert.ToDouble(parameters["endY"]), 0);
+                    double height = Convert.ToDouble(parameters["height"]);
+                    string wallType = parameters["wallType"].ToString();
+                    string level = parameters["level"].ToString();
+                    AICommands.CreateWall(doc, start, end, height, wallType, level);
                     break;
 
                 case "ModifyWallHeight":
-                    // Example to modify all wall heights, e.g., changing height to 12.0
-                    AICommands.ModifyWallHeights(doc, 12.0);
-                    break;
-
-                case "ChangeWallWidth":
-                    // Example to change all wall widths, e.g., to 0.5
-                    AICommands.ChangeWallWidth(doc, 0.5);
+                    AICommands.ModifyWallHeights(doc, Convert.ToDouble(parameters["newHeight"]));
                     break;
 
                 case "DeleteWall":
-                    // Example to delete a specific wall (this would typically need an ID or parameters)
-                    ElementId wallId = new ElementId(12345);  // Placeholder for the wall ID
-                    AICommands.DeleteWall(doc, wallId);
+                    AICommands.DeleteWall(doc, new ElementId(Convert.ToInt32(parameters["wallId"])));
                     break;
 
                 case "DeleteAllWalls":
-                    // Delete all walls in the document
                     AICommands.DeleteAllWalls(doc);
                     break;
 
@@ -94,6 +88,7 @@ namespace RevitChatBotPrototype1
                     TaskDialog.Show("Error", "Unknown command received from chatbot.");
                     break;
             }
+            
         }
     }
 }

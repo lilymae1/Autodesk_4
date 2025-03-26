@@ -1,9 +1,9 @@
-using System;
-using System.Diagnostics;
-using Autodesk.Revit.UI;
-using System.Reflection;
-using System.IO;
-using System.Threading.Tasks;
+using Autodesk.Revit.DB;        // For Document, View3D, XYZ, ElementId, etc.
+using Autodesk.Revit.UI;        // For TaskDialog, UIApplication, UIDocument
+using Autodesk.Revit.Attributes; // For Revit attributes like Transaction
+using System;                    // For standard C# types
+using System.Collections.Generic; // If you're working with lists
+using System.Linq;                // For LINQ methods like FirstOrDefault
 
 public class AICommands
 {
@@ -106,54 +106,7 @@ public class AICommands
 
     }
 
-
-
-    public static void ChangeWallWidth(Document doc, double newWidth) 
-    {
-
-        if (doc == null) return; // Prevent errors if doc is null
-
-        // Collect all wall types in the project
-        FilteredElementCollector wallTypeCollector = new FilteredElementCollector(doc)
-            .OfClass(typeof(WallType));
-
-        using (Transaction tx = new Transaction(doc, "Change All Wall Widths")) 
-        {
-            tx.Start();
-
-            foreach (Element elem in wallTypeCollector)
-            {
-                WallType wallType = elem as WallType;
-                if (wallType != null)
-                {
-                    CompoundStructure structure = wallType.GetCompoundStructure();
-                    if (structure != null)
-                    {
-                        // Adjust the first layer to match the new total width
-                        IList<CompoundStructureLayer> layers = structure.GetLayers();
-                        if (layers.Count > 0)
-                        {
-                            // Modify the width of the first layer to the new width
-                            layers[0] = new CompoundStructureLayer(newWidth, layers[0].Function, layers[0].MaterialId);
-
-                            // Create a new CompoundStructure with the updated layers
-                            CompoundStructure newStructure = structure.Clone();
-                            newStructure.SetLayers(layers);
-
-                            // Apply the modified compound structure to the wall type
-                            wallType.SetCompoundStructure(newStructure);
-                        }
-                    }
-                }
-            }
-
-            tx.Commit();
-        }
-    }
-
-
-
-    public static void DeleteWall(Document doc, )
+    public static void DeleteWall(Document doc, ElementId wallId)
     {
         if (doc == null || wallId == null) return; // Prevent errors if doc or wallId is null
 
@@ -183,7 +136,7 @@ public class AICommands
 
     public static void DeleteAllWalls(Document doc)
     {
-        if (doc == null || wallId == null) return; // Prevent errors if doc or wallId is null
+        if (doc == null) return; // Prevent errors if doc or wallId is null
 
         FilteredElementCollector wallCollector = new FilteredElementCollector(doc)
             .OfCategory(BuiltInCategory.OST_Walls)
@@ -220,8 +173,17 @@ public class AICommands
         {
             tx.Start();
 
-            // Set the new eye and target positions for the camera
-            view3D.SetCamera(eyePosition, targetPosition);
+            // Calculate forward direction (where the camera is looking)
+            XYZ forwardDirection = (targetPosition - eyePosition).Normalize();
+
+            // Set a default "Up" direction (assuming Z-axis up)
+            XYZ upDirection = XYZ.BasisZ;
+
+            // Create a new ViewOrientation3D with updated eye position
+            ViewOrientation3D newOrientation = new ViewOrientation3D(eyePosition, upDirection, forwardDirection);
+
+            // Apply the new orientation to the 3D view
+            view3D.SetOrientation(newOrientation);
 
             tx.Commit();
         }
@@ -265,8 +227,8 @@ public class AICommands
 
         // Get the current camera location and view direction
         ViewOrientation3D orientation = view.GetOrientation();
-        XYZ currentCameraPosition = orientation.ViewPosition;
-        XYZ currentViewDirection = orientation.ViewDirection;
+        XYZ currentViewDirection = orientation.ForwardDirection;
+        XYZ currentCameraPosition = orientation.EyePosition;
 
         // Calculate the rotation axis 
         XYZ rotationAxis = XYZ.BasisZ;

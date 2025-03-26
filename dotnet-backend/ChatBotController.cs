@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Text.Json;
 using System.Text;
+using System.Collections.Generic;
 
 namespace AutodeskRevitAPI.Controllers
 {
@@ -18,7 +19,7 @@ namespace AutodeskRevitAPI.Controllers
         [HttpPost("getResponse")]
         public async Task<IActionResult> GetResponse([FromBody] ChatRequest request)
         {
-            _httpClient.Timeout = new TimeSpan(0,5,0);//sets timeout (hours,mins,secs) not sure if this has worked but we movin
+            _httpClient.Timeout = new TimeSpan(0, 5, 0); //sets timeout
 
             Console.WriteLine($"Received request: {request?.Message}");
 
@@ -45,25 +46,47 @@ namespace AutodeskRevitAPI.Controllers
                 {
                     string jsonResponse = await apiResponse.Content.ReadAsStringAsync();  // Retrieve the response from Ollama
                     var jsonDoc = JsonDocument.Parse(jsonResponse);
+                    Console.WriteLine(jsonResponse);
 
-                    // Check if the response is a structured command
-                    if (jsonDoc.RootElement.TryGetProperty("RevitCommand", out JsonElement revitCommandElement))
+                    // Check if the response is a structured command (RevitCommand)
+                    if (jsonDoc.RootElement.TryGetProperty("response", out JsonElement responseElement))
                     {
-                        Console.WriteLine("Detected Revit Command! Forwarding to Revit API...");
-                        return await ForwardToRevitAPI(jsonResponse);  // Forward the command to Revit API
-                    }
-                    else
-                    {
-                        // Return plain text response if no Revit command
-                        if (jsonDoc.RootElement.TryGetProperty("response", out var responseElement))
+                        // The "response" property contains a stringified JSON
+                        string responseJson = responseElement.GetString();
+
+                        // Deserialize the stringified JSON to a JsonDocument
+                        var responseJsonDoc = JsonDocument.Parse(responseJson);
+
+                        // Now you can safely check for the "RevitCommand" in the nested JSON
+                        if (responseJsonDoc.RootElement.TryGetProperty("RevitCommand", out JsonElement revitCommandElement))
                         {
-                            string responseText = responseElement.GetString();
-                            return Ok(new { response = responseText });
+                            Console.WriteLine("Running the Revit command...");
+                            // Forward the detected Revit command to the Revit API
+                            string command = revitCommandElement.GetString();
+                            JsonElement parameters = responseJsonDoc.RootElement.GetProperty("Parameters");
+
+                            // Convert parameters to a dictionary (or use as needed)
+                            var paramDict = JsonSerializer.Deserialize<Dictionary<string, object>>(parameters.ToString());
+
+                            // Serialize both command and parameters into one JSON object
+                            var commandData = new
+                            {
+                                RevitCommand = command,
+                                Parameters = paramDict
+                            };
+                            string commandJson = JsonSerializer.Serialize(commandData);
+
+                            // Send the command to the Revit API
+                            return await ForwardToRevitAPI(commandJson);
                         }
                         else
                         {
-                            return BadRequest("Invalid response format from Ollama.");
+                            return BadRequest("RevitCommand not found in the response.");
                         }
+                    }
+                    else
+                    {
+                        return BadRequest("No response property found in the JSON.");
                     }
                 }
                 else
@@ -80,8 +103,9 @@ namespace AutodeskRevitAPI.Controllers
 
         private async Task<IActionResult> ForwardToRevitAPI(string revitCommandJson)
         {
-            var content = new StringContent(revitCommandJson, Encoding.UTF8, "application/json");
-            HttpResponseMessage revitResponse = await _httpClient.PostAsync(REVIT_API_URL, content);
+            // Send the serialized JSON (which contains both command and parameters) to the Revit API
+            var requestContent = new StringContent(revitCommandJson, Encoding.UTF8, "application/json");
+            HttpResponseMessage revitResponse = await _httpClient.PostAsync(REVIT_API_URL, requestContent);
 
             if (!revitResponse.IsSuccessStatusCode)
             {
