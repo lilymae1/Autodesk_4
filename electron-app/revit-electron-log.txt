@@ -1,15 +1,43 @@
 Output:
 
 Electron app is ready
+User input: create a wall from (0, 0, 0) to (10, 0, 0).
+Chatbot API Response: {
+  response: 'Archie Forklift\r\n' +
+    'To create a wall from the point (0, 0, 0) to (10, 0, 0) in Autodesk Revit, you can follow these steps: \n' +
+    '\n' +
+    '1. Open your Autodesk Revit project and navigate to the desired location where you want to place the wall.\n' +
+    `2. Go to the "View" tab and select "Wall" from the menu. Alternatively, you can use the keyboard shortcut 'W'.\n` +
+    '3. With the wall tool activated, click on the starting point of your wall (0, 0, 0).\n' +
+    "4. Next, click on the endpoint of the wall (10, 0, 0) to complete the wall's outline.\n" +
+    '5. After you have outlined the wall, specify the height of the wall by double-clicking on it or using the Properties palette. For this example, set the height to 10 units.\n' +
+    `6. Assign a suitable wall type from the Type Selector dropdown menu in the Properties palette. In this case, choose "Basic Wall". If you don't have a predefined wall type, you can create one by right-clicking on the Type Selector and selecting "Create Similar Wall Type" or "Duplicate".\n` +
+    '7. Finally, assign the wall to the appropriate level in the Levels dropdown menu within the Properties palette. For this example, select "Level 1".\n' +
+    '8. Press Enter or double-click outside of the wall to complete the creation process and add the new wall to your project.'
+}
+User input: Create a wall from (0,0,0) to (10,0,0)
+Chatbot API Response: {
+  response: 'Archie Forklift: To create a wall from (0,0,0) to (10,0,0) in Revit, you can use the following JSON code:\n' +
+    '\n' +
+    '```json\n' +
+    '{\n' +
+    '  "type": "CreateWall",\n' +
+    '  "parameters": {\n' +
+    '    "start": { "x": 0, "y": 0, "z": 0},\n' +
+    '    "end": { "x": 10, "y": 0, "z": 0},\n' +
+    '    "height": 10.0,\n' +
+    '    "wallTypeName": "Basic Wall",\n' +
+    '    "levelName": "Level 1"\n' +
+    '  }\n' +
+    '}\n' +
+    '```\n' +
+    '\n' +
+    'This code will create a new wall with the specified start and end points, height, wall type name, and level name in Revit.'
+}
+User input: Create a wall from (0, 0, 0) to (10, 0, 0) with a height of 12 meters and a wall type of 'Concrete Wall'
+Chatbot API Response: {
+  response: `This JSON code will create a wall from the starting point (0, 0, 0) to the ending point (10, 0, 0) with a height of 12 meters and a wall type of 'Concrete Wall' in Revit. You can use this code by pasting it into your Autodesk Revit environment where you want to create the wall. Make sure that you replace "Level 1" with the name of the level where you are working in Revit, or remove it if you're working on a generic model.`
+}
 
 
 Error:
-[16580:0326/085557.358:ERROR:cache_util_win.cc(20)] Unable to move the cache: Access is denied. (0x5)
-[16580:0326/085557.358:ERROR:cache_util_win.cc(20)] Unable to move the cache: Access is denied. (0x5)
-[16580:0326/085557.359:ERROR:cache_util_win.cc(20)] Unable to move the cache: Access is denied. (0x5)
-[16580:0326/085557.365:ERROR:disk_cache.cc(216)] Unable to create cache
-[16580:0326/085557.365:ERROR:gpu_disk_cache.cc(711)] Gpu Cache Creation failed: -2
-[16580:0326/085557.365:ERROR:disk_cache.cc(216)] Unable to create cache
-[16580:0326/085557.365:ERROR:gpu_disk_cache.cc(711)] Gpu Cache Creation failed: -2
-[16580:0326/085557.365:ERROR:disk_cache.cc(216)] Unable to create cache
-[16580:0326/085557.365:ERROR:gpu_disk_cache.cc(711)] Gpu Cache Creation failed: -2

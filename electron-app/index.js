@@ -1,4 +1,3 @@
-// Current Improvements / Work Done to make AI do more interaction:
 const { app, BrowserWindow, ipcMain, screen } = require('electron');
 const path = require('path');
 const axios = require('axios');  // Import axios
@@ -47,27 +46,35 @@ ipcMain.on('chat-message', async (event, userInput) => {
   console.log('User input:', userInput);
 
   try {
-    let response = await axios.post('http://localhost:5000/api/chatbot/getResponse', {
+    // Check if the input contains a known command, like "Create Wall"
+    if (userInput.toLowerCase().includes("create wall")) {
+      console.log("Detected 'Create Wall' command.");
+
+      // Construct the Revit Command based on the detected input
+      
+
+      // Send the structured Revit command
+      event.reply('chat-response', "Executing Revit command...");
+
+      // Forward command to Revit for execution
+      ipcMain.emit('execute-revit-command', null, revitCommand);
+    } else {
+      // For non-command queries, send a natural language response
+      let response = await axios.post('http://localhost:5000/api/chatbot/getResponse', {
         message: userInput
       });
 
-    console.log('Chatbot API Response:', response.data);
+      console.log('Chatbot API Response:', response.data);
 
-    if (response.data.RevitCommand) {
-      // If response contains a Revit command, forward it for execution
-      console.log('Detected Revit Command! Forwarding to Revit API...');
-      event.reply('chat-response', "Executing Revit command...");
-      ipcMain.emit('execute-revit-command', null, response.data.RevitCommand);
-    } else {
-      // Otherwise, send the natural language response to the UI
-      event.reply('chat-response', response.data.response);
+      // Handle the regular natural response
+      event.reply('chat-response', response.data.response || "No response from AI.");
     }
-  
   } catch (error) {
     console.error('Error communicating with API:', error);
     event.reply('chat-response', 'Error: Unable to process your request.');
   }
 });
+
 
 // Handling structured Revit commands and sending them to the Revit API
 ipcMain.on('execute-revit-command', async (event, revitCommand) => {
@@ -116,3 +123,4 @@ ipcMain.on('move-window', (event, dx, dy) => {
     });
   }
 });
+

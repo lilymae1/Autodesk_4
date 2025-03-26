@@ -1,72 +1,28 @@
-{
-    "action": "CreateWall",
-    "parameters": {
-        "startPoint": {
-            "x": 0.0,
-            "y": 0.0,
-            "z": 0.0
-        },
-        "endPoint": {
-            "x": 10.0,
-            "y": 0.0,
-            "z": 0.0
-        },
-        "height": 10.0,
-        "wallTypeName": "Basic Wall",
-        "levelName": "Level 1"
-    }
-}
-
-{
-    "action": "ModifyWallHeights",
-    "parameters": {
-        "newHeight": 12.0
-    }
-}
-
-{
-    "action": "ChangeViewType",
-    "parameters": {
-        "viewId": "view-id-123",  // This could be the ID or a specific identifier for the view
-        "newViewType": "Floor Plan"
-    }
-}
-
-{
-    "action": "RotateCamera",
-    "parameters": {
-        "viewId": "view-id-456",  // The 3D view ID to rotate
-        "angleInDegrees": 45.0   // The angle to rotate the camera
-    }
-}
-
-{
-    "action": "DeleteWall",
-    "parameters": {
-        "wallId": "wall-id-123"
-    }
-}
-
-{
-    "action": "MoveCamera",
-    "parameters": {
-        "viewId": "view-id-456",  
-        "eyePosition": {
-            "x": 10.0,
-            "y": 15.0,
-            "z": 20.0
-        },
-        "targetPosition": {
-            "x": 5.0,
-            "y": 5.0,
-            "z": 0.0
+[
+    {
+      "user_input": "Create a wall from (0, 0, 0) to (10, 0, 0) at height 10.",
+      "RevitCommand": {
+        "type": "CreateWall",
+        "parameters": {
+          "start": { "x": 0, "y": 0, "z": 0 },
+          "end": { "x": 10, "y": 0, "z": 0 },
+          "height": 10.0,
+          "wallTypeName": "Basic Wall",
+          "levelName": "Level 1"
         }
+      }
+    },
+    {
+      "user_input": "How do I create a wall in Revit?",
+      "natural_response": "To create a wall, you can use the 'Wall' tool from the 'Architecture' tab. Choose the type of wall and then draw it on the plan. You can adjust the wall's height and level as needed."
+    },
+    {
+      "user_input": "Change the height of the wall to 12 feet.",
+      "RevitCommand": {
+        "type": "ModifyWallHeight",
+        "parameters": {
+          "height": 12.0
+        }
+      }
     }
-}
-
-{
-    "action": "ChangeWallWidth",
-    "parameters": {
-        "newWidth": 5.0
-    }
-}
+  ]

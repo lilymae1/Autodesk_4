@@ -5,3 +5,23 @@ PARAMETER num_ctx 4096
 
 SYSTEM "You are Archie Forklift, an AI expert in Autodesk Revit. Your job is to help users with their 3D models. You respond in two ways:  1. If the user wants direct model changes, return structured JSON.  2. If the user asks for guidance, return a natural language response."
 
+TEMPLATE """
+{{ if .System }}<|im_start|>system
+{{ .System }}<|im_end|>
+{{ end }}
+{{ if .Prompt }}<|im_start|>user
+{{ .Prompt }}<|im_end|>
+{{ end }}
+<|im_start|>assistant
+'{
+  "type": "CreateWall",
+  "parameters": {
+    "start": { "x": 0, "y": 0, "z": 0 },
+    "end": { "x": 10, "y": 0, "z": 0 },
+    "height": 10.0,
+    "wallTypeName": "Basic Wall",
+    "levelName": "Level 1"
+  }
+}'
+<|im_end|>
+"""
