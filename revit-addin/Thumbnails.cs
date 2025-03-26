@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using Microsoft.AspNetCore.Mvc;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.ApplicationServices;
@@ -14,7 +15,8 @@ public class Thumbnails
     public void ExtractThumbnails(UIApplication uiapp)
     {
         // folder inwhich thumbnails are saved
-        string saveFolder = @".\electron-app\UI\Assets\ChatThumbnails";
+        string saveFolder = Path.GetFullPath(@".\electron-app\UI\Assets\ChatThumbnails");
+        Directory.CreateDirectory(saveFolder);
 
         // get files
         string projectFolder = @"C:\Program Files\Autodesk\Revit 2025\Samples";
@@ -23,20 +25,30 @@ public class Thumbnails
         // for every file
         foreach(string project in files) {
 
+            Console.WriteLine("checking file:" + project);
             // get the name
             string name = Path.GetFileNameWithoutExtension(project);
             
             // Load the Revit file (Document)
-            Document doc = uiapp.Application.OpenDocumentFile(project);
+            ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(project);
+            OpenOptions openOptions = new OpenOptions();
+            Document doc = uiapp.Application.OpenDocumentFile(modelPath, openOptions);
             
             // Get a view to extract the thumbnail
             View view = GetFirstView(doc);
+            if (view == null)
+            {
+                Console.WriteLine("No valid view found, skipping...");
+                continue;
+            }
 
             // Path to save the image
             string savePath = Path.Combine(saveFolder, name + ".png");
+            Console.WriteLine("Saving image " + savePath);
 
             // Export the view to an image file
             ExportViewToImage(doc, view, savePath);
+            doc.Close(false);
         }
     }
 
@@ -45,6 +57,7 @@ public class Thumbnails
         FilteredElementCollector collector = new FilteredElementCollector(doc);
         collector.OfClass(typeof(View));
 
+        Console.WriteLine("Returning first view");
         // Get the first view in the document
         return collector.FirstElement() as View;
     }
@@ -52,17 +65,13 @@ public class Thumbnails
     private void ExportViewToImage(Document doc, View view, string filePath)
     {
         // Set up the export options
-        ImageExportOptions options = new ImageExportOptions
-        {
+        ImageExportOptions options = new ImageExportOptions();
             
-            FilePath = filePath,
-            ExportRange = ExportRange.VisibleRegionOfCurrentView,
-            ImageResolution = (ImageResolution)72,
-            ZoomType = ZoomFitType.FitToPage, 
-            PixelSize = 200  
+        options.HLRandWFViewsFileType = ImageFileType.PNG;
+        options.PixelSize = 200;
+        options.ExportRange = ExportRange.VisibleRegionOfCurrentView;
             
-        };
-
+        Console.WriteLine("Exporting image:" + filePath);
         // Export the view to an image
         doc.ExportImage(options);
     }
