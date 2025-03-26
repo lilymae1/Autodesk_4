@@ -20,7 +20,7 @@ public class Thumbnails
 
         // get files
         string projectFolder = @"C:\Program Files\Autodesk\Revit 2025\Samples";
-        string[] files = Directory.GetFiles(projectFolder, "*.rfa"); 
+        string[] files = Directory.GetFiles(projectFolder, "*.rvt"); 
 
         // for every file
         foreach(string project in files) {
