@@ -31,10 +31,6 @@
         document.addEventListener("DOMContentLoaded", () => {
             if (window.chatAPI) {
                 console.log("chatAPI is available");
-                // Determine the time of day and send the appropriate welcome message
-                sendWelcomeMessage();
-                archie_message(); // Start listening for Archie's responses
-                loadMessages(); // Load chat history
 
                 // Fullscreen Button Click Event
                 document.getElementById("fullscreenButton")?.addEventListener("click", (event) => {
