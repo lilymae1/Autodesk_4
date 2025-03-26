@@ -1,9 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const chatController = require('./chatController');
+const chatController = require('../electron-app/chatController');
 const projectController = require('./projectController');
-const config = require('./config.json');
+const config = require('../electron-app/config.json');
 
 const app = express();
 
