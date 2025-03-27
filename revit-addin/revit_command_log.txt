@@ -1,0 +1,36 @@
+27/03/2025 13:41:16: Error: The document is currently read-only and cannot be modified.
+27/03/2025 13:55:33: Error: The document is currently read-only and cannot be modified.
+27/03/2025 14:03:31: Error: The document is currently read-only and cannot be modified.
+27/03/2025 14:06:20: Error: The document is currently read-only and cannot be modified.
+27/03/2025 14:06:20: Unknown command received from chatbot
+27/03/2025 14:09:28: Processing Revit Command: 
+27/03/2025 14:09:28: Error: The document is currently read-only and cannot be modified.
+27/03/2025 14:09:28: Unknown command received from chatbot
+27/03/2025 14:47:51: {"RevitCommand":"CreateWall","Parameters":{"startX":0,"startY":0,"endX":10,"endY":0,"height":10.0,"wallType":"Basic Wall","level":"Level 1"}}
+27/03/2025 14:47:51: Processing Revit Command: 
+27/03/2025 14:47:51: Error: The document is currently read-only and cannot be modified.
+27/03/2025 14:47:51: Unknown command received from chatbot
+27/03/2025 14:56:42: {"RevitCommand":"CreateWall","Parameters":{"startX":0,"startY":0,"endX":10,"endY":0,"height":10.0,"wallType":"Basic Wall","level":"Level 1"}}
+27/03/2025 14:56:42: 
+27/03/2025 14:56:42: startX: 0
+startY: 0
+endX: 10
+endY: 0
+height: 10
+wallType: Basic Wall
+level: Level 1
+27/03/2025 14:56:42: Processing Revit Command: 
+27/03/2025 14:56:42: Error: The document is currently read-only and cannot be modified.
+27/03/2025 14:56:42: Unknown command received from chatbot
+27/03/2025 15:05:13: {"RevitCommand":"CreateWall","Parameters":{"startX":0,"startY":0,"endX":10,"endY":0,"height":10.0,"wallType":"Basic Wall","level":"Level 1"}}
+27/03/2025 15:05:13: CreateWall
+27/03/2025 15:05:13: startX: 0
+startY: 0
+endX: 10
+endY: 0
+height: 10
+wallType: Basic Wall
+level: Level 1
+27/03/2025 15:05:13: Processing Revit Command: CreateWall
+27/03/2025 15:05:13: Error: The document is currently read-only and cannot be modified.
+27/03/2025 15:05:13: Log: Creating wall...
