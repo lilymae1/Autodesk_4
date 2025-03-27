@@ -7,7 +7,6 @@ using Newtonsoft.Json;
 
 namespace RevitChatAddin
 {
-    // This attribute tells Revit that this is an external application
     [Transaction(TransactionMode.Manual)]
     public class RevitAddin : IExternalApplication
     {
@@ -23,6 +22,9 @@ namespace RevitChatAddin
 
                 // Example: Fetching project data when Revit starts
                 GetProjects();
+                
+                // Launch Electron App to show HTML interface
+                LaunchElectronApp();
             }
             catch (Exception ex)
             {
@@ -63,6 +65,13 @@ namespace RevitChatAddin
             {
                 TaskDialog.Show("Error", $"Failed to fetch projects: {e.Message}");
             }
+        }
+
+        // This method launches the Electron app to show the HTML content
+        private void LaunchElectronApp()
+        {
+            // Assuming the Electron app is located in the 'electron-app' folder
+            System.Diagnostics.Process.Start("cmd.exe", "/C start electron electron-app/index.js");
         }
     }
 

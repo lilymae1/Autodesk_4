@@ -22,7 +22,7 @@ namespace RevitChatAPI.Controllers
             {
                 if (!Directory.Exists(appDataPath))
                 {
-                    Directory.CreateDirectory(appDataPath);
+                    Directory.CreateDirectory(appDataPath);  // Create directory if it doesn't exist
                 }
             }
             catch (Exception ex)
