@@ -36,6 +36,87 @@ expressApp.get("/files", (req, res) => {
     });
 });
 
+// Route to list projects (folders) for importing
+expressApp.get("/files", (req, res) => {
+    fs.readdir(appDataPath, { withFileTypes: true }, (err, items) => {
+        if (err) {
+            console.error("Error reading directory:", err);
+            return res.status(500).json({ error: "Unable to read directory" });
+        }
+
+        const projects = items
+            .filter(item => item.isDirectory())
+            .map(item => {
+                const projectPath = path.join(appDataPath, item.name, "info.json");
+                let projectInfo = { name: item.name, description: "No description" };
+
+                if (fs.existsSync(projectPath)) {
+                    try {
+                        projectInfo = JSON.parse(fs.readFileSync(projectPath, "utf8"));
+                    } catch (error) {
+                        console.error(`Error reading ${item.name}/info.json:`, error);
+                    }
+                }
+
+                return {
+                    name: projectInfo.name,
+                    description: projectInfo.description,
+                    path: item.name
+                };
+            });
+
+        res.json(projects);
+    });
+});
+
+// Route to create a new project
+expressApp.post("/api/chat/create-project", express.json(), (req, res) => {
+    const { name, description } = req.body;
+    if (!name) {
+        return res.status(400).json({ error: "Project name is required" });
+    }
+
+    const projectPath = path.join(appDataPath, name);
+    const infoPath = path.join(projectPath, "info.json");
+
+    if (!fs.existsSync(projectPath)) {
+        fs.mkdirSync(projectPath, { recursive: true });
+    }
+
+    const projectData = { name, description };
+    fs.writeFileSync(infoPath, JSON.stringify(projectData, null, 2));
+
+    res.json({ message: `Project '${name}' created successfully` });
+});
+
+// Route to update an existing project's name and description
+expressApp.post("/api/chat/update-project", express.json(), (req, res) => {
+    const { oldName, newName, newDescription } = req.body;
+    if (!oldName || !newName) {
+        return res.status(400).json({ error: "Both old and new project names are required" });
+    }
+
+    const oldProjectPath = path.join(appDataPath, oldName);
+    const newProjectPath = path.join(appDataPath, newName);
+    const infoPath = path.join(newProjectPath, "info.json");
+
+    if (!fs.existsSync(oldProjectPath)) {
+        return res.status(404).json({ error: "Original project not found" });
+    }
+
+    if (oldName !== newName && fs.existsSync(newProjectPath)) {
+        return res.status(400).json({ error: "A project with the new name already exists" });
+    }
+
+    if (oldName !== newName) {
+        fs.renameSync(oldProjectPath, newProjectPath);
+    }
+
+    const projectData = { name: newName, description: newDescription };
+    fs.writeFileSync(infoPath, JSON.stringify(projectData, null, 2));
+
+    res.json({ message: `Project '${oldName}' updated successfully` });
+});
 
 // Start the server
 expressApp.listen(PORT, () => {

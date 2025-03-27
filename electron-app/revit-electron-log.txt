@@ -5,9 +5,3 @@ Electron app is ready
 
 
 Error:
-Error reading directory: [Error: ENOENT: no such file or directory, scandir 'C:\Users\Aaron Wass\AppData\Roaming\RevitChatProjects'] {
-  errno: -4058,
-  code: 'ENOENT',
-  syscall: 'scandir',
-  path: 'C:\\Users\\Aaron Wass\\AppData\\Roaming\\RevitChatProjects'
-}
