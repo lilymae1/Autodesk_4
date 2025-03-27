@@ -16,18 +16,25 @@ namespace RevitChatBotPrototype1
                 // Step 1: Start the Electron app to open the chatbot
                 StartElectronApp.StartElectron();
 
-                // Step 2: Simulate getting a response from the chatbot
-                //string chatbotResponse = GetChatbotResponse();
+                string requestUri = "http://localhost:5000/api/revit/execute"; // Revit API endpoint
 
-                // Step 3: Parse the chatbot response and trigger the corresponding action
-                //string command = ParseChatbotResponse(chatbotResponse);
+                // Wait for incoming HTTP request for Revit command
+                HttpResponseMessage response = client.GetAsync(requestUri).Result; // Get response from the backend API
 
-                // Step 4: Handle the parsed command and perform corresponding Revit action
-                //HandleRevitCommand(commandData.Application, command);
-                
-                // Extract thumbnails
-                //Thumbnails thumbnailExtractor = new Thumbnails();
-                //thumbnailExtractor.ExtractThumbnails(commandData.Application);
+                if (response.IsSuccessStatusCode)
+                {
+                    // Parse the response from Revit API
+                    string responseJson = response.Content.ReadAsStringAsync().Result;
+                    var commandData = JsonConvert.DeserializeObject<CommandData>(responseJson);
+
+                    // Now execute the command in Revit
+                    HandleRevitCommand(commandData.Command, commandData.Parameters);
+                }
+                else
+                {
+                    message = "Failed to execute Revit command.";
+                    return Result.Failed;
+                }
 
                 return Result.Succeeded;
             }
@@ -60,15 +67,18 @@ namespace RevitChatBotPrototype1
         private void HandleRevitCommand(UIApplication uiApp, string command, Dictionary<string, object> parameters)
         {
             Document doc = uiApp.ActiveUIDocument.Document;
+            TaskDialog.Show("Log", "before swtich");
 
             switch (command)
             {
                 case "CreateWall":
+                    TaskDialog.Show("Log", "chose create wall");
                     XYZ start = new XYZ(Convert.ToDouble(parameters["startX"]), Convert.ToDouble(parameters["startY"]), 0);
                     XYZ end = new XYZ(Convert.ToDouble(parameters["endX"]), Convert.ToDouble(parameters["endY"]), 0);
                     double height = Convert.ToDouble(parameters["height"]);
                     string wallType = parameters["wallType"].ToString();
                     string level = parameters["level"].ToString();
+                    TaskDialog.Show("Log", "attempt to create wall");
                     AICommands.CreateWall(doc, start, end, height, wallType, level);
                     break;
 
@@ -89,6 +99,12 @@ namespace RevitChatBotPrototype1
                     break;
             }
             
+        }
+        // Class to deserialize incoming command data
+        public class CommandData
+        {
+            public string Command { get; set; }
+            public Dictionary<string, object> Parameters { get; set; }
         }
     }
 }

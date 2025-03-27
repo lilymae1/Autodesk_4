@@ -76,17 +76,30 @@ ipcMain.on('chat-message', async (event, userInput) => {
 });
 
 
-// Handling structured Revit commands and sending them to the Revit API
 ipcMain.on('execute-revit-command', async (event, revitCommand) => {
   try {
     const revitResponse = await axios.post("http://localhost:5000/api/revit/execute", revitCommand);
+    
+    // Ensure Revit API response is valid
+    if (!revitResponse.data || Object.keys(revitResponse.data).length === 0) {
+      console.warn("Revit API returned an empty response.");
+      event.reply("chat-response", "Revit API executed the command but returned no response.");
+      return;
+    }
+
     console.log("Revit API Response:", revitResponse.data);
     
     // Send Revit's response back to the UI
     event.reply("chat-response", revitResponse.data);
   } catch (error) {
-    console.error("Error executing Revit command:", error);
-    event.reply("chat-response", "Error executing Revit command.");
+    console.error("Error executing Revit command:", error.message);
+    
+    let errorMessage = "Error executing Revit command.";
+    if (error.response) {
+      errorMessage += ` HTTP ${error.response.status}: ${error.response.statusText}`;
+    }
+
+    event.reply("chat-response", errorMessage);
   }
 });
 
