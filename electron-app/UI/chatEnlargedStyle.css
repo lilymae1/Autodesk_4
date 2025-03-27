@@ -210,7 +210,7 @@ html, body {
     color: white;
   }
   
-  .menuButton, .previousChat button{
+  .menuButton, .previousChat button, #fullscreenButton{
     background: none;
     border: none;
     cursor: pointer;
