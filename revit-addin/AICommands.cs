@@ -9,39 +9,34 @@ public class AICommands
 {
     // ----------------------  Wall Modifications ---------------------
 
-    public static void CreateWall(Document doc, 
-                                  XYZ startPoint = null, 
-                                  XYZ endPoint = null, 
-                                  double height = 10.0, 
-                                  string wallTypeName = "Basic Wall", 
-                                  string levelName = "Level 1") 
+    public static void CreateWall(Document doc, XYZ startPoint, XYZ endPoint, double height, string wallType, string level) 
     {
-        TaskDialog.Show("Log", "checking if doc is null");
+        TaskDialog.Show("Log", "Checking if doc is null");
         if (doc == null) return;
 
         using (Transaction tx = new Transaction(doc, "Create Wall"))
         {
-            try{
-
-                TaskDialog.Show("Log", "start transaction");
+            try
+            {
+                TaskDialog.Show("Log", "Starting transaction");
                 tx.Start();
 
-                // Find the Wall Type
+                // Find the first available Wall Type (any type)
                 FilteredElementCollector wallTypes = new FilteredElementCollector(doc)
                     .OfClass(typeof(WallType));
 
                 WallType selectedWallType = null;
+
+                // Select the first WallType found, assuming at least one exists
                 foreach (WallType wt in wallTypes)
                 {
-                    if (wt.Name.Equals(wallTypeName, StringComparison.OrdinalIgnoreCase))
-                    {
-                        selectedWallType = wt;
-                        break;
-                    }
+                    selectedWallType = wt;
+                    break;  // Take the first available Wall Type
                 }
+
                 if (selectedWallType == null)
                 {
-                    TaskDialog.Show("Error", "Wall Type not found: " + wallTypeName);
+                    TaskDialog.Show("Error", "No Wall Types found in the document.");
                     tx.RollBack();
                     return;
                 }
@@ -51,18 +46,19 @@ public class AICommands
                     .OfClass(typeof(Level));
 
                 Level selectedLevel = null;
-                TaskDialog.Show("Log", "for each level");
+
                 foreach (Level lvl in levels)
                 {
-                    if (lvl.Name.Equals(levelName, StringComparison.OrdinalIgnoreCase))
+                    if (lvl.Name.Equals(level, StringComparison.OrdinalIgnoreCase))
                     {
                         selectedLevel = lvl;
                         break;
                     }
                 }
+
                 if (selectedLevel == null)
                 {
-                    TaskDialog.Show("Error", "Level not found: " + levelName);
+                    TaskDialog.Show("Error", "Level not found: " + level);
                     tx.RollBack();
                     return;
                 }
@@ -70,19 +66,21 @@ public class AICommands
                 // Create a Line for the Wall
                 Line wallLine = Line.CreateBound(startPoint, endPoint);
 
-                // Create the Wall
+                // Create the Wall using the first available Wall Type and level
                 Wall newWall = Wall.Create(doc, wallLine, selectedWallType.Id, selectedLevel.Id, height, 0, false, false);
-                TaskDialog.Show("Log", "committig transaction");
+                
+                TaskDialog.Show("Log", "Committing transaction");
                 tx.Commit();
                 TaskDialog.Show("Success", "Wall Created Successfully!");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 tx.RollBack();
                 TaskDialog.Show("Error", "Failed to create wall: " + ex.Message);
             }
         }
     }
+
 
 
 

@@ -20,6 +20,7 @@ public class RevitCommandListener
             TaskDialog.Show("Log", "UIApplication initialized: " + (_uiApp != null ? "Yes" : "No"));
             _listener.Prefixes.Add("http://localhost:5001/revit/");
             _listener.Start();
+            InitializeEventHandler(uiApp);
             Task.Run(() => ListenForCommands());
             TaskDialog.Show("Log", "Listener started");
         }
@@ -103,60 +104,31 @@ public class RevitCommandListener
         }
     }
 
-    private static void HandleRevitCommand(UIApplication uiApp, string command, Dictionary<string, object> parameters)
+    private static ExternalEvent _externalEvent;
+    private static RevitCommandHandler _commandHandler;
+
+    public static void InitializeEventHandler(UIApplication uiApp)
     {
-        // Ensure that the command is run on Revit's UI thread by calling the UIApplication’s Application
-        // and using Revit's mechanisms for running code on the main thread (via transaction).
-
-        // Execute in the Revit application (UI thread context)
-        Logger.Log("Processing Revit Command: " + command);
-
-        Document doc = uiApp.ActiveUIDocument.Document;
-        if (doc.IsReadOnly)
+        if (_commandHandler == null)
         {
-            Logger.Log("Error: The document is currently read-only and cannot be modified.");
-        }
-
-
-        try
-        {
-            switch (command)
-            {
-                case "CreateWall":
-                    Logger.Log("Log: Creating wall...");
-                    XYZ start = new XYZ(Convert.ToDouble(parameters["startX"]), Convert.ToDouble(parameters["startY"]), 0);
-                    XYZ end = new XYZ(Convert.ToDouble(parameters["endX"]), Convert.ToDouble(parameters["endY"]), 0);
-                    double height = Convert.ToDouble(parameters["height"]);
-                    string wallType = parameters["wallType"].ToString();
-                    string level = parameters["level"].ToString();
-
-                    AICommands.CreateWall(doc, start, end, height, wallType, level);
-                    break;
-
-                case "ModifyWallHeight":
-                    AICommands.ModifyWallHeights(doc, Convert.ToDouble(parameters["newHeight"]));
-                    break;
-
-                case "DeleteWall":
-                    AICommands.DeleteWall(doc, new ElementId(Convert.ToInt32(parameters["wallId"])));
-                    break;
-
-                case "DeleteAllWalls":
-                    AICommands.DeleteAllWalls(doc);
-                    break;
-
-                default:
-                    Logger.Log("Unknown command received from chatbot");
-                    TaskDialog.Show("Error", "Unknown command received from chatbot.");
-                    break;
-            }
-        }
-        catch (Exception ex)
-        {
-            Logger.Log("Error in command execution: " + ex.Message);
-            TaskDialog.Show("Error", "Error in command execution: " + ex.Message);
+            _commandHandler = new RevitCommandHandler(uiApp);
+            _externalEvent = ExternalEvent.Create(_commandHandler);
         }
     }
+
+    private static void HandleRevitCommand(UIApplication uiApp, string command, Dictionary<string, object> parameters)
+    {
+        if (_externalEvent == null || _commandHandler == null)
+        {
+            Logger.Log("Error: External event handler not initialized.");
+            return;
+        }
+
+        _commandHandler.SetCommand(command, parameters);
+        _externalEvent.Raise();
+    }
+
+
 
 
 

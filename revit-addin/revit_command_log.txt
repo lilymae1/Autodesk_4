@@ -34,3 +34,144 @@ level: Level 1
 27/03/2025 15:05:13: Processing Revit Command: CreateWall
 27/03/2025 15:05:13: Error: The document is currently read-only and cannot be modified.
 27/03/2025 15:05:13: Log: Creating wall...
+27/03/2025 15:28:18: {"RevitCommand":"CreateWall","Parameters":{"startX":0,"startY":0,"endX":10,"endY":0,"height":10.0,"wallType":"Basic Wall","level":"Level 1"}}
+27/03/2025 15:28:18: CreateWall
+27/03/2025 15:28:18: startX: 0
+startY: 0
+endX: 10
+endY: 0
+height: 10
+wallType: Basic Wall
+level: Level 1
+27/03/2025 15:28:18: Processing Revit Command: CreateWall
+27/03/2025 15:28:18: Error: The document is currently read-only and cannot be modified.
+27/03/2025 15:28:18: Log: Creating wall...
+27/03/2025 15:35:49: {"RevitCommand":"CreateWall","Parameters":{"startX":0,"startY":0,"endX":10,"endY":0,"height":10.0,"wallType":"Basic Wall","level":"Level 1"}}
+27/03/2025 15:35:49: CreateWall
+27/03/2025 15:35:49: startX: 0
+startY: 0
+endX: 10
+endY: 0
+height: 10
+wallType: Basic Wall
+level: Level 1
+27/03/2025 15:35:49: Processing Revit Command: CreateWall
+27/03/2025 15:40:28: {"RevitCommand":"CreateWall","Parameters":{"startX":0,"startY":0,"endX":10,"endY":0,"height":10.0,"wallType":"Basic Wall","level":"Level 1"}}
+27/03/2025 15:40:28: CreateWall
+27/03/2025 15:40:28: startX: 0
+startY: 0
+endX: 10
+endY: 0
+height: 10
+wallType: Basic Wall
+level: Level 1
+27/03/2025 15:40:28: Processing Revit Command: CreateWall
+27/03/2025 15:51:26: {"RevitCommand":"CreateWall","Parameters":{"startX":0,"startY":0,"endX":10,"endY":0,"height":10.0,"wallType":"Basic Wall","level":"Level 1"}}
+27/03/2025 15:51:26: CreateWall
+27/03/2025 15:51:26: startX: 0
+startY: 0
+endX: 10
+endY: 0
+height: 10
+wallType: Basic Wall
+level: Level 1
+27/03/2025 15:51:26: Error: External event handler not initialized.
+27/03/2025 15:57:25: {"RevitCommand":"CreateWall","Parameters":{"startX":0,"startY":0,"endX":10,"endY":0,"height":10.0,"wallType":"Basic Wall","level":"Level 1"}}
+27/03/2025 15:57:25: CreateWall
+27/03/2025 15:57:25: startX: 0
+startY: 0
+endX: 10
+endY: 0
+height: 10
+wallType: Basic Wall
+level: Level 1
+27/03/2025 15:57:25: Transaction started successfully.
+27/03/2025 15:57:38: Error in command execution: The transaction has not been started yet (the current status is not 'Started'). A transaction must be started before it can be either committed or rolled back.
+27/03/2025 16:05:43: {"RevitCommand":"CreateWall","Parameters":{"startX":0,"startY":0,"endX":10,"endY":0,"height":10.0,"wallType":"Basic Wall","level":"Level 1"}}
+27/03/2025 16:05:43: CreateWall
+27/03/2025 16:05:43: startX: 0
+startY: 0
+endX: 10
+endY: 0
+height: 10
+wallType: Basic Wall
+level: Level 1
+27/03/2025 16:05:43: Transaction started successfully.
+27/03/2025 16:06:07: Transaction committed successfully.
+27/03/2025 16:23:06: {"RevitCommand":"CreateWall","Parameters":{"startX":0,"startY":0,"endX":10,"endY":0,"height":10.0,"wallType":"Basic Wall","level":"Level 1"}}
+27/03/2025 16:23:06: CreateWall
+27/03/2025 16:23:06: startX: 0
+startY: 0
+endX: 10
+endY: 0
+height: 10
+wallType: Basic Wall
+level: Level 1
+27/03/2025 16:23:06: Transaction started successfully.
+27/03/2025 16:23:19: Transaction committed successfully.
+27/03/2025 16:28:15: {"RevitCommand":"CreateWall","Parameters":{"startX":0,"startY":0,"endX":10,"endY":0,"height":10.0,"wallType":"Basic Wall","level":"Level 1"}}
+27/03/2025 16:28:15: CreateWall
+27/03/2025 16:28:15: startX: 0
+startY: 0
+endX: 10
+endY: 0
+height: 10
+wallType: Basic Wall
+level: Level 1
+27/03/2025 16:28:15: Transaction started successfully.
+27/03/2025 16:28:37: Transaction committed successfully.
+27/03/2025 16:33:53: {"RevitCommand":"CreateWall","Parameters":{"startX":0,"startY":0,"endX":10,"endY":0,"height":10.0,"wallType":"Basic Wall","level":"Level 1"}}
+27/03/2025 16:33:53: CreateWall
+27/03/2025 16:33:53: startX: 0
+startY: 0
+endX: 10
+endY: 0
+height: 10
+wallType: Basic Wall
+level: Level 1
+27/03/2025 16:33:53: Transaction started successfully.
+27/03/2025 16:34:08: Transaction committed successfully.
+27/03/2025 16:52:43: {"RevitCommand":"CreateWall","Parameters":{"startX":0,"startY":0,"endX":10,"endY":0,"height":10.0,"wallType":"Basic Wall","level":"Level 1"}}
+27/03/2025 16:52:43: CreateWall
+27/03/2025 16:52:43: startX: 0
+startY: 0
+endX: 10
+endY: 0
+height: 10
+wallType: Basic Wall
+level: Level 1
+27/03/2025 16:52:43: Transaction started successfully.
+27/03/2025 16:53:27: Transaction committed successfully.
+27/03/2025 16:56:03: {"RevitCommand":"CreateWall","Parameters":{"startX":0,"startY":0,"endX":10,"endY":0,"height":10.0,"wallType":"Basic Wall","level":"Level 1"}}
+27/03/2025 16:56:03: CreateWall
+27/03/2025 16:56:03: startX: 0
+startY: 0
+endX: 10
+endY: 0
+height: 10
+wallType: Basic Wall
+level: Level 1
+27/03/2025 16:56:03: Transaction started successfully.
+27/03/2025 16:56:16: Transaction committed successfully.
+27/03/2025 16:56:43: {"RevitCommand":"CreateWall","Parameters":{"startX":0,"startY":0,"endX":10,"endY":0,"height":10.0,"wallType":"Basic Wall","level":"Level 1"}}
+27/03/2025 16:56:43: CreateWall
+27/03/2025 16:56:43: startX: 0
+startY: 0
+endX: 10
+endY: 0
+height: 10
+wallType: Basic Wall
+level: Level 1
+27/03/2025 16:56:43: Transaction started successfully.
+27/03/2025 16:57:16: Transaction committed successfully.
+27/03/2025 17:05:31: {"RevitCommand":"CreateWall","Parameters":{"startX":0,"startY":0,"endX":10,"endY":0,"height":10.0,"wallType":"Basic Wall","level":"Level 1"}}
+27/03/2025 17:05:31: CreateWall
+27/03/2025 17:05:31: startX: 0
+startY: 0
+endX: 10
+endY: 0
+height: 10
+wallType: Basic Wall
+level: Level 1
+27/03/2025 17:05:31: Transaction started successfully.
+27/03/2025 17:05:36: Transaction committed successfully.
