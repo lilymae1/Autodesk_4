@@ -175,3 +175,14 @@ wallType: Basic Wall
 level: Level 1
 27/03/2025 17:05:31: Transaction started successfully.
 27/03/2025 17:05:36: Transaction committed successfully.
+27/03/2025 21:00:33: {"RevitCommand":"CreateWall","Parameters":{"startX":0,"startY":0,"endX":10,"endY":0,"height":10.0,"wallType":"Basic Wall","level":"Level 1"}}
+27/03/2025 21:00:33: CreateWall
+27/03/2025 21:00:33: startX: 0
+startY: 0
+endX: 10
+endY: 0
+height: 10
+wallType: Basic Wall
+level: Level 1
+27/03/2025 21:00:33: Transaction started successfully.
+27/03/2025 21:00:40: Transaction committed successfully.

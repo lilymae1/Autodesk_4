@@ -51,38 +51,35 @@ namespace AutodeskRevitAPI.Controllers
                     // Check if the response is a structured command (RevitCommand)
                     if (jsonDoc.RootElement.TryGetProperty("response", out JsonElement responseElement))
                     {
-                        // The "response" property contains a stringified JSON
+                        // The "response" property contains a string, attempt to parse it as JSON
                         string responseJson = responseElement.GetString();
 
-                        // Deserialize the stringified JSON to a JsonDocument
-                        var responseJsonDoc = JsonDocument.Parse(responseJson);
-
-                        // Now you can safely check for the "RevitCommand" in the nested JSON
-                        if (responseJsonDoc.RootElement.TryGetProperty("RevitCommand", out JsonElement revitCommandElement))
+                        // Ensure the response is valid JSON before parsing
+                        if (!string.IsNullOrWhiteSpace(responseJson) && responseJson.Trim().StartsWith("{"))
                         {
-                            Console.WriteLine("Running the Revit command...");
-                            // Forward the detected Revit command to the Revit API
-                            string command = revitCommandElement.GetString();
-                            JsonElement parameters = responseJsonDoc.RootElement.GetProperty("Parameters");
-
-                            // Convert parameters to a dictionary (or use as needed)
-                            var paramDict = JsonSerializer.Deserialize<Dictionary<string, object>>(parameters.ToString());
-
-                            // Serialize both command and parameters into one JSON object
-                            var commandData = new
+                            var responseJsonDoc = JsonDocument.Parse(responseJson);
+                            
+                            if (responseJsonDoc.RootElement.TryGetProperty("RevitCommand", out JsonElement revitCommandElement))
                             {
-                                RevitCommand = command,
-                                Parameters = paramDict
-                            };
-                            string commandJson = JsonSerializer.Serialize(commandData);
+                                Console.WriteLine("Running the Revit command...");
+                                string command = revitCommandElement.GetString();
+                                JsonElement parameters = responseJsonDoc.RootElement.GetProperty("Parameters");
 
-                            // Send the command to the Revit API
-                            return await ForwardToRevitAPI(commandJson);
+                                var paramDict = JsonSerializer.Deserialize<Dictionary<string, object>>(parameters.ToString());
+
+                                var commandData = new
+                                {
+                                    RevitCommand = command,
+                                    Parameters = paramDict
+                                };
+
+                                string commandJson = JsonSerializer.Serialize(commandData);
+                                return await ForwardToRevitAPI(commandJson);
+                            }
                         }
-                        else
-                        {
-                            return BadRequest("RevitCommand not found in the response.");
-                        }
+
+                        // If it's just a text response, return it as-is
+                        return Ok(new { response = responseJson });
                     }
                     else
                     {
