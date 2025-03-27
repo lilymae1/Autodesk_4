@@ -67,7 +67,8 @@
     "electron": "^35.1.1"
   },
   "scripts": {
-    "start": "electron \"index.js\""
+    "start": "electron \"index.js\"",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
