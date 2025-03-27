@@ -229,10 +229,28 @@ section
   border-radius: 4px;
 }
 
-#EP_D_input {
+#EP_Des_input {
   float:left;
   width:205px;
   height:100px;
+  margin-top:20px;
+  margin-left:30px;
+  color: #141417;
+  background-color: #F0EFEF;
+  padding: 5px 15px;
+  text-align: left;
+  text-decoration: none;
+  font-size: 10px;
+  font-family: AutodeskFont;
+  box-shadow: 2px 2px 2px #141417; 
+  border-radius: 4px;
+}
+
+
+#EP_D_input {
+  float:left;
+  width:205px;
+  height:155px;
   margin-top:20px;
   margin-left:30px;
   color: #141417;
@@ -265,7 +283,7 @@ section
   border-radius: 4px;
 }
 
-#ExistingProjectPage-Generate-report {
+#ExistingProjectPage-Create-New {
   float:left;
   margin-top:20px;
   margin-left:30px;
@@ -284,13 +302,12 @@ section
   border-color:#141417;
 }
 
-#ExistingProjectPage-Generate-report:hover {
+#ExistingProjectPage-Create-New:hover {
   background-color: #414BB2;
   color: white;
   border-radius: 4px;
   border-color:#414BB2;
 }
-
 
 .ExistingProjectPage-ButtonContainer {
   float:right;
