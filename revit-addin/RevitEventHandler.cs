@@ -82,7 +82,7 @@ public class RevitCommandHandler : IExternalEventHandler
                     break;
 
                 case "ViewRotation":
-                    AICommands.RotateCamera(Convert.ToDouble(_parameters["angle"], doc));
+                    AICommands.RotateCamera(Convert.ToDouble(_parameters["angle"], uiApp));
                     break;
 
                 default:

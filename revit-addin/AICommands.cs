@@ -170,9 +170,13 @@ public class AICommands
 
     // ----------------------  Camera Controls ---------------------
 
-    public static void MoveCamera(Document doc, View3D view3D, XYZ eyePosition, XYZ targetPosition)
+    public static void MoveCamera(ExternalCommandData commandData, XYZ eyePosition, XYZ targetPosition)
     {
-        if (doc == null || view3D == null) return; // Prevent errors if doc or view3D is null
+        // Retrieve the active UIDocument, Document, and active 3D view
+        UIDocument uidoc = commandData.Application.ActiveUIDocument;
+        Document doc = uidoc.Document;
+        View3D view3D = doc.ActiveView as View3D;
+        if (doc == null || view3D == null) return; // Ensure we have a valid document and 3D view
 
         using (Transaction tx = new Transaction(doc, "Move Camera"))
         {
@@ -184,7 +188,7 @@ public class AICommands
             // Set a default "Up" direction (assuming Z-axis up)
             XYZ upDirection = XYZ.BasisZ;
 
-            // Create a new ViewOrientation3D with updated eye position
+            // Create a new ViewOrientation3D with the updated eye position, up direction, and forward direction
             ViewOrientation3D newOrientation = new ViewOrientation3D(eyePosition, upDirection, forwardDirection);
 
             // Apply the new orientation to the 3D view
@@ -226,32 +230,31 @@ public class AICommands
 
     
 
-    public static void RotateCamera(double angleInDegrees, ExternalCommandData commandData)
+    public static void RotateCamera(double angleInDegrees, UIApplication uiApp)
     {
-        // Get the active UIDocument and active view
-        UIDocument uidoc = commandData.Application.ActiveUIDocument;
-        View3D view = uidoc.ActiveView as View3D;
-        if (view == null || !view.CanBePrinted) return; // Ensure it's a 3D view
+        UIDocument uidoc = uiApp.ActiveUIDocument;
+        if (uidoc == null)
+            return;
 
-        // Get the current camera location and view direction
+        View3D view = uidoc.ActiveView as View3D;
+        if (view == null || !view.CanBePrinted)
+            return;
+
+        // Get the current camera orientation.
         ViewOrientation3D orientation = view.GetOrientation();
         XYZ currentViewDirection = orientation.ForwardDirection;
         XYZ currentCameraPosition = orientation.EyePosition;
 
-        // Calculate the rotation axis (Z-axis)
+        // Define the rotation axis and compute the rotation transform.
         XYZ rotationAxis = XYZ.BasisZ;
-
-        // Convert angle to radians 
         double angleInRadians = angleInDegrees * (Math.PI / 180);
-
-        // Create a rotation matrix around the Z-axis
         Transform rotationTransform = Transform.CreateRotationAtPoint(rotationAxis, angleInRadians, currentCameraPosition);
 
-        // Apply the rotation to the view's orientation
+        // Apply the rotation.
         XYZ newViewDirection = rotationTransform.OfVector(currentViewDirection);
         XYZ newUpDirection = rotationTransform.OfVector(orientation.UpDirection);
 
-        // Set the new orientation for the view
+        // Set the new orientation.
         view.SetOrientation(new ViewOrientation3D(newViewDirection, newUpDirection, currentCameraPosition));
     }
 
