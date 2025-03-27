@@ -1,58 +1,11 @@
-using Microsoft.AspNetCore.Mvc;
-using System.IO;
-using Newtonsoft.Json;
-
-[Route("api/revitchat")]
-[ApiController]
-public class RevitChatAPI : ControllerBase
-{
-    private static string baseProjectPath = "C:\\Users\\joann\\AppData\\Roaming\\RevitChatProjects";
-
-    [HttpPost("createProject")]
-    public IActionResult CreateProject([FromBody] ProjectModel project)
-    {
-        string projectPath = Path.Combine(baseProjectPath, project.Name);
-        if (!Directory.Exists(projectPath))
-        {
-            Directory.CreateDirectory(projectPath);
-            System.IO.File.WriteAllText(Path.Combine(projectPath, "project.json"), JsonConvert.SerializeObject(project));
-            
-            // Create an empty .rvt file for testing purposes
-            System.IO.File.Create(Path.Combine(projectPath, $"{project.Name}.rvt")).Close();
-
-            return Ok("Project created successfully");
-        }
-        return BadRequest("Project already exists");
-    }
-
-    [HttpGet("getProjects")]
-    public IActionResult GetProjects()
-    {
-        if (!Directory.Exists(baseProjectPath))
-            return Ok(new List<ProjectModel>());
-
-        var projects = Directory.GetDirectories(baseProjectPath).Select(dir =>
-        {
-            string projectFile = Path.Combine(dir, "project.json");
-            return System.IO.File.Exists(projectFile) ? JsonConvert.DeserializeObject<ProjectModel>(System.IO.File.ReadAllText(projectFile)) : null;
-        }).Where(p => p != null).ToList();
-
-        return Ok(projects);
-    }
-
-    [HttpPost("updateProject")]
-    public IActionResult UpdateProject([FromBody] ProjectModel project)
-    {
-        string projectPath = Path.Combine(baseProjectPath, project.Name);
-        if (Directory.Exists(projectPath))
-        {
-            System.IO.File.WriteAllText(Path.Combine(projectPath, "project.json"), JsonConvert.SerializeObject(project));
-            return Ok("Project updated successfully");
-        }
-        return NotFound("Project not found");
-    }
-}
-
+//Updated Version:
+//New Project Creation (POST /create-project): 
+// It creates a new folder for the project and stores the project details (name, description) in the info.json file.
+//Existing Project Listing (GET /projects): 
+// It loads all existing projects, reads the project descriptions from the info.json file, and returns them.
+// Create Chatbox (POST /create-chatbox): 
+// It creates a new chatbox file (Chat_YYYYMMDD_HHMMSS.txt) for the selected project. 
+// It also archives the previous chatbox file if one exists.
 
 // using System;
 // using System.Collections.Generic;
@@ -65,12 +18,10 @@ public class RevitChatAPI : ControllerBase
 // [Route("api/chat")]
 // public class RevitChatAPI : ControllerBase
 // {
-//     // Define the base directory for project storage
-//     private static readonly string BaseDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Roaming", "Autodesk", "Revit", "Addins", "ChatProjects");
+//     private static readonly string BaseDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RevitChatProjects");
 
 //     public RevitChatAPI()
 //     {
-//         // Ensure the directory exists for saving projects
 //         if (!Directory.Exists(BaseDirectory))
 //             Directory.CreateDirectory(BaseDirectory);
 //     }
@@ -136,38 +87,6 @@ public class RevitChatAPI : ControllerBase
 //         return Ok(new { message = "New chatbox created.", newChatPath });
 //     }
 
-//     // Endpoint to update project description
-//     [HttpPost("update-project")]
-//     public IActionResult UpdateProject([FromBody] ProjectModel project)
-//     {
-//         if (string.IsNullOrWhiteSpace(project.Name))
-//             return BadRequest("Project name cannot be empty.");
-
-//         string projectPath = Path.Combine(BaseDirectory, project.Name);
-//         if (!Directory.Exists(projectPath))
-//             return NotFound("Project not found.");
-
-//         // Load and update project info
-//         string infoPath = Path.Combine(projectPath, "info.json");
-//         if (!System.IO.File.Exists(infoPath))
-//             return NotFound("Project info file not found.");
-
-//         try
-//         {
-//             var existingProject = JsonConvert.DeserializeObject<ProjectModel>(System.IO.File.ReadAllText(infoPath));
-//             existingProject.Description = project.Description;
-
-//             // Save updated description to the info.json file
-//             System.IO.File.WriteAllText(infoPath, JsonConvert.SerializeObject(existingProject));
-
-//             return Ok(new { message = "Project updated successfully." });
-//         }
-//         catch (Exception)
-//         {
-//             return StatusCode(500, "Error updating project.");
-//         }
-//     }
-
 //     // Load project description from its info.json file
 //     private static string LoadProjectDescription(string projectPath)
 //     {
@@ -187,14 +106,12 @@ public class RevitChatAPI : ControllerBase
 //         return "No description available.";
 //     }
 
-//     // Project model for request/response
 //     public class ProjectModel
 //     {
 //         public string Name { get; set; }
 //         public string Description { get; set; }
 //     }
 
-//     // Request model for creating a chatbox
 //     public class ChatboxRequest
 //     {
 //         public string ProjectName { get; set; }

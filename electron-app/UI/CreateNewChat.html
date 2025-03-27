@@ -29,9 +29,7 @@
                 if (this.checked) {
                     $("#createnew_ChatboxDescription").show();
                     $("#choose_project").hide();
-                    // Enable fields for Create New Project
                     $("#CN_c_input, #CN_d_input").prop("disabled", false);
-                    // Disable fields for Import Existing Project
                     $("#CP_c_input, #CP_d_input").prop("disabled", true).val('');
                 } else {
                     $("#createnew_ChatboxDescription").hide();
@@ -42,9 +40,7 @@
                 if (this.checked) {
                     $("#choose_project").show();
                     $("#createnew_ChatboxDescription").hide();
-                    // Disable fields for Create New Project
                     $("#CN_c_input, #CN_d_input").prop("disabled", true).val('');
-                    // Enable fields for Import Existing Project (initially disabled)
                     $("#CP_c_input, #CP_d_input").prop("disabled", true);
                 } else {
                     $("#choose_project").hide();
@@ -52,72 +48,52 @@
             });
 
             // Load Existing Projects
-function loadProjects() {
-    $.ajax({
-        url: "http://localhost:3000/api/revitchat/getProjects",  // Change the URL to match the correct backend endpoint
-        type: "GET",
-        success: function (data) {
-            var projectList = $("#PreviousProjects_scroll");
-            projectList.empty();
-
-            if (!data.length) {
-                projectList.append("<p>No projects found.</p>");
-                return;
-            }
-
-            data.forEach(function (project) {
-                console.log("Loaded project:", project);
-                const projectName = project.Name || "Unnamed Project";
-                const projectDesc = project.Description || "No description";
-                projectList.append(`<br><a href="#" onclick="selectProject('${project.Name}', '${project.Description}')">${projectName} (${projectDesc})</a><br>`);
-            });
-        },
-        error: function () {
-            console.error("Error loading projects.");
-        }
-    });
-}
-
-            // Select Existing Project and enable editing
-            window.selectProject = function (name, description) {
-                console.log("Project selected:", name, description);
-
-                $("#CP_c_input").val(name).prop("disabled", false); // Enable editing of Name field
-                $("#CP_d_input").val(description).prop("disabled", false); // Enable editing of Description field
-
-                alert("Project " + name + " selected. You can now edit the name and description.");
-            }
-
-            // Save edited project (for existing project)
-            $("#ChooseProject_Done_button").click(function (event) {
-                event.preventDefault();
-                var name = $("#CP_c_input").val();
-                var description = $("#CP_d_input").val();
-
+            function loadProjects() {
                 $.ajax({
-                    url: "http://localhost:3000/api/chat/update-project", // Update endpoint
-                    type: "POST",
-                    contentType: "application/json",
-                    data: JSON.stringify({ name: name, description: description }),
-                    success: function (response) {
-                        alert("Project updated: " + response.message);
-                        window.location.reload(); // Reload page after update
+                    url: "http://localhost:3000/api/chat/projects",
+                    type: "GET",
+                    success: function (data) {
+                        var projectList = $("#PreviousProjects_scroll");
+                        projectList.empty();
+
+                        if (!data.length) {
+                            projectList.append("<p>No projects found.</p>");
+                            return;
+                        }
+
+                        data.forEach(function (project) {
+                            console.log("Loaded project:", project);
+                            const projectName = project.name || "Unnamed Project";
+                            const projectDesc = project.description || "No description";
+                            projectList.append(
+                                `<br><a href="#" onclick="selectProject('${projectName}', '${projectDesc}')">
+                                    ${projectName} (${projectDesc})
+                                </a><br>`
+                            );
+                        });
                     },
                     error: function () {
-                        alert("Error updating project.");
+                        console.error("Error loading projects.");
                     }
                 });
-            });
+            }
+
+            // Select Existing Project
+            window.selectProject = function (name, description) {
+                console.log("Project selected:", name, description);
+                $("#CP_c_input").val(name).prop("disabled", false);
+                $("#CP_d_input").val(description).prop("disabled", false);
+                alert("Project " + name + " selected. You can now edit the name and description.");
+            }
 
             // Create New Project
             $("#CreateNewChat_Done_button").click(function (event) {
                 event.preventDefault();
-                var name = $("#CN_c_input").val();
-                var description = $("#CN_d_input").val();
+                var name = $("#CN_c_input").val().trim();
+                var description = $("#CN_d_input").val().trim();
 
-                // Validate inputs before sending to backend
-                if (!name || !description) {
-                    alert("Please fill in both the name and description.");
+                if (!name) {
+                    alert("Project name is required.");
                     return;
                 }
 
@@ -128,10 +104,36 @@ function loadProjects() {
                     data: JSON.stringify({ name: name, description: description }),
                     success: function (response) {
                         alert("Project Created: " + response.message);
-                        window.location.reload(); // Reload page after creating the project
+                        loadProjects();
                     },
                     error: function () {
                         alert("Error creating project.");
+                    }
+                });
+            });
+
+            // Save Edited Project Name and Description
+            $("#ChooseProject_Done_button").click(function (event) {
+                event.preventDefault();
+                var name = $("#CP_c_input").val().trim();
+                var description = $("#CP_d_input").val().trim();
+
+                if (!name) {
+                    alert("Project name is required.");
+                    return;
+                }
+
+                $.ajax({
+                    url: "http://localhost:3000/api/chat/update-project",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({ name: name, description: description }),
+                    success: function (response) {
+                        alert("Project Updated: " + response.message);
+                        loadProjects();
+                    },
+                    error: function () {
+                        alert("Error updating project.");
                     }
                 });
             });
@@ -160,18 +162,20 @@ function loadProjects() {
         </div>
 
         <div id="create_new_rightdiv">
+            <!-- Create New Project Section -->
             <div id="createnew_ChatboxDescription" style="display: none;">
                 <form>
-                    <input id="CN_c_input" placeholder="Name.." required>
-                    <input id="CN_d_input" placeholder="Description" required>
+                    <input id="CN_c_input" placeholder="Project Name..">
+                    <input id="CN_d_input" placeholder="Description">
                     <input id="CreateNewChat_Done_button" type="submit" value="Done">
                 </form>
             </div>
 
+            <!-- Import Existing Project Section -->
             <div id="choose_project" style="display: none;">
                 <form>
-                    <input id="CP_c_input" placeholder="Name.." disabled>
-                    <input id="CP_d_input" placeholder="Description" disabled>
+                    <input id="CP_c_input" placeholder="Project Name..">
+                    <input id="CP_d_input" placeholder="Description">
                     <div id="PreviousProjects_scroll"></div>
                     <input id="ChooseProject_Done_button" type="submit" value="Done">
                 </form>
@@ -185,7 +189,7 @@ function loadProjects() {
             xhr1.open('GET', 'Footer.html', true);
             xhr1.onload = function () {
                 if (xhr1.status == 200) {
-                    console.log("footer.html loaded successfully");
+                    console.log("Footer.html loaded successfully");
                     $("#includedContent").html(xhr1.responseText);
                 } else {
                     console.error("Error loading footer.html: " + xhr1.status);
@@ -201,9 +205,7 @@ function loadProjects() {
         <div id="includedContent"></div>
     </footer>
 </body>
-
 </html>
-
 <!-- // Brief Description:
 //Create New Project: When the user selects "Create new project" and fills out the form, 
 //the project is created using the /create-project API. 
@@ -215,5 +217,3 @@ Upon clicking "Done," a new chatbox file is created using the /create-chatbox AP
 
 Import Existing Project: When the user clicks "Done" for an existing project, 
 it triggers the API to create a new chatbox for that project. 
-If the project is selected and the description is editable, it enables the description field.
--->

@@ -1,29 +1,3 @@
-// server.js
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const projectController = require('./ProjectController');
-const chatController = require('./chatController');
-
-const app = express();
-const PORT = 3000;
-
-app.use(cors());
-app.use(bodyParser.json());
-
-// Project API Routes
-app.post('/createProject', projectController.createProject);
-app.get('/getProjects', projectController.getProjects);
-app.post('/updateProject', projectController.updateProject);
-app.post('/openProject', projectController.openProject);
-
-// Chat API Routes
-app.post('/saveChat', chatController.saveChat);
-app.get('/getChat/:projectName', chatController.getChat);
-
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
 // const express = require("express");
 // const fs = require("fs");
 // const path = require("path");
@@ -56,6 +30,10 @@ app.listen(PORT, () => {
 //     try {
 //         const data = fs.readFileSync(PROJECTS_FILE, "utf8");
 //         const projects = JSON.parse(data) || [];
+
+//         // Log the loaded projects to verify their structure
+//         console.log("Loaded projects:", projects);
+
 //         return projects;
 //     } catch (error) {
 //         console.error("Error loading projects.json:", error);
@@ -114,9 +92,14 @@ app.listen(PORT, () => {
 // app.get("/api/chat/projects", (req, res) => {
 //     try {
 //         let projects = loadProjects();
+
+//         // Log the projects being returned
+//         console.log("Returning projects:", projects);
+
+//         // Ensure projects always return correct format
 //         projects = projects.map(project => ({
-//             Name: project.Name || "Unknown",  
-//             Description: project.Description || "No description available"  
+//             Name: project.Name || "Unknown",  // Use "Unknown" if Name is undefined or empty
+//             Description: project.Description || "No description available"  // Use default description if undefined
 //         }));
 
 //         res.json(projects);
@@ -126,30 +109,8 @@ app.listen(PORT, () => {
 //     }
 // });
 
-// // Update project details (name and description)
-// app.post("/api/chat/update-project", (req, res) => {
-//     const { name, description } = req.body;
+// // Other endpoints...
 
-//     if (!name) {
-//         return res.status(400).json({ error: "Project name is required" });
-//     }
-
-//     let projects = loadProjects();
-
-//     const projectIndex = projects.findIndex(project => project.Name === name);
-//     if (projectIndex === -1) {
-//         return res.status(404).json({ error: "Project not found" });
-//     }
-
-//     projects[projectIndex].Description = description;
-
-//     if (!saveProjects(projects)) {
-//         return res.status(500).json({ error: "Failed to save project metadata" });
-//     }
-
-//     res.json({ message: "Project updated successfully", project: projects[projectIndex] });
-// });
-
-// // Start the server
+// // Start server
 // const PORT = 5000;
 // app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
