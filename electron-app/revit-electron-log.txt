@@ -2,9 +2,6 @@ Output:
 
 Electron app is ready
 User input: Create a wall from (0,0) to (10,0) at 10 feet high on Level 1
-Chatbot API Response: {
-  response: 'Revit API executed command but did not return a message.'
-}
 
 
 Error:
