@@ -79,11 +79,6 @@ public class StartElectronApp
         string electronPath = Path.Combine(projectRoot, "electron-app", "node_modules", "electron", "dist", "electron.exe");
         string appPath = Path.Combine(projectRoot, "electron-app");
 
-        TaskDialog.Show("Electron Log", $"Add-in Directory: {addinDirectory}");
-        TaskDialog.Show("Electron Log", $"Project Root (Parent Directory): {projectRoot}");
-        TaskDialog.Show("Electron Log", $"Electron Path: {electronPath}");
-        TaskDialog.Show("Electron Log",$"App Path: {appPath}");
-
         try
         {
             ProcessStartInfo startInfo = new ProcessStartInfo
@@ -100,7 +95,6 @@ public class StartElectronApp
             Process electronProcess = new Process { StartInfo = startInfo };
 
             electronProcess.OutputDataReceived += (sender, e) => 
-                TaskDialog.Show("Electron Log", e.Data ?? "No output");
             electronProcess.ErrorDataReceived += (sender, e) => 
                 TaskDialog.Show("Electron Error", e.Data ?? "No error");
 
@@ -112,8 +106,6 @@ public class StartElectronApp
             // Write logs to a file for easier tracking
             string logPath = Path.Combine(appPath, "revit-electron-log.txt");
             File.WriteAllText(logPath, $"Output:\n{output}\n\nError:\n{error}");
-
-            TaskDialog.Show("Electron", "Electron app started successfully!");
         }
         catch (Exception ex)
         {
@@ -123,7 +115,7 @@ public class StartElectronApp
 
     public static void LogMessage(string message)
     {   
-        string logPath = @"C:\Users\Aaron Wass\Documents\Autodesk Project\Autodesk_4\revit-backend-log.txt";
+        string logPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "/Documents/Autodesk Project/Autodesk_4/revit-backend-log.txt";
         using (StreamWriter writer = new StreamWriter(logPath, true))
         {
             writer.WriteLine($"{DateTime.Now}: {message}");
