@@ -17,12 +17,10 @@ public class RevitCommandListener
         if (!_listener.IsListening)
         {
             _uiApp = uiApp;
-            TaskDialog.Show("Log", "UIApplication initialized: " + (_uiApp != null ? "Yes" : "No"));
             _listener.Prefixes.Add("http://localhost:5001/revit/");
             _listener.Start();
             InitializeEventHandler(uiApp);
             Task.Run(() => ListenForCommands());
-            TaskDialog.Show("Log", "Listener started");
         }
     }
 
@@ -32,7 +30,6 @@ public class RevitCommandListener
         {
             _listener.Stop();
             _listener.Close();
-            TaskDialog.Show("Log", "Listener stopped");
         }
     }
 
@@ -60,7 +57,6 @@ public class RevitCommandListener
                     {
                         try
                         {
-                            TaskDialog.Show("Log","test1");
                             Logger.Log(commandData.Command);
                             Logger.Log(string.Join(Environment.NewLine, commandData.Parameters.Select(kv => $"{kv.Key}: {kv.Value}")));
                             HandleRevitCommand(_uiApp, commandData.Command, commandData.Parameters);
