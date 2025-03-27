@@ -36,6 +36,28 @@ expressApp.get("/files", (req, res) => {
     });
 });
 
+
+expressApp.delete('/delete-folder', express.json(), (req, res) => {
+    const { folderName } = req.body;
+
+    if (!folderName) {
+        return res.status(400).json({ error: 'Folder name is required' });
+    }
+
+    const dirPath = path.join(appDataPath, folderName);
+    
+    console.log(`Attempting to delete: ${dirPath}`);
+
+    fs.rm(dirPath, { recursive: true, force: true }, (err) => {
+        if (err) {
+            console.error("Error deleting folder:", err);
+            return res.status(500).json({ error: "Failed to delete folder." });
+        }
+        console.log("Folder deleted successfully.");
+        res.json({ message: "Folder deleted successfully." });
+    });
+});
+
 // Route to list projects (folders) for importing
 expressApp.get("/files", (req, res) => {
     fs.readdir(appDataPath, { withFileTypes: true }, (err, items) => {
