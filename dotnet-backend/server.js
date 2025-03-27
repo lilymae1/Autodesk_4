@@ -1,28 +1,29 @@
+// server.js
 const express = require('express');
 const bodyParser = require('body-parser');
-const path = require('path');
-const chatController = require('../electron-app/chatController');
-const projectController = require('./projectController');
-const config = require('../electron-app/config.json');
+const cors = require('cors');
+const projectController = require('./ProjectController');
+const chatController = require('./chatController');
 
 const app = express();
+const PORT = 3000;
 
-// Middleware
+app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')));
 
-// Routes
-app.post('/api/chat', chatController.createChat);
-app.get('/api/chat/:id', chatController.getChat);
-app.post('/api/project', projectController.createProject);
-app.get('/api/projects', projectController.getAllProjects);
-app.get('/api/project/:id', projectController.getProjectById);
+// Project API Routes
+app.post('/createProject', projectController.createProject);
+app.get('/getProjects', projectController.getProjects);
+app.post('/updateProject', projectController.updateProject);
+app.post('/openProject', projectController.openProject);
 
-const PORT = config.port || 3000;
+// Chat API Routes
+app.post('/saveChat', chatController.saveChat);
+app.get('/getChat/:projectName', chatController.getChat);
+
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
-
 // const express = require("express");
 // const fs = require("fs");
 // const path = require("path");

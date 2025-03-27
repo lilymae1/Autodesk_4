@@ -52,31 +52,31 @@
             });
 
             // Load Existing Projects
-            function loadProjects() {
-                $.ajax({
-                    url: "http://localhost:5000/api/chat/projects",
-                    type: "GET",
-                    success: function (data) {
-                        var projectList = $("#PreviousProjects_scroll");
-                        projectList.empty();
+function loadProjects() {
+    $.ajax({
+        url: "http://localhost:3000/api/revitchat/getProjects",  // Change the URL to match the correct backend endpoint
+        type: "GET",
+        success: function (data) {
+            var projectList = $("#PreviousProjects_scroll");
+            projectList.empty();
 
-                        if (!data.length) {
-                            projectList.append("<p>No projects found.</p>");
-                            return;
-                        }
-
-                        data.forEach(function (project) {
-                            console.log("Loaded project:", project);
-                            const projectName = project.Name || "Unnamed Project";
-                            const projectDesc = project.Description || "No description";
-                            projectList.append(`<br><a href="#" onclick="selectProject('${project.Name}', '${project.Description}')">${projectName} (${projectDesc})</a><br>`);
-                        });
-                    },
-                    error: function () {
-                        console.error("Error loading projects.");
-                    }
-                });
+            if (!data.length) {
+                projectList.append("<p>No projects found.</p>");
+                return;
             }
+
+            data.forEach(function (project) {
+                console.log("Loaded project:", project);
+                const projectName = project.Name || "Unnamed Project";
+                const projectDesc = project.Description || "No description";
+                projectList.append(`<br><a href="#" onclick="selectProject('${project.Name}', '${project.Description}')">${projectName} (${projectDesc})</a><br>`);
+            });
+        },
+        error: function () {
+            console.error("Error loading projects.");
+        }
+    });
+}
 
             // Select Existing Project and enable editing
             window.selectProject = function (name, description) {
@@ -95,7 +95,7 @@
                 var description = $("#CP_d_input").val();
 
                 $.ajax({
-                    url: "http://localhost:5000/api/chat/update-project", // Update endpoint
+                    url: "http://localhost:3000/api/chat/update-project", // Update endpoint
                     type: "POST",
                     contentType: "application/json",
                     data: JSON.stringify({ name: name, description: description }),
@@ -115,14 +115,20 @@
                 var name = $("#CN_c_input").val();
                 var description = $("#CN_d_input").val();
 
+                // Validate inputs before sending to backend
+                if (!name || !description) {
+                    alert("Please fill in both the name and description.");
+                    return;
+                }
+
                 $.ajax({
-                    url: "http://localhost:5000/api/chat/create-project",
+                    url: "http://localhost:3000/api/chat/create-project",
                     type: "POST",
                     contentType: "application/json",
                     data: JSON.stringify({ name: name, description: description }),
                     success: function (response) {
                         alert("Project Created: " + response.message);
-                        window.location.reload();
+                        window.location.reload(); // Reload page after creating the project
                     },
                     error: function () {
                         alert("Error creating project.");
@@ -156,8 +162,8 @@
         <div id="create_new_rightdiv">
             <div id="createnew_ChatboxDescription" style="display: none;">
                 <form>
-                    <input id="CN_c_input" placeholder="Name..">
-                    <input id="CN_d_input" placeholder="Description">
+                    <input id="CN_c_input" placeholder="Name.." required>
+                    <input id="CN_d_input" placeholder="Description" required>
                     <input id="CreateNewChat_Done_button" type="submit" value="Done">
                 </form>
             </div>

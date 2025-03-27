@@ -1,53 +1,58 @@
 const fs = require('fs');
 const path = require('path');
-const utils = require('./utils');
+const { getProjectPath } = require('./utils');
+const { exec } = require('child_process');
 
-module.exports.createProject = (req, res) => {
-    const { projectName, description } = req.body;
-    const projectId = Date.now(); // Unique ID for each project
+// Create a new project
+exports.createProject = (req, res) => {
+    const { name, description } = req.body;
+    const projectPath = getProjectPath(name);
 
-    const projectFolder = path.join(__dirname, 'RevitChatProjects', projectId.toString());
-
-    if (fs.existsSync(projectFolder)) {
-        return res.status(400).json({ message: 'Project already exists' });
+    if (!fs.existsSync(projectPath)) {
+        fs.mkdirSync(projectPath, { recursive: true });
+        fs.writeFileSync(path.join(projectPath, 'project.json'), JSON.stringify({ name, description }));
+        res.json({ message: 'Project created successfully' });
+    } else {
+        res.status(400).json({ error: 'Project already exists' });
     }
-
-    fs.mkdirSync(projectFolder, { recursive: true });
-
-    const projectData = {
-        projectId,
-        projectName,
-        description,
-    };
-
-    const chatHistory = { messages: [] };
-
-    fs.writeFileSync(path.join(projectFolder, 'project.json'), JSON.stringify(projectData, null, 2));
-    fs.writeFileSync(path.join(projectFolder, 'chatHistory.json'), JSON.stringify(chatHistory, null, 2));
-
-    return res.status(201).json({ projectId, message: 'Project created successfully' });
 };
 
-module.exports.getAllProjects = (req, res) => {
-    const projectsDir = path.join(__dirname, 'RevitChatProjects');
-    const projects = fs.readdirSync(projectsDir).map((projectId) => {
-        const projectFile = path.join(projectsDir, projectId, 'project.json');
-        return utils.readJsonFile(projectFile);
+// Retrieve all projects
+exports.getProjects = (req, res) => {
+    const basePath = getProjectPath('');
+    const projects = fs.readdirSync(basePath).filter(dir => fs.lstatSync(path.join(basePath, dir)).isDirectory());
+    const projectData = projects.map(project => {
+        const projectFile = path.join(basePath, project, 'project.json');
+        return fs.existsSync(projectFile) ? JSON.parse(fs.readFileSync(projectFile)) : { name: project, description: '' };
     });
-
-    return res.status(200).json(projects);
+    res.json(projectData);
 };
 
-module.exports.getProjectById = (req, res) => {
-    const projectId = req.params.id;
-    const projectFolder = path.join(__dirname, 'RevitChatProjects', projectId.toString());
-
-    if (!fs.existsSync(projectFolder)) {
-        return res.status(404).json({ message: 'Project not found' });
+// Update an existing project
+exports.updateProject = (req, res) => {
+    const { name, description } = req.body;
+    const projectPath = getProjectPath(name);
+    if (fs.existsSync(projectPath)) {
+        fs.writeFileSync(path.join(projectPath, 'project.json'), JSON.stringify({ name, description }));
+        res.json({ message: 'Project updated successfully' });
+    } else {
+        res.status(404).json({ error: 'Project not found' });
     }
+};
 
-    const projectFile = path.join(projectFolder, 'project.json');
-    const projectData = utils.readJsonFile(projectFile);
-
-    return res.status(200).json(projectData);
+// Open an existing project in Revit
+exports.openProject = (req, res) => {
+    const { name } = req.body;
+    const projectPath = getProjectPath(name);
+    if (fs.existsSync(projectPath)) {
+        exec(`start "" "C:\\Program Files\\Autodesk\\Revit 2024\\Revit.exe" "${projectPath}\\${name}.rvt"`, (error) => {
+            if (error) {
+                res.status(500).json({ error: 'Failed to open project in Revit' });
+            } else {
+                res.json({ message: 'Opening project in Revit' });
+            }
+        });
+    } else {
+        res.status(404).json({ error: 'Project not found' });
+    }
 };

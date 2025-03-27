@@ -1,100 +1,58 @@
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
-using System.Net.Http;
 using Newtonsoft.Json;
-using System;
 
-namespace RevitChatAPI.Controllers
+[Route("api/revitchat")]
+[ApiController]
+public class RevitChatAPI : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ProjectController : ControllerBase
+    private static string baseProjectPath = "C:\\Users\\joann\\AppData\\Roaming\\RevitChatProjects";
+
+    [HttpPost("createProject")]
+    public IActionResult CreateProject([FromBody] ProjectModel project)
     {
-        // POST method to create a new project
-        [HttpPost]
-        public IActionResult CreateProject([FromBody] Project project)
+        string projectPath = Path.Combine(baseProjectPath, project.Name);
+        if (!Directory.Exists(projectPath))
         {
-            // Get the user's AppData\Roaming path and define the directory for RevitChatProjects
-            string appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RevitChatProjects");
+            Directory.CreateDirectory(projectPath);
+            System.IO.File.WriteAllText(Path.Combine(projectPath, "project.json"), JsonConvert.SerializeObject(project));
+            
+            // Create an empty .rvt file for testing purposes
+            System.IO.File.Create(Path.Combine(projectPath, $"{project.Name}.rvt")).Close();
 
-            // Ensure the RevitChatProjects directory exists
-            try
-            {
-                if (!Directory.Exists(appDataPath))
-                {
-                    Directory.CreateDirectory(appDataPath);  // Create directory if it doesn't exist
-                }
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Failed to create directory: {ex.Message}");
-            }
-
-            // Define the project directory where the project will be stored
-            string projectDirectory = Path.Combine(appDataPath, project.ProjectId.ToString());
-
-            // Check if the project directory already exists
-            if (Directory.Exists(projectDirectory))
-            {
-                return BadRequest("Project already exists.");
-            }
-
-            // Create the project directory
-            try
-            {
-                Directory.CreateDirectory(projectDirectory);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Failed to create project directory: {ex.Message}");
-            }
-
-            // Define the path for the project JSON file
-            string projectFile = Path.Combine(projectDirectory, "project.json");
-
-            // Write the project data to a JSON file
-            try
-            {
-                System.IO.File.WriteAllText(projectFile, JsonConvert.SerializeObject(project));
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error when saving project: {ex.Message}");
-            }
-
-            // Return the created project as a response
-            return CreatedAtAction(nameof(GetProjectById), new { id = project.ProjectId }, project);
+            return Ok("Project created successfully");
         }
-
-        // GET method to retrieve a project by its ID
-        [HttpGet("{id}")]
-        public IActionResult GetProjectById(int id)
-        {
-            // Define the path to the project JSON file in the correct directory
-            string projectFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RevitChatProjects", id.ToString(), "project.json");
-
-            // Check if the project file exists
-            if (!System.IO.File.Exists(projectFile))
-            {
-                return NotFound("Project not found.");
-            }
-
-            // Read the project data from the JSON file and deserialize it
-            var project = JsonConvert.DeserializeObject<Project>(System.IO.File.ReadAllText(projectFile));
-
-            // Return the project data as a response
-            return Ok(project);
-        }
+        return BadRequest("Project already exists");
     }
 
-    // Project model class to represent project data
-    public class Project
+    [HttpGet("getProjects")]
+    public IActionResult GetProjects()
     {
-        public int ProjectId { get; set; }
-        public string ProjectName { get; set; }
-        public string Description { get; set; }
+        if (!Directory.Exists(baseProjectPath))
+            return Ok(new List<ProjectModel>());
+
+        var projects = Directory.GetDirectories(baseProjectPath).Select(dir =>
+        {
+            string projectFile = Path.Combine(dir, "project.json");
+            return System.IO.File.Exists(projectFile) ? JsonConvert.DeserializeObject<ProjectModel>(System.IO.File.ReadAllText(projectFile)) : null;
+        }).Where(p => p != null).ToList();
+
+        return Ok(projects);
+    }
+
+    [HttpPost("updateProject")]
+    public IActionResult UpdateProject([FromBody] ProjectModel project)
+    {
+        string projectPath = Path.Combine(baseProjectPath, project.Name);
+        if (Directory.Exists(projectPath))
+        {
+            System.IO.File.WriteAllText(Path.Combine(projectPath, "project.json"), JsonConvert.SerializeObject(project));
+            return Ok("Project updated successfully");
+        }
+        return NotFound("Project not found");
     }
 }
+
 
 // using System;
 // using System.Collections.Generic;

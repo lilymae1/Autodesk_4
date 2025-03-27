@@ -1,8 +1,7 @@
-const fs = require('fs');
+const path = require('path');
 
-module.exports.readJsonFile = (filePath) => {
-    if (!fs.existsSync(filePath)) {
-        return {};
-    }
-    return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+const baseProjectPath = "C:\\Users\\joann\\AppData\\Roaming\\RevitChatProjects";
+
+exports.getProjectPath = (projectName) => {
+    return path.join(baseProjectPath, projectName);
 };
