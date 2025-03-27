@@ -226,8 +226,11 @@ public class AICommands
 
     
 
-    public static void RotateCamera(View3D view, double angleInDegrees)
+    public static void RotateCamera(double angleInDegrees, ExternalCommandData commandData)
     {
+        // Get the active UIDocument and active view
+        UIDocument uidoc = commandData.Application.ActiveUIDocument;
+        View3D view = uidoc.ActiveView as View3D;
         if (view == null || !view.CanBePrinted) return; // Ensure it's a 3D view
 
         // Get the current camera location and view direction
@@ -235,7 +238,7 @@ public class AICommands
         XYZ currentViewDirection = orientation.ForwardDirection;
         XYZ currentCameraPosition = orientation.EyePosition;
 
-        // Calculate the rotation axis 
+        // Calculate the rotation axis (Z-axis)
         XYZ rotationAxis = XYZ.BasisZ;
 
         // Convert angle to radians 

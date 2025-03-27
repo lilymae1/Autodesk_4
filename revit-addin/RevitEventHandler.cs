@@ -81,8 +81,8 @@ public class RevitCommandHandler : IExternalEventHandler
                     AICommands.ChangeViewType(doc, view, _parameters["newViewType"].ToString());
                     break;
 
-                case "RotateCamera":
-                    AICommands.RotateCamera(view3D, Convert.ToDouble(_parameters["angle"]));
+                case "ViewRotation":
+                    AICommands.RotateCamera(Convert.ToDouble(_parameters["angle"], doc));
                     break;
 
                 default:
