@@ -168,7 +168,44 @@ ipcMain.on('chat-message', async (event, userInput) => {
             const revitCommand = { command: "Create Wall" };
             event.reply('chat-response', "Executing Revit command...");
             ipcMain.emit('execute-revit-command', null, revitCommand);
-        } else {
+        } 
+        else if(userInput.toLowerCase().includes("change wall height")){
+            console.log("Detected 'Change Wall Height' command.");
+            const revitCommand = { command: "Change Wall Height" };
+            event.reply('chat-response', "Executing Revit command...");
+            ipcMain.emit('execute-revit-command', null, revitCommand);
+        }
+        else if(userInput.toLowerCase().includes("delete wall")){
+            console.log("Detected 'Delete Wall' command.");
+            const revitCommand = { command: "Delete Wall" };
+            event.reply('chat-response', "Executing Revit command...");
+            ipcMain.emit('execute-revit-command', null, revitCommand);
+        }
+        else if(userInput.toLowerCase().includes("delete all walls")){
+            console.log("Detected 'Delete All Walls' command.");
+            const revitCommand = { command: "Delete All Walls" };
+            event.reply('chat-response', "Executing Revit command...");
+            ipcMain.emit('execute-revit-command', null, revitCommand);
+        }
+        else if(userInput.toLowerCase().includes("move camera")){
+            console.log("Detected 'Move Camera' command.");
+            const revitCommand = { command: "Move Camera" };
+            event.reply('chat-response', "Executing Revit command...");
+            ipcMain.emit('execute-revit-command', null, revitCommand);
+        }
+        else if(userInput.toLowerCase().includes("change view type")){
+            console.log("Detected 'Change View Type' command.");
+            const revitCommand = { command: "Change View Type" };
+            event.reply('chat-response', "Executing Revit command...");
+            ipcMain.emit('execute-revit-command', null, revitCommand);
+        }
+        else if(userInput.toLowerCase().includes("rotate camera")){
+            console.log("Detected 'Rotate Camera' command.");
+            const revitCommand = { command: "Rotate Camera" };
+            event.reply('chat-response', "Executing Revit command...");
+            ipcMain.emit('execute-revit-command', null, revitCommand);
+        }
+        else {
             let response = await axios.post('http://localhost:5000/api/chatbot/getResponse', { message: userInput });
             event.reply('chat-response', response.data.response || "No response from AI.");
         }
