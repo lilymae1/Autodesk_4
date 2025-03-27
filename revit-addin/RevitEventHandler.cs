@@ -59,8 +59,30 @@ public class RevitCommandHandler : IExternalEventHandler
                     AICommands.DeleteWall(doc, new ElementId(Convert.ToInt32(_parameters["wallId"])));
                     break;
 
-                case "DeleteAllWalls":
+                    case "DeleteAllWalls":
                     AICommands.DeleteAllWalls(doc);
+                    break;
+
+                case "MoveCamera":
+                    XYZ eyePosition = new XYZ(
+                    Convert.ToDouble(_parameters["eyeX"]),
+                    Convert.ToDouble(_parameters["eyeY"]),
+                    Convert.ToDouble(_parameters["eyeZ"])
+                    );
+                    XYZ targetPosition = new XYZ(
+                    Convert.ToDouble(_parameters["targetX"]),
+                    Convert.ToDouble(_parameters["targetY"]),
+                    Convert.ToDouble(_parameters["targetZ"])
+                    );
+                    AICommands.MoveCamera(doc, view3D, eyePosition, targetPosition);
+                    break;
+
+                case "ChangeViewType":
+                    AICommands.ChangeViewType(doc, view, _parameters["newViewType"].ToString());
+                    break;
+
+                case "RotateCamera":
+                    AICommands.RotateCamera(view3D, Convert.ToDouble(_parameters["angle"]));
                     break;
 
                 default:
