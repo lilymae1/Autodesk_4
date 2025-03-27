@@ -16,7 +16,8 @@ public class RevitCommandListener
     {
         if (!_listener.IsListening)
         {
-            _uiApp = uiApp; 
+            _uiApp = uiApp;
+            TaskDialog.Show("Log", "UIApplication initialized: " + (_uiApp != null ? "Yes" : "No"));
             _listener.Prefixes.Add("http://localhost:5001/revit/");
             _listener.Start();
             Task.Run(() => ListenForCommands());
@@ -41,70 +42,153 @@ public class RevitCommandListener
         {
             var context = await _listener.GetContextAsync();
             var request = context.Request;
+            var response = context.Response;
+
+            // Initialize the response content to be returned
+            string responseMessage = string.Empty;
 
             if (request.HttpMethod == "POST")
             {
                 using (var reader = new StreamReader(request.InputStream))
                 {
                     string requestBody = await reader.ReadToEndAsync();
+                    Logger.Log(requestBody);
                     var commandData = JsonConvert.DeserializeObject<CommandData>(requestBody);
 
                     if (_uiApp != null)
                     {
-                        HandleRevitCommand(_uiApp, commandData.Command, commandData.Parameters);
+                        try
+                        {
+                            TaskDialog.Show("Log","test1");
+                            Logger.Log(commandData.Command);
+                            Logger.Log(string.Join(Environment.NewLine, commandData.Parameters.Select(kv => $"{kv.Key}: {kv.Value}")));
+                            HandleRevitCommand(_uiApp, commandData.Command, commandData.Parameters);
+                            responseMessage = "Command executed successfully.";
+                        }
+                        catch (Exception ex)
+                        {
+                            responseMessage = $"Error processing command: {ex.Message}";
+                        }
                     }
                     else
                     {
-                        TaskDialog.Show("Error", "UIApplication is null!");
+                        responseMessage = "UIApplication is null!";
                     }
                 }
             }
+            else
+            {
+                responseMessage = "Invalid request method. Only POST is supported.";
+            }
 
-            context.Response.StatusCode = 200;
-            context.Response.Close();
+            // Set the status code based on the outcome
+            if (responseMessage.StartsWith("Error"))
+            {
+                response.StatusCode = 500; // Internal Server Error for errors
+            }
+            else
+            {
+                response.StatusCode = 200; // OK for success
+            }
+
+            // Write the response message to the response output stream
+            using (var writer = new StreamWriter(response.OutputStream))
+            {
+                writer.Write(responseMessage);
+                writer.Flush();
+            }
+
+            // Close the response
+            response.Close();
         }
     }
 
     private static void HandleRevitCommand(UIApplication uiApp, string command, Dictionary<string, object> parameters)
     {
+        // Ensure that the command is run on Revit's UI thread by calling the UIApplication’s Application
+        // and using Revit's mechanisms for running code on the main thread (via transaction).
+
+        // Execute in the Revit application (UI thread context)
+        Logger.Log("Processing Revit Command: " + command);
+
         Document doc = uiApp.ActiveUIDocument.Document;
-        TaskDialog.Show("Log", "Processing Revit Command: " + command);
-
-        switch (command)
+        if (doc.IsReadOnly)
         {
-            case "CreateWall":
-                TaskDialog.Show("Log", "Creating wall...");
-                XYZ start = new XYZ(Convert.ToDouble(parameters["startX"]), Convert.ToDouble(parameters["startY"]), 0);
-                XYZ end = new XYZ(Convert.ToDouble(parameters["endX"]), Convert.ToDouble(parameters["endY"]), 0);
-                double height = Convert.ToDouble(parameters["height"]);
-                string wallType = parameters["wallType"].ToString();
-                string level = parameters["level"].ToString();
+            Logger.Log("Error: The document is currently read-only and cannot be modified.");
+        }
 
-                AICommands.CreateWall(doc, start, end, height, wallType, level);
-                break;
 
-            case "ModifyWallHeight":
-                AICommands.ModifyWallHeights(doc, Convert.ToDouble(parameters["newHeight"]));
-                break;
+        try
+        {
+            switch (command)
+            {
+                case "CreateWall":
+                    Logger.Log("Log: Creating wall...");
+                    XYZ start = new XYZ(Convert.ToDouble(parameters["startX"]), Convert.ToDouble(parameters["startY"]), 0);
+                    XYZ end = new XYZ(Convert.ToDouble(parameters["endX"]), Convert.ToDouble(parameters["endY"]), 0);
+                    double height = Convert.ToDouble(parameters["height"]);
+                    string wallType = parameters["wallType"].ToString();
+                    string level = parameters["level"].ToString();
 
-            case "DeleteWall":
-                AICommands.DeleteWall(doc, new ElementId(Convert.ToInt32(parameters["wallId"])));
-                break;
+                    AICommands.CreateWall(doc, start, end, height, wallType, level);
+                    break;
 
-            case "DeleteAllWalls":
-                AICommands.DeleteAllWalls(doc);
-                break;
+                case "ModifyWallHeight":
+                    AICommands.ModifyWallHeights(doc, Convert.ToDouble(parameters["newHeight"]));
+                    break;
 
-            default:
-                TaskDialog.Show("Error", "Unknown command received from chatbot.");
-                break;
+                case "DeleteWall":
+                    AICommands.DeleteWall(doc, new ElementId(Convert.ToInt32(parameters["wallId"])));
+                    break;
+
+                case "DeleteAllWalls":
+                    AICommands.DeleteAllWalls(doc);
+                    break;
+
+                default:
+                    Logger.Log("Unknown command received from chatbot");
+                    TaskDialog.Show("Error", "Unknown command received from chatbot.");
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.Log("Error in command execution: " + ex.Message);
+            TaskDialog.Show("Error", "Error in command execution: " + ex.Message);
         }
     }
+
+
 
     // Class to deserialize incoming command data
     public class CommandData
     {
+        [JsonProperty("RevitCommand")]
         public string Command { get; set; }
+
         public Dictionary<string, object> Parameters { get; set; }
+    }
+
+
+    public static class Logger
+    {
+        private static readonly string logFilePath = @"C:\Users\richa\Documents\Autodesk Project\Autodesk_4\revit-addin\revit_command_log.txt";
+
+        // This method writes a message to the log file
+        public static void Log(string message)
+        {
+            try
+            {
+                using (StreamWriter sw = new StreamWriter(logFilePath, true)) // true to append to the file
+                {
+                    sw.WriteLine($"{DateTime.Now}: {message}");
+                }
+            }
+            catch (Exception ex)
+            {
+                // If logging fails, print to the output window (for debugging purposes)
+                Console.WriteLine("Failed to write to log file: " + ex.Message);
+            }
+        }
     }
 }
