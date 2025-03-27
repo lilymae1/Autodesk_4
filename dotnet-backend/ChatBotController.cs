@@ -103,29 +103,21 @@ namespace AutodeskRevitAPI.Controllers
 
         private async Task<IActionResult> ForwardToRevitAPI(string revitCommandJson)
         {
-            // Send the serialized JSON (which contains both command and parameters) to the Revit API
             var requestContent = new StringContent(revitCommandJson, Encoding.UTF8, "application/json");
             try
             {
-                // Send request to Revit API
-                HttpResponseMessage revitResponse = await _httpClient.PostAsync(REVIT_API_URL, requestContent);
+                string REVIT_LISTENER_URL = "http://localhost:5001/revit/";
+                HttpResponseMessage revitResponse = await _httpClient.PostAsync(REVIT_LISTENER_URL, requestContent);
                 
-                // Log the actual response content here to help debug
                 string revitResponseText = await revitResponse.Content.ReadAsStringAsync();
-                Console.WriteLine("Revit API Response Content: " + revitResponseText);
+                Console.WriteLine("Revit Listener Response: " + revitResponseText);
 
-                if (!revitResponse.IsSuccessStatusCode)
-                {
-                    return Ok(new { response = "Revit API executed command but did not return a message." });
-                }
-
-                // Return the Revit response
                 return Ok(new { response = revitResponseText });
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return StatusCode(500, new { response = "Failed to communicate with Revit API." });
+                return StatusCode(500, new { response = "Failed to communicate with Revit." });
             }
         }
     }
