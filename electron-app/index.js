@@ -93,7 +93,7 @@ expressApp.get("/files", (req, res) => {
 
 // Route to create a new project
 expressApp.post("/api/chat/create-project", express.json(), (req, res) => {
-    const { name, description } = req.body;
+    const { name, description ,image} = req.body;
     if (!name) {
         return res.status(400).json({ error: "Project name is required" });
     }
@@ -108,6 +108,8 @@ expressApp.post("/api/chat/create-project", express.json(), (req, res) => {
     const projectData = { name, description };
     fs.writeFileSync(infoPath, JSON.stringify(projectData, null, 2));
 
+    var x = name+".png"
+    fs.writeFileSync(path.join(projectPath,x),image)
     res.json({ message: `Project '${name}' created successfully` });
 });
 

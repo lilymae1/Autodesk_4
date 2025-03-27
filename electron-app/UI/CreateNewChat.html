@@ -92,6 +92,7 @@
                 event.preventDefault();
                 var name = $("#CN_c_input").val().trim();
                 var description = $("#CN_d_input").val().trim();
+                var image = $("thumbnail").val().trim();
 
                 if (!name) {
                     alert("Project name is required.");
@@ -102,7 +103,7 @@
                     url: "http://localhost:3000/api/chat/create-project",
                     type: "POST",
                     contentType: "application/json",
-                    data: JSON.stringify({ name: name, description: description }),
+                    data: JSON.stringify({ name: name, description: description,image: image}),
                     success: function (response) {
                         alert("Project Created: " + response.message);
                         loadProjects();
@@ -154,6 +155,7 @@
                 <form>
                     <input id="CP_c_input" placeholder="Project Name..">
                     <textarea id="CP_d_input" placeholder="Description"></textarea>
+                    <input id = "thumbnail" type = "file" accept=".png">
                 </form>
             </div>
             <div class="CreateNewChat-ButtonContainer">
