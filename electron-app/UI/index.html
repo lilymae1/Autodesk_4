@@ -62,11 +62,30 @@
         .gap {
             padding: 8%;
         }
+        .Title > a > .newbutton{
+      text-align: center;
+      cursor: pointer;
+      border: none;
+      color:white;
+      background-color: #000000;
+      width: 15%;
+      height: 90%;
+      float: right;
+      border: #ffffff;
+      font-size: 35px;
+      font-family: AutodeskFont;
+    }
+    .Title > a > .newbutton:hover{
+      opacity: 0.9;
+    }
     </style>
 </head>
 <body>
     <div id="includedNavContent"></div>
-    <div class="Title">Recent Chatted With</div>
+    <div class="Title">
+        Recent Chatted With 
+        <a href="CreateNewChat.html"><div class="newbutton">New</div></a>
+      </div>
     <div class="container" id="file-list"></div>
     <script>
         fetch("/files")
