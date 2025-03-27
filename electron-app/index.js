@@ -13,20 +13,29 @@ expressApp.use(cors());
 const appDataPath = app.getPath("appData") + "\\RevitChatProjects";
 expressApp.use(express.static(path.join(__dirname, 'UI')));
 
-// Route to list files and folders
+// Route to list of folders and get image
 expressApp.get("/files", (req, res) => {
     fs.readdir(appDataPath, { withFileTypes: true }, (err, items) => {
         if (err) {
             console.error("Error reading directory:", err);
             return res.status(500).json({ error: "Unable to read directory" });
         }
-        const filesAndFolders = items.map(item => ({
-            name: item.name,
-            type: item.isDirectory() ? "folder" : "file"
-        }));
+
+        const filesAndFolders = items.map(item => {
+            const imagePath = path.join(__dirname, 'UI', 'Assets', `${item.name}.png`);
+            const imageExists = fs.existsSync(imagePath);
+
+            return {
+                name: item.name,
+                type: item.isDirectory() ? "folder" : "file",
+                image: imageExists ? `Assets/${item.name}.png` : `Assets/example_image.png`
+            };
+        });
+
         res.json(filesAndFolders);
     });
 });
+
 
 // Start the server
 expressApp.listen(PORT, () => {
