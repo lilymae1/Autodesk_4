@@ -10,7 +10,7 @@ const expressApp = express();
 const PORT = 3000;
 expressApp.use(cors());
 
-const appDataPath = "C:\\Users\\Aaron Wass\\AppData\\Roaming\\RevitChatProjects";
+const appDataPath = "C:\\Users\\joann\\AppData\\Roaming\\RevitChatProjects";
 expressApp.use(express.static(path.join(__dirname, 'UI')));
 
 // Route to list files and folders
