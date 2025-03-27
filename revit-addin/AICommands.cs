@@ -16,60 +16,71 @@ public class AICommands
                                   string wallTypeName = "Basic Wall", 
                                   string levelName = "Level 1") 
     {
+        TaskDialog.Show("Log", "checking if doc is null");
         if (doc == null) return;
 
         using (Transaction tx = new Transaction(doc, "Create Wall"))
         {
-            tx.Start();
+            try{
 
-            // Find the Wall Type
-            FilteredElementCollector wallTypes = new FilteredElementCollector(doc)
-                .OfClass(typeof(WallType));
+                TaskDialog.Show("Log", "start transaction");
+                tx.Start();
 
-            WallType selectedWallType = null;
-            foreach (WallType wt in wallTypes)
-            {
-                if (wt.Name.Equals(wallTypeName, StringComparison.OrdinalIgnoreCase))
+                // Find the Wall Type
+                FilteredElementCollector wallTypes = new FilteredElementCollector(doc)
+                    .OfClass(typeof(WallType));
+
+                WallType selectedWallType = null;
+                foreach (WallType wt in wallTypes)
                 {
-                    selectedWallType = wt;
-                    break;
+                    if (wt.Name.Equals(wallTypeName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        selectedWallType = wt;
+                        break;
+                    }
                 }
-            }
-            if (selectedWallType == null)
-            {
-                TaskDialog.Show("Error", "Wall Type not found: " + wallTypeName);
-                tx.RollBack();
-                return;
-            }
-
-            // Find the Level
-            FilteredElementCollector levels = new FilteredElementCollector(doc)
-                .OfClass(typeof(Level));
-
-            Level selectedLevel = null;
-            foreach (Level lvl in levels)
-            {
-                if (lvl.Name.Equals(levelName, StringComparison.OrdinalIgnoreCase))
+                if (selectedWallType == null)
                 {
-                    selectedLevel = lvl;
-                    break;
+                    TaskDialog.Show("Error", "Wall Type not found: " + wallTypeName);
+                    tx.RollBack();
+                    return;
                 }
+
+                // Find the Level
+                FilteredElementCollector levels = new FilteredElementCollector(doc)
+                    .OfClass(typeof(Level));
+
+                Level selectedLevel = null;
+                TaskDialog.Show("Log", "for each level");
+                foreach (Level lvl in levels)
+                {
+                    if (lvl.Name.Equals(levelName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        selectedLevel = lvl;
+                        break;
+                    }
+                }
+                if (selectedLevel == null)
+                {
+                    TaskDialog.Show("Error", "Level not found: " + levelName);
+                    tx.RollBack();
+                    return;
+                }
+
+                // Create a Line for the Wall
+                Line wallLine = Line.CreateBound(startPoint, endPoint);
+
+                // Create the Wall
+                Wall newWall = Wall.Create(doc, wallLine, selectedWallType.Id, selectedLevel.Id, height, 0, false, false);
+                TaskDialog.Show("Log", "committig transaction");
+                tx.Commit();
+                TaskDialog.Show("Success", "Wall Created Successfully!");
             }
-            if (selectedLevel == null)
+            catch(Exception ex)
             {
-                TaskDialog.Show("Error", "Level not found: " + levelName);
                 tx.RollBack();
-                return;
+                TaskDialog.Show("Error", "Failed to create wall: " + ex.Message);
             }
-
-            // Create a Line for the Wall
-            Line wallLine = Line.CreateBound(startPoint, endPoint);
-
-            // Create the Wall
-            Wall newWall = Wall.Create(doc, wallLine, selectedWallType.Id, selectedLevel.Id, height, 0, false, false);
-
-            tx.Commit();
-            TaskDialog.Show("Success", "Wall Created Successfully!");
         }
     }
 
