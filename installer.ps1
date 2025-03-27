@@ -7,6 +7,8 @@ npm i axios
 npm i express fs path
 npm i jest
 
+ollama create revit/archiemodel -f electron-app\ollama-modelfile\Modelfile
+
 
 $RelativePath = [Environment]::CurrentDirectory + "\revit-addin\bin\Debug\net48\RevitChatBotPrototype1.dll"
 $content = "
