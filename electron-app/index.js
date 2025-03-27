@@ -1,257 +1,134 @@
 const { app, BrowserWindow, ipcMain, screen } = require('electron');
 const path = require('path');
-const axios = require('axios');  // Import axios
+const axios = require('axios');
+const express = require('express');
+const fs = require('fs');
+const cors = require('cors');
 
-// When Electron app is ready, initialize the window
+// Initialize Express server
+const expressApp = express();
+const PORT = 3000;
+expressApp.use(cors());
+
+const appDataPath = "C:\\Users\\Aaron Wass\\AppData\\Roaming\\RevitChatProjects";
+expressApp.use(express.static(path.join(__dirname, 'UI')));
+
+// Route to list files and folders
+expressApp.get("/files", (req, res) => {
+    fs.readdir(appDataPath, { withFileTypes: true }, (err, items) => {
+        if (err) {
+            console.error("Error reading directory:", err);
+            return res.status(500).json({ error: "Unable to read directory" });
+        }
+        const filesAndFolders = items.map(item => ({
+            name: item.name,
+            type: item.isDirectory() ? "folder" : "file"
+        }));
+        res.json(filesAndFolders);
+    });
+});
+
+// Start the server
+expressApp.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
+});
+
+// Initialize Electron app
 app.whenReady().then(() => {
-  console.log('Electron app is ready');
+    console.log('Electron app is ready');
+    const { width, height } = screen.getPrimaryDisplay().workAreaSize;
 
-  const { width, height } = screen.getPrimaryDisplay().workAreaSize;
-
-  // Function to create the window
-  function createWindow() {
-    const win = new BrowserWindow({
-      width: width,
-      height: height,
-      frame: true,
-      resizable: false,
-      webPreferences: {
-        nodeIntegration: false,
-        contextIsolation: true,
-        preload: path.join(__dirname, 'preload.js') // Ensure preload script is specified
-      }
-    });
-
-    // Load HTML content into the window
-    win.loadFile(path.join(__dirname, 'UI', 'index.html'));  // Adjust path to your HTML file location
-
-    // Once the window content finishes loading, apply the dragging effect
-    win.webContents.on('did-finish-load', () => {
-      win.webContents.send('apply-dragging');
-    });
-  }
-
-  // Create the window
-  createWindow();
-
-  // Recreate window on macOS if none are open
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
-  });
-});
-
-// Close the app when all windows are closed (except on macOS)
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
-});
-
-// Handling chat messages from the UI
-ipcMain.on('chat-message', async (event, userInput) => {
-  console.log('User input:', userInput);
-
-  try {
-    // Check for a Revit command in the user input (e.g., "Create Wall")
-    if (userInput.toLowerCase().includes("create wall")) {
-      console.log("Detected 'Create Wall' command.");
-
-      // You can construct and forward a Revit command here
-      const revitCommand = { command: "Create Wall" }; // Example command structure
-
-      // Send feedback to the UI
-      event.reply('chat-response', "Executing Revit command...");
-
-      // Send the command to Revit via IPC
-      ipcMain.emit('execute-revit-command', null, revitCommand);
-    } else {
-      // For non-command inputs, call the chatbot API
-      let response = await axios.post('http://localhost:5000/api/chatbot/getResponse', {
-        message: userInput
-      });
-
-      console.log('Chatbot API Response:', response.data);
-
-      // Send chatbot response back to the UI
-      event.reply('chat-response', response.data.response || "No response from AI.");
+    function createWindow() {
+        const win = new BrowserWindow({
+            width: width,
+            height: height,
+            frame: true,
+            resizable: false,
+            webPreferences: {
+                nodeIntegration: false,
+                contextIsolation: true,
+                preload: path.join(__dirname, 'preload.js')
+            }
+        });
+        win.loadURL('http://localhost:3000');
+        win.webContents.on('did-finish-load', () => {
+            win.webContents.send('apply-dragging');
+        });
     }
-  } catch (error) {
-    console.error('Error communicating with API:', error);
-    event.reply('chat-response', 'Error: Unable to process your request.');
-  }
+
+    createWindow();
+    app.on('activate', () => {
+        if (BrowserWindow.getAllWindows().length === 0) createWindow();
+    });
 });
 
-// Handling structured Revit commands and forwarding them to the Revit API
+// Close app when all windows are closed
+app.on('window-all-closed', () => {
+    if (process.platform !== 'darwin') {
+        app.quit();
+    }
+});
+
+// Handle chat messages
+ipcMain.on('chat-message', async (event, userInput) => {
+    console.log('User input:', userInput);
+    try {
+        if (userInput.toLowerCase().includes("create wall")) {
+            console.log("Detected 'Create Wall' command.");
+            const revitCommand = { command: "Create Wall" };
+            event.reply('chat-response', "Executing Revit command...");
+            ipcMain.emit('execute-revit-command', null, revitCommand);
+        } else {
+            let response = await axios.post('http://localhost:5000/api/chatbot/getResponse', { message: userInput });
+            event.reply('chat-response', response.data.response || "No response from AI.");
+        }
+    } catch (error) {
+        console.error('Error communicating with API:', error);
+        event.reply('chat-response', 'Error: Unable to process your request.');
+    }
+});
+
+// Handle Revit commands
 ipcMain.on('execute-revit-command', async (event, revitCommand) => {
-  try {
-    const revitResponse = await axios.post("http://localhost:5000/api/revit/execute", revitCommand);
-    console.log("Revit API Response:", revitResponse.data);
-
-    // Send Revit's response back to the UI
-    event.reply("chat-response", revitResponse.data);
-  } catch (error) {
-    console.error("Error executing Revit command:", error);
-    event.reply("chat-response", "Error executing Revit command.");
-  }
+    try {
+        const revitResponse = await axios.post("http://localhost:5000/api/revit/execute", revitCommand);
+        event.reply("chat-response", revitResponse.data);
+    } catch (error) {
+        console.error("Error executing Revit command:", error);
+        event.reply("chat-response", "Error executing Revit command.");
+    }
 });
 
-// Handling window control events
+// Window controls
 ipcMain.on('minimize-chat', () => {
-  let win = BrowserWindow.getFocusedWindow();
-  if (win) {
-    win.setResizable(true);
-    win.setSize(400, 600);
-    win.setResizable(false);
-  }
+    let win = BrowserWindow.getFocusedWindow();
+    if (win) {
+        win.setResizable(true);
+        win.setSize(400, 600);
+        win.setResizable(false);
+    }
 });
 
 ipcMain.on('fullscreen-chat', () => {
-  let win = BrowserWindow.getFocusedWindow();
-  if (win) {
-    const { width, height } = screen.getPrimaryDisplay().workAreaSize;
-    win.setResizable(true);
-    win.setSize(width, height);
-    win.setBounds({ x: 0, y: 0, width: width, height: height });
-    win.setResizable(false);
-  }
+    let win = BrowserWindow.getFocusedWindow();
+    if (win) {
+        const { width, height } = screen.getPrimaryDisplay().workAreaSize;
+        win.setResizable(true);
+        win.setSize(width, height);
+        win.setBounds({ x: 0, y: 0, width: width, height: height });
+        win.setResizable(false);
+    }
 });
 
 ipcMain.on('move-window', (event, dx, dy) => {
-  let win = BrowserWindow.getFocusedWindow();
-  if (win) {
-    const currentBounds = win.getBounds();
-    win.setBounds({
-      x: currentBounds.x + dx,
-      y: currentBounds.y + dy,
-      width: currentBounds.width,
-      height: currentBounds.height
-    });
-  }
+    let win = BrowserWindow.getFocusedWindow();
+    if (win) {
+        const currentBounds = win.getBounds();
+        win.setBounds({
+            x: currentBounds.x + dx,
+            y: currentBounds.y + dy,
+            width: currentBounds.width,
+            height: currentBounds.height
+        });
+    }
 });
-
-// const { app, BrowserWindow, ipcMain, screen } = require('electron');
-// const path = require('path');
-// const axios = require('axios');  // Import axios
-
-// app.whenReady().then(() => {
-//   console.log('Electron app is ready');
-
-//   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
-
-//   function createWindow() {
-//     const win = new BrowserWindow({
-//       width: width,
-//       height: height,
-//       frame: true,    
-//       resizable: false, 
-//       webPreferences: {
-//         nodeIntegration: false,
-//         contextIsolation: true,
-//         preload: path.join(__dirname, 'preload.js')
-//       }
-//     });
-
-//     win.loadFile(path.join(__dirname, 'UI', 'index.html'));
-
-//     win.webContents.on('did-finish-load', () => {
-//       win.webContents.send('apply-dragging');
-//     });
-//   }
-
-//   createWindow();
-
-//   app.on('activate', () => {
-//     if (BrowserWindow.getAllWindows().length === 0) createWindow();
-//   });
-// });
-
-// // Close the app when all windows are closed
-// app.on('window-all-closed', () => {
-//   if (process.platform !== 'darwin') {
-//     app.quit();
-//   }
-// });
-
-// // Handling messages from the UI and integrating with either Ollama API or your chatbot backend API
-// ipcMain.on('chat-message', async (event, userInput) => {
-//   console.log('User input:', userInput);
-
-//   try {
-//     // Check if the input contains a known command, like "Create Wall"
-//     if (userInput.toLowerCase().includes("create wall")) {
-//       console.log("Detected 'Create Wall' command.");
-
-//       // Construct the Revit Command based on the detected input
-      
-
-//       // Send the structured Revit command
-//       event.reply('chat-response', "Executing Revit command...");
-
-//       // Forward command to Revit for execution
-//       ipcMain.emit('execute-revit-command', null, revitCommand);
-//     } else {
-//       // For non-command queries, send a natural language response
-//       let response = await axios.post('http://localhost:5000/api/chatbot/getResponse', {
-//         message: userInput
-//       });
-
-//       console.log('Chatbot API Response:', response.data);
-
-//       // Handle the regular natural response
-//       event.reply('chat-response', response.data.response || "No response from AI.");
-//     }
-//   } catch (error) {
-//     console.error('Error communicating with API:', error);
-//     event.reply('chat-response', 'Error: Unable to process your request.');
-//   }
-// });
-
-
-// // Handling structured Revit commands and sending them to the Revit API
-// ipcMain.on('execute-revit-command', async (event, revitCommand) => {
-//   try {
-//     const revitResponse = await axios.post("http://localhost:5000/api/revit/execute", revitCommand);
-//     console.log("Revit API Response:", revitResponse.data);
-    
-//     // Send Revit's response back to the UI
-//     event.reply("chat-response", revitResponse.data);
-//   } catch (error) {
-//     console.error("Error executing Revit command:", error);
-//     event.reply("chat-response", "Error executing Revit command.");
-//   }
-// });
-
-// // Window control events
-// ipcMain.on('minimize-chat', () => {
-//   let win = BrowserWindow.getFocusedWindow();
-//   if (win) {
-//     win.setResizable(true);
-//     win.setSize(400, 600);
-//     win.setResizable(false);
-//   }
-// });
-
-// ipcMain.on('fullscreen-chat', () => {
-//   let win = BrowserWindow.getFocusedWindow();
-//   if (win) {
-//     const { width, height } = screen.getPrimaryDisplay().workAreaSize;
-//     win.setResizable(true);
-//     win.setSize(width, height);
-//     win.setBounds({ x: 0, y: 0, width: width, height: height });
-//     win.setResizable(false);
-//   }
-// });
-
-// ipcMain.on('move-window', (event, dx, dy) => {
-//   let win = BrowserWindow.getFocusedWindow();
-//   if (win) {
-//     const currentBounds = win.getBounds();
-//     win.setBounds({
-//       x: currentBounds.x + dx,
-//       y: currentBounds.y + dy,
-//       width: currentBounds.width,
-//       height: currentBounds.height
-//     });
-//   }
-// });
-
