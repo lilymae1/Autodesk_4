@@ -46,12 +46,12 @@ section
   padding-right: 15px;
 }
 
-.menuButton {
+.menuButton, #fullscreenButton {
   background: none;
   border: none;
   cursor: pointer;
 }
-.menuButton:hover{
+.menuButton:hover, #fullscreenButton{
   opacity: 0.8;
 }
 
