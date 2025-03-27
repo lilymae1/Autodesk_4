@@ -205,6 +205,24 @@ ipcMain.on('chat-message', async (event, userInput) => {
             event.reply('chat-response', "Executing Revit command...");
             ipcMain.emit('execute-revit-command', null, revitCommand);
         }
+        else if(userInput.toLowerCase().includes("Create door")){
+            console.log("Detected 'Create door' command.");
+            const revitCommand = { command: "Create door" };
+            event.reply('chat-response', "Executing Revit command...");
+            ipcMain.emit('execute-revit-command', null, revitCommand);
+        }
+        else if(userInput.toLowerCase().includes("Create window")){
+            console.log("Detected 'Create window' command.");
+            const revitCommand = { command: "Create window" };
+            event.reply('chat-response', "Executing Revit command...");
+            ipcMain.emit('execute-revit-command', null, revitCommand);
+        }
+        else if(userInput.toLowerCase().includes("Create roof")){
+            console.log("Detected 'Create roof' command.");
+            const revitCommand = { command: "Create roof" };
+            event.reply('chat-response', "Executing Revit command...");
+            ipcMain.emit('execute-revit-command', null, revitCommand);
+        }
         else {
             let response = await axios.post('http://localhost:5000/api/chatbot/getResponse', { message: userInput });
             event.reply('chat-response', response.data.response || "No response from AI.");
