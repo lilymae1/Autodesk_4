@@ -35,7 +35,7 @@
         <div class="ExistingProjectPage-Center">
             
             <div class="ExistingProjectPage-Image">
-                <img src="Assets\example_image.png" alt="Trulli" width="380px" height="380px">
+                <img src="Assets\example_image.png" alt="Trulli" width="380px" height="380px" alt="Placeholder image of Archie the AI bot for a project with no image yet">
             </div>
     
             <div class="EP-RightContainer-Original">
@@ -84,7 +84,7 @@
                 
                 <div class="ExistingProjectPage-ButtonContainer">
                     <button id="ExistingProjectPage-Button" onclick="myFunction()"> Edit </button>
-                    <button id ="ExistingProjectPage-Button" onclick="">Delete</button>
+                    <button id ="ExistingProjectPage-Button" onclick="deleteProject()">Delete</button>
                 </div>
                 
             </div>
@@ -124,7 +124,7 @@
                 <button id = "ExistingProjectPage-Generate-report" onclick="">Generate Report</button>
                 
                 <div class="ExistingProjectPage-ButtonContainer">
-                    <button id = "EP-Button-EditVer" onclick="exitEditMode()">Exit</button>
+                    <button id = "EP-Button-EditVer" onclick="deleteFolder()">Exit</button>
                     <button id = "EP-Button-EditVer" onclick="">Save</button>
                     <button id="EP-Button-EditVer" onclick="">Delete</button>
                     <!--<button id="EP-Button-EditVer" onclick="showDeleteConfirmation()">Delete</button> -->
@@ -171,6 +171,29 @@
         button.style.display = 'inline';
     });
 }
+
+function deleteProject() {
+        // Get project name from the <h3> tag
+        const projectNameElement = document.querySelector("#EP_N_input h3");
+        if (!projectNameElement) {
+            alert("Project name not found!");
+            return;
+        }
+
+        const projectName = projectNameElement.textContent.trim();
+
+        // Send a request to delete the folder
+        fetch("http://localhost:3000/delete-folder", {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ folderName: "yourFolderName" })
+    }).then(res => res.json()).then(data => console.log(data)).catch(err => console.error(err));
+    body: JSON.stringify({ folderName: 'my-folder-name' })
+    
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error('Error:', error));
+    }
 
             function exitEditMode() {
                 var original = document.querySelector(".EP-RightContainer-Original");
