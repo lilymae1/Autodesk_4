@@ -208,3 +208,63 @@ wallType: Basic Wall
 level: Level 1
 27/03/2025 21:53:32: Transaction started successfully.
 27/03/2025 21:53:40: Transaction committed successfully.
+27/03/2025 23:39:12: {"RevitCommand":"RotateCamera","Parameters":{"Angle":30}}
+27/03/2025 23:39:12: RotateCamera
+27/03/2025 23:39:12: Angle: 30
+27/03/2025 23:39:12: Transaction started successfully.
+27/03/2025 23:39:12: Unknown command received.
+27/03/2025 23:39:12: Transaction committed successfully.
+27/03/2025 23:41:58: {"RevitCommand":"RotateCamera","Parameters":{"RotationAngle":60}}
+27/03/2025 23:41:58: RotateCamera
+27/03/2025 23:41:58: RotationAngle: 60
+27/03/2025 23:41:58: Transaction started successfully.
+27/03/2025 23:41:58: Error in command execution: The given key 'angle' was not present in the dictionary.
+27/03/2025 23:45:10: {"RevitCommand":"ViewRotation","Parameters":{"angle":60,"direction":"counterclockwise"}}
+27/03/2025 23:45:10: ViewRotation
+27/03/2025 23:45:10: angle: 60
+direction: counterclockwise
+27/03/2025 23:45:10: Transaction started successfully.
+27/03/2025 23:45:10: Unknown command received.
+27/03/2025 23:45:10: Transaction committed successfully.
+27/03/2025 23:57:30: {"RevitCommand":"CreateWall","Parameters":{"startX":0,"startY":0,"endX":10,"endY":0,"height":10.0,"wallType":"Basic Wall","level":"Level 1"}}
+27/03/2025 23:57:30: CreateWall
+27/03/2025 23:57:30: startX: 0
+startY: 0
+endX: 10
+endY: 0
+height: 10
+wallType: Basic Wall
+level: Level 1
+27/03/2025 23:57:30: Transaction started successfully.
+27/03/2025 23:57:45: Transaction committed successfully.
+27/03/2025 23:58:49: {"RevitCommand":"CameraRotate","Parameters":{"angle":60}}
+27/03/2025 23:58:49: CameraRotate
+27/03/2025 23:58:49: angle: 60
+27/03/2025 23:58:49: Transaction started successfully.
+27/03/2025 23:58:49: Unknown command received.
+27/03/2025 23:58:49: Transaction committed successfully.
+27/03/2025 23:59:47: {"RevitCommand":"RotateCamera","Parameters":{"angle":60}}
+27/03/2025 23:59:47: RotateCamera
+27/03/2025 23:59:47: angle: 60
+27/03/2025 23:59:47: Transaction started successfully.
+27/03/2025 23:59:47: Error in command execution: The given key 'RotationAngle' was not present in the dictionary.
+28/03/2025 00:00:21: {"RevitCommand":"RotateCamera","Parameters":{"angle":60}}
+28/03/2025 00:00:21: RotateCamera
+28/03/2025 00:00:21: angle: 60
+28/03/2025 00:00:21: Transaction started successfully.
+28/03/2025 00:00:21: Error in command execution: The given key 'RotationAngle' was not present in the dictionary.
+28/03/2025 00:01:28: {"RevitCommand":"RotateCamera","Parameters":{"RotationAngle":60}}
+28/03/2025 00:01:28: RotateCamera
+28/03/2025 00:01:28: RotationAngle: 60
+28/03/2025 00:01:28: Transaction started successfully.
+28/03/2025 00:01:28: Transaction committed successfully.
+28/03/2025 00:04:29: {"RevitCommand":"RotateCamera","Parameters":{"angle":60}}
+28/03/2025 00:04:29: RotateCamera
+28/03/2025 00:04:29: angle: 60
+28/03/2025 00:04:29: Transaction started successfully.
+28/03/2025 00:04:29: Transaction committed successfully.
+28/03/2025 00:06:21: {"RevitCommand":"RotateCamera","Parameters":{"Angle":60}}
+28/03/2025 00:06:21: RotateCamera
+28/03/2025 00:06:21: Angle: 60
+28/03/2025 00:06:21: Transaction started successfully.
+28/03/2025 00:06:21: Error in command execution: The given key 'angle' was not present in the dictionary.

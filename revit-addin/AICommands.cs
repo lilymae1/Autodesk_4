@@ -170,13 +170,16 @@ public class AICommands
 
     // ----------------------  Camera Controls ---------------------
 
-    public static void MoveCamera(ExternalCommandData commandData, XYZ eyePosition, XYZ targetPosition)
+    public static void MoveCamera(UIApplication uiApp, XYZ eyePosition, XYZ targetPosition)
     {
-        // Retrieve the active UIDocument, Document, and active 3D view
-        UIDocument uidoc = commandData.Application.ActiveUIDocument;
+        UIDocument uidoc = uiApp.ActiveUIDocument;
+        if (uidoc == null)
+            return;
+        
         Document doc = uidoc.Document;
         View3D view3D = doc.ActiveView as View3D;
-        if (doc == null || view3D == null) return; // Ensure we have a valid document and 3D view
+        if (doc == null || view3D == null)
+            return; // Ensure we have a valid document and 3D view
 
         using (Transaction tx = new Transaction(doc, "Move Camera"))
         {
@@ -188,7 +191,7 @@ public class AICommands
             // Set a default "Up" direction (assuming Z-axis up)
             XYZ upDirection = XYZ.BasisZ;
 
-            // Create a new ViewOrientation3D with the updated eye position, up direction, and forward direction
+            // Create a new ViewOrientation3D with updated eye position
             ViewOrientation3D newOrientation = new ViewOrientation3D(eyePosition, upDirection, forwardDirection);
 
             // Apply the new orientation to the 3D view
@@ -200,30 +203,30 @@ public class AICommands
 
 
 
-    public static void ChangeViewType(Document doc, View view, string newViewType)
+    public static void ChangeViewType(UIApplication uiApp, string newViewType)
     {
-        if (doc == null || view == null) return;
+        UIDocument uidoc = uiApp.ActiveUIDocument;
+        if (uidoc == null)
+            return;
+
+        Document doc = uidoc.Document;
+        View view = doc.ActiveView;
+        if (view == null)
+            return;
+
+        // Attempt to find the new view type's ElementId based on the provided name.
+        ElementId newViewTypeId = GetViewTypeId(doc, newViewType);
+        if (newViewTypeId == null || newViewTypeId == ElementId.InvalidElementId)
+        {
+            Logger.Log("Invalid view type specified: " + newViewType);
+            return;
+        }
 
         using (Transaction tx = new Transaction(doc, "Change View Type"))
         {
             tx.Start();
-
-            // Find the desired view type by name
-            ViewFamilyType viewFamilyType = new FilteredElementCollector(doc)
-                .OfClass(typeof(ViewFamilyType))
-                .Cast<ViewFamilyType>()
-                .FirstOrDefault(vft => vft.Name.Equals(newViewType, StringComparison.OrdinalIgnoreCase));
-
-            if (viewFamilyType != null)
-            {
-                // Change the view's family type
-                view.ChangeTypeId(viewFamilyType.Id);
-            }
-            else
-            {
-                TaskDialog.Show("Error", "View Type not found.");
-            }
-
+            // Change the view's type
+            view.ChangeTypeId(newViewTypeId);
             tx.Commit();
         }
     }
@@ -258,7 +261,41 @@ public class AICommands
         view.SetOrientation(new ViewOrientation3D(newViewDirection, newUpDirection, currentCameraPosition));
     }
 
+    private static ElementId GetViewTypeId(Document doc, string viewTypeName)
+    {
+        FilteredElementCollector collector = new FilteredElementCollector(doc);
+        collector.OfClass(typeof(ViewFamilyType));
+        foreach (ViewFamilyType vft in collector)
+        {
+            if (vft.Name.Equals(viewTypeName, StringComparison.OrdinalIgnoreCase))
+            {
+                return vft.Id;
+            }
+        }
+        return ElementId.InvalidElementId;
+    }
 
+    public static class Logger
+    {
+        private static readonly string logFilePath = @"C:\Users\richa\Documents\Autodesk Project\Autodesk_4\revit-addin\revit_command_log.txt";
+
+        // This method writes a message to the log file
+        public static void Log(string message)
+        {
+            try
+            {
+                using (StreamWriter sw = new StreamWriter(logFilePath, true)) // true to append to the file
+                {
+                    sw.WriteLine($"{DateTime.Now}: {message}");
+                }
+            }
+            catch (Exception ex)
+            {
+                // If logging fails, print to the output window (for debugging purposes)
+                Console.WriteLine("Failed to write to log file: " + ex.Message);
+            }
+        }
+    }
     public static void CreateWindow(Document doc, ElementId wallId, ElementId windowTypeId, XYZ location)
     {
         if (doc == null || wallId == null || windowTypeId == null || location == null) return; // Prevent null errors

@@ -90,8 +90,8 @@
             // Create New Project
             $("#CreateNewChat_Done_button").click(function (event) {
                 event.preventDefault();
-                var name = $("#CN_c_input").val();
-                var description = $("#CN_d_input").val();
+                var name = $("#CN_c_input").val().trim();
+                var description = $("#CN_d_input").val().trim();
                 var image = $("thumbnail").val();
 
                 if (!name) {
