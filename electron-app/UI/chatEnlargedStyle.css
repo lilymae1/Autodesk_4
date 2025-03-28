@@ -57,6 +57,7 @@ html, body {
     align-items: center;
     background-color: white;
     padding: 5px;
+    z-index: 9999;
 }
 
 #message_sender {
