@@ -262,18 +262,18 @@ section
 
 /* ExistingProjectPage CSS Portion */
 
-#CP_c_input, #CP_d_input {
+#CP_c_input, #CP_d_input, #CN_c_input, #CN_d_input {
   padding: 10px;
   font-size: 16px;
   border-radius: 4px;
   border: 1px solid #141417;
 }
 
-#CP_d_input {
+#CP_d_input, #CN_d_input {
   resize: none;
 }
 
-#CP_d_input { 
+#CP_d_input, #CN_d_input { 
   float:left;
   width: 100%;
   height:200px;
@@ -288,7 +288,7 @@ section
   border: none; 
 }
 
-#CP_c_input {
+#CP_c_input, #CN_c_input {
   float:right;
   background-color: lightgray;
   width: 100%;
@@ -856,7 +856,7 @@ section
   border: none;
 }
 
-#CN_c_input {
+#CN_c_input{
   float:right;
   background-color: lightgray;
   width:300px;
