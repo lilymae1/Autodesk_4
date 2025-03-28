@@ -36,6 +36,8 @@ expressApp.get("/files", (req, res) => {
     });
 });
 
+// // Route list of revit projects
+// expressApp.get("/revit-projects", (req, res) => {
 //     fs.readdir(appDataPath, { withFileTypes: true }, (err, items) => {
 //         if (err) {
 //             console.error("Error reading directory:", err);
