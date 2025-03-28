@@ -93,44 +93,34 @@ public class RevitCommandHandler : IExternalEventHandler
                     break;
                 
                     // **Create Roof Case**
-                case "CreateRoof":
-                    ElementId roofLevelId = new ElementId(Convert.ToInt32(_parameters["levelId"])); // Assuming it's passed as an ID
-                    ElementId roofTypeId = new ElementId(Convert.ToInt32(_parameters["roofTypeId"])); // Assuming it's passed as an ID
-                    CurveArray roofBoundary = new CurveArray(); // You would need to convert _parameters into curves
-                    // Example of creating a simple rectangular boundary (to be replaced with real data)
-                    roofBoundary.Append(Line.CreateBound(new XYZ(0, 0, 0), new XYZ(10, 0, 0)));
-                    roofBoundary.Append(Line.CreateBound(new XYZ(10, 0, 0), new XYZ(10, 10, 0)));
-                    roofBoundary.Append(Line.CreateBound(new XYZ(10, 10, 0), new XYZ(0, 10, 0)));
-                    roofBoundary.Append(Line.CreateBound(new XYZ(0, 10, 0), new XYZ(0, 0, 0)));
+                // case "CreateRoof":
+                //     ElementId roofLevelId = new ElementId(Convert.ToInt32(_parameters["levelId"])); // Assuming it's passed as an ID
+                //     ElementId roofTypeId = new ElementId(Convert.ToInt32(_parameters["roofTypeId"])); // Assuming it's passed as an ID
+                //     CurveArray roofBoundary = new CurveArray(); // You would need to convert _parameters into curves
+                //     // Example of creating a simple rectangular boundary (to be replaced with real data)
+                //     roofBoundary.Append(Line.CreateBound(new XYZ(0, 0, 0), new XYZ(10, 0, 0)));
+                //     roofBoundary.Append(Line.CreateBound(new XYZ(10, 0, 0), new XYZ(10, 10, 0)));
+                //     roofBoundary.Append(Line.CreateBound(new XYZ(10, 10, 0), new XYZ(0, 10, 0)));
+                //     roofBoundary.Append(Line.CreateBound(new XYZ(0, 10, 0), new XYZ(0, 0, 0)));
 
-                    AICommands.CreateRoof(doc, roofLevelId, roofTypeId, roofBoundary);
-                    break;
+                //     AICommands.CreateRoof(doc, roofLevelId, roofTypeId, roofBoundary);
+                //     break;
 
-                    // **Create Window Case**
-                case "CreateWindow":
-                    ElementId windowWallId = new ElementId(Convert.ToInt32(_parameters["wallId"])); // Assuming wall ID is passed
-                    ElementId windowTypeId = new ElementId(Convert.ToInt32(_parameters["windowTypeId"])); // Assuming window type ID is passed
-                    XYZ windowLocation = new XYZ(
-                    Convert.ToDouble(_parameters["windowX"]),
-                    Convert.ToDouble(_parameters["windowY"]),
-                    Convert.ToDouble(_parameters["windowZ"])
-                    );
+                //     // **Create Window Case**
+                // case "CreateWindow":
+                //     ElementId windowWallId = new ElementId(Convert.ToInt32(_parameters["wallId"])); // Assuming wall ID is passed
+                //     ElementId windowTypeId = new ElementId(Convert.ToInt32(_parameters["windowTypeId"])); // Assuming window type ID is passed
+                //     XYZ windowLocation = new XYZ(
+                //     Convert.ToDouble(_parameters["windowX"]),
+                //     Convert.ToDouble(_parameters["windowY"]),
+                //     Convert.ToDouble(_parameters["windowZ"])
+                //     );
 
-                    AICommands.CreateWindow(doc, windowWallId, windowTypeId, windowLocation);
-                    break;
+                //     AICommands.CreateWindow(doc, windowWallId, windowTypeId, windowLocation);
+                //     break;
 
-                // **Create Door Case**
-                case "CreateDoor":
-                    ElementId doorWallId = new ElementId(Convert.ToInt32(_parameters["wallId"])); // Assuming wall ID is passed
-                    ElementId doorTypeId = new ElementId(Convert.ToInt32(_parameters["doorTypeId"])); // Assuming door type ID is passed
-                    XYZ doorLocation = new XYZ(
-                    Convert.ToDouble(_parameters["doorX"]),
-                    Convert.ToDouble(_parameters["doorY"]),
-                    Convert.ToDouble(_parameters["doorZ"])
-                    );
-
-                    AICommands.CreateDoor(doc, doorWallId, doorTypeId, doorLocation);
-                    break;
+                //     AICommands.CreateDoor(doc, doorWallId, doorTypeId, doorLocation);
+                //     break;
                 default:
                     Logger.Log("Unknown command received.");
                     break;

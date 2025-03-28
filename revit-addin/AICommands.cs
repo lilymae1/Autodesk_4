@@ -296,134 +296,134 @@ public class AICommands
             }
         }
     }
-    public static void CreateWindow(Document doc, ElementId wallId, ElementId windowTypeId, XYZ location)
-    {
-        if (doc == null || wallId == null || windowTypeId == null || location == null) return; // Prevent null errors
+    // public static void CreateWindow(Document doc, ElementId wallId, ElementId windowTypeId, XYZ location)
+    // {
+    //     if (doc == null || wallId == null || windowTypeId == null || location == null) return; // Prevent null errors
 
-        using (Transaction tx = new Transaction(doc, "Create Window"))
-        {
-            tx.Start();
+    //     using (Transaction tx = new Transaction(doc, "Create Window"))
+    //     {
+    //         tx.Start();
 
-        // Get the wall by its ElementId
-            Wall wall = doc.GetElement(wallId) as Wall;
+    //     // Get the wall by its ElementId
+    //         Wall wall = doc.GetElement(wallId) as Wall;
 
-            if (wall != null)
-            {
-            // Get the window type
-                FamilySymbol windowType = doc.GetElement(windowTypeId) as FamilySymbol;
+    //         if (wall != null)
+    //         {
+    //         // Get the window type
+    //             FamilySymbol windowType = doc.GetElement(windowTypeId) as FamilySymbol;
 
-                if (windowType != null)
-                {
-                if (!windowType.IsActive) windowType.Activate(); // Ensure the window type is activated
+    //             if (windowType != null)
+    //             {
+    //             if (!windowType.IsActive) windowType.Activate(); // Ensure the window type is activated
 
-                // Create the window
-                    FamilyInstance window = doc.Create.NewFamilyInstance(location, windowType, wall, StructuralType.NonStructural);
+    //             // Create the window
+    //                 FamilyInstance window = doc.Create.NewFamilyInstance(location, windowType, wall, StructuralType.NonStructural);
 
-                    TaskDialog.Show("Success", "Window created successfully.");
-                }
-                else
-                {
-                    TaskDialog.Show("Error", "Invalid window type.");
-                }
-            }
-            else
-            {
-                TaskDialog.Show("Error", "Wall not found.");
-            }
+    //                 TaskDialog.Show("Success", "Window created successfully.");
+    //             }
+    //             else
+    //             {
+    //                 TaskDialog.Show("Error", "Invalid window type.");
+    //             }
+    //         }
+    //         else
+    //         {
+    //             TaskDialog.Show("Error", "Wall not found.");
+    //         }
 
-        tx.Commit();
-        }
-    }
+    //     tx.Commit();
+    //     }
+    // }
 
-    public static void CreateRoom(Document doc, ElementId levelId, ElementId roomTypeId, XYZ location)
-    {
-        if (doc == null || levelId == null || roomTypeId == null || location == null) return; // Prevent null errors
+    // public static void CreateRoom(Document doc, ElementId levelId, ElementId roomTypeId, XYZ location)
+    // {
+    //     if (doc == null || levelId == null || roomTypeId == null || location == null) return; // Prevent null errors
 
-        using (Transaction tx = new Transaction(doc, "Create Room"))
-        {
-            tx.Start();
+    //     using (Transaction tx = new Transaction(doc, "Create Room"))
+    //     {
+    //         tx.Start();
 
-            // Get the level by its ElementId
-            Level level = doc.GetElement(levelId) as Level;
+    //         // Get the level by its ElementId
+    //         Level level = doc.GetElement(levelId) as Level;
 
-            if (level != null)
-            {
-            // Get the room type
-                RoomType roomType = doc.GetElement(roomTypeId) as RoomType;
+    //         if (level != null)
+    //         {
+    //         // Get the room type
+    //             RoomType roomType = doc.GetElement(roomTypeId) as RoomType;
 
-                if (roomType != null)
-                {
-                // Create the room at the specified location on the given level
-                    Room room = doc.Create.NewRoom(level, new UV(location.X, location.Y));
+    //             if (roomType != null)
+    //             {
+    //             // Create the room at the specified location on the given level
+    //                 Room room = doc.Create.NewRoom(level, new UV(location.X, location.Y));
 
-                    if (room != null)
-                    {
-                    // Set the room type (if needed)
-                        room.RoomType = roomType;
+    //                 if (room != null)
+    //                 {
+    //                 // Set the room type (if needed)
+    //                     room.RoomType = roomType;
 
-                        TaskDialog.Show("Success", "Room created successfully.");
-                    }
-                    else
-                    {
-                    TaskDialog.Show("Error", "Failed to create room.");
-                    }
-                }
-                else
-                {
-                    TaskDialog.Show("Error", "Invalid room type.");
-                }
-            }
-            else
-            {
-                TaskDialog.Show("Error", "Level not found.");
-            }
+    //                     TaskDialog.Show("Success", "Room created successfully.");
+    //                 }
+    //                 else
+    //                 {
+    //                 TaskDialog.Show("Error", "Failed to create room.");
+    //                 }
+    //             }
+    //             else
+    //             {
+    //                 TaskDialog.Show("Error", "Invalid room type.");
+    //             }
+    //         }
+    //         else
+    //         {
+    //             TaskDialog.Show("Error", "Level not found.");
+    //         }
 
-            tx.Commit();
-        }
-    }
+    //         tx.Commit();
+    //     }
+    // }
 
-    public static void CreateRoof(Document doc, ElementId levelId, ElementId roofTypeId, CurveArray roofBoundary)
-    {
-        if (doc == null || levelId == null || roofTypeId == null || roofBoundary == null || roofBoundary.Size == 0) return; // Prevent null or empty boundary errors
+    // public static void CreateRoof(Document doc, ElementId levelId, ElementId roofTypeId, CurveArray roofBoundary)
+    // {
+    //     if (doc == null || levelId == null || roofTypeId == null || roofBoundary == null || roofBoundary.Size == 0) return; // Prevent null or empty boundary errors
 
-        using (Transaction tx = new Transaction(doc, "Create Roof"))
-        {
-            tx.Start();
+    //     using (Transaction tx = new Transaction(doc, "Create Roof"))
+    //     {
+    //         tx.Start();
 
-            // Get the level by its ElementId
-            Level level = doc.GetElement(levelId) as Level;
+    //         // Get the level by its ElementId
+    //         Level level = doc.GetElement(levelId) as Level;
 
-            if (level != null)
-            {
-                // Get the roof type
-                RoofType roofType = doc.GetElement(roofTypeId) as RoofType;
+    //         if (level != null)
+    //         {
+    //             // Get the roof type
+    //             RoofType roofType = doc.GetElement(roofTypeId) as RoofType;
 
-                if (roofType != null)
-                {
-                    // Create a roof by extrusion using the specified roof boundary and roof type
-                    // Using a Floor or Roof type for the "type" of the roof
-                    // RoofBase is the base curve boundary for the roof.
+    //             if (roofType != null)
+    //             {
+    //                 // Create a roof by extrusion using the specified roof boundary and roof type
+    //                 // Using a Floor or Roof type for the "type" of the roof
+    //                 // RoofBase is the base curve boundary for the roof.
 
-                    // Create a roof instance by extrusion (slope, offset, and type applied)
-                    FootPrintRoof newRoof = doc.Create.NewFootPrintRoof(roofBoundary, level, roofType, null);
+    //                 // Create a roof instance by extrusion (slope, offset, and type applied)
+    //                 FootPrintRoof newRoof = doc.Create.NewFootPrintRoof(roofBoundary, level, roofType, null);
 
-                    // Optionally, you can apply slope by manipulating the Roof’s Footprint or other properties.
+    //                 // Optionally, you can apply slope by manipulating the Roof’s Footprint or other properties.
 
-                    TaskDialog.Show("Success", "Roof created successfully.");
-                }
-                else
-                {
-                    TaskDialog.Show("Error", "Invalid roof type.");
-                }
-            }
-            else
-            {
-                TaskDialog.Show("Error", "Level not found.");
-            }
+    //                 TaskDialog.Show("Success", "Roof created successfully.");
+    //             }
+    //             else
+    //             {
+    //                 TaskDialog.Show("Error", "Invalid roof type.");
+    //             }
+    //         }
+    //         else
+    //         {
+    //             TaskDialog.Show("Error", "Level not found.");
+    //         }
 
-            tx.Commit();
-        }
-    }
+    //         tx.Commit();
+    //     }
+    //}
 
 
 }
