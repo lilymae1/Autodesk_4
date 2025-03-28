@@ -150,26 +150,35 @@
 <h1 class="title">Create a Projects Chat</h1>
 
 <div class="CreateNewChat-Center">
-        <div class="CNC-LeftContainer-Original">
-            <div class="CNC-align">
-                <form>
-                    <input id="CN_c_input" placeholder="Project Name..">
-                    <textarea id="CN_d_input" placeholder="Description"></textarea>
-                    <div class="CreateNewChat-ButtonContainer">
-                        <!-- <input id = "thumbnail" type = "file" accept=".png"> -->
-                        <input id="CreateNewChat_Done_button" type="submit" value="Done">
-                    </div>
-                </form>
-            </div>
+    <div class="CNC-LeftContainer-Original">
+        <div class="CNC-align">
+            <form>
+                <input id="CN_c_input" placeholder="Project Name..">
+                <textarea id="CN_d_input" placeholder="Description"></textarea>
+                <input id="CreateNewChat_Done_button" type="submit" value="Done">
+            </form>
         </div>
-        <div class="CNC-RightContainer-Original">
-            <div class="title-bar">Projects which don't have a chat</div>
-            <div class="CreateNewChat-Scroll">
-                <p>Project</p>
-                <p>Project</p>
-                <p>Project</p>
-                <p>Project</p>
-            </div>
+    </div>
+    <div class="CNC-RightContainer-Original">
+        <div class="title-bar">Projects which don't have a chat</div>
+        <div class="CreateNewChat-Scroll">
+            <ul id="file-list"></ul> <!-- List container for file names -->
+            <script>
+                fetch("http://localhost:3000/")
+                    .then(response => response.json())
+                    .then(items => {
+                        const list = document.getElementById("file-list");
+                        list.innerHTML = ""; // Clear existing content
+                        items.forEach(item => {
+                            const li = document.createElement("li");
+                            li.textContent = item.name; // Display file name
+                            list.appendChild(li);
+                        });
+                    })
+                    .catch(error => console.error("Error fetching files:", error));
+            </script>
+        </div>
+    </div>
         </div>
 </div>
 

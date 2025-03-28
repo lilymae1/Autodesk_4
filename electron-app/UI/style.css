@@ -911,7 +911,7 @@ section
   border: none;
   transition-duration: 0.4s;
   cursor: pointer;
-  max-width: 10%;
+  width: 100%;
 }
 
 #CreateNewChat_Done_button:hover {
