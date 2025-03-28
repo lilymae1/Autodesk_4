@@ -171,19 +171,18 @@
 
 function deleteProject() {
         // Get project name from the <h3> tag
-        const projectNameElement = document.querySelector("#EP_N_input h3");
-        if (!projectNameElement) {
-            alert("Project name not found!");
-            return;
+            const params = new URLSearchParams(window.location.search);
+        for(var value of params.keys()) {
+            projectName = params.get(value);
+            console.log(projectName)
         }
-
-        const projectName = projectNameElement.textContent.trim();
-
+        projectName.trim();
+        console.log(projectName)
         // Send a request to delete the folder
         fetch("http://localhost:3000/delete-folder", {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ folderName: "yourFolderName" })
+    body: JSON.stringify({ folderName:projectName})
     }).then(res => res.json()).then(data => console.log(data)).catch(err => console.error(err));
     body: JSON.stringify({ folderName: 'my-folder-name' })
     

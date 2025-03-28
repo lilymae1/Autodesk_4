@@ -51,12 +51,12 @@ expressApp.get('/revit-projects', (req, res) => {
 });
 
 expressApp.delete('/delete-folder', express.json(), (req, res) => {
-    const { folderName } = req.body;
+    var { folderName } = req.body;
 
     if (!folderName) {
         return res.status(400).json({ error: 'Folder name is required' });
     }
-
+    folderName = folderName.trim();
     const dirPath = path.join(appDataPath, folderName);
     
     console.log(`Attempting to delete: ${dirPath}`);
