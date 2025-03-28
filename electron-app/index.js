@@ -38,7 +38,7 @@ expressApp.get("/files", (req, res) => {
 
 const revitSamplesPath = "C:\\Program Files\\Autodesk\\Revit 2025\\Samples";
 
-// route to revit projects
+// Route to Revit projects
 expressApp.get('/revit-projects', (req, res) => {
     fs.readdir(revitSamplesPath, (err, files) => {
         if (err) {
@@ -71,43 +71,24 @@ expressApp.delete('/delete-folder', express.json(), (req, res) => {
     });
 });
 
-// Route to list projects (folders) for importing
-expressApp.get("/files", (req, res) => {
-    fs.readdir(appDataPath, { withFileTypes: true }, (err, items) => {
-        if (err) {
-            console.error("Error reading directory:", err);
-            return res.status(500).json({ error: "Unable to read directory" });
-        }
+// Route to create a new chat log
+expressApp.post("/api/chat/create-chatlog", express.json(), (req, res) => {
+    const { name } = req.body;
+    if (!name) {
+        return res.status(400).json({ error: "Project name is required" });
+    }
 
-        const projects = items
-            .filter(item => item.isDirectory())
-            .map(item => {
-                const projectPath = path.join(appDataPath, item.name, "info.json");
-                let projectInfo = { name: item.name, description: "No description" };
+    const chatLogPath = path.join(appDataPath, name, "chatlog.txt");
 
-                if (fs.existsSync(projectPath)) {
-                    try {
-                        projectInfo = JSON.parse(fs.readFileSync(projectPath, "utf8"));
-                    } catch (error) {
-                        console.error(`Error reading ${item.name}/info.json:`, error);
-                    }
-                }
+    // Create an empty chat log file
+    fs.writeFileSync(chatLogPath, "Chat started...\n");
 
-                return {
-                    name: projectInfo.name,
-                    description: projectInfo.description,
-                    path: item.name
-                };
-            });
-
-        res.json(projects);
-    });
+    res.json({ message: `Chat log for '${name}' created successfully` });
 });
 
 // Route to create a new project
 expressApp.post("/api/chat/create-project", express.json(), (req, res) => {
-    //const { name, description ,image} = req.body;
-    const { name, description} = req.body;
+    const { name, description } = req.body;
     if (!name) {
         return res.status(400).json({ error: "Project name is required" });
     }
@@ -121,10 +102,6 @@ expressApp.post("/api/chat/create-project", express.json(), (req, res) => {
 
     const projectData = { name, description };
     fs.writeFileSync(infoPath, JSON.stringify(projectData, null, 2));
-
-    //var pathz = path.join(projectPath,name+".png") this haunts me like deaths haunts the elderly
-    //console.log(pathz)
-    //fs.writeFile(pathz,image)
 
     res.json({ message: `Project '${name}' created successfully` });
 });
