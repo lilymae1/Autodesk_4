@@ -3,6 +3,7 @@
 
 <head>
     <title>Create New Chat</title>
+    <link rel="stylesheet" href="chatEnlargedStyle.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
@@ -91,6 +92,7 @@
                 event.preventDefault();
                 var name = $("#CN_c_input").val().trim();
                 var description = $("#CN_d_input").val().trim();
+                var image = $("thumbnail").val();
 
                 if (!name) {
                     alert("Project name is required.");
@@ -101,7 +103,7 @@
                     url: "http://localhost:3000/api/chat/create-project",
                     type: "POST",
                     contentType: "application/json",
-                    data: JSON.stringify({ name: name, description: description }),
+                    data: JSON.stringify({ name: name, description: description,image: image}),
                     success: function (response) {
                         alert("Project Created: " + response.message);
                         loadProjects();
@@ -142,15 +144,47 @@
         });
     </script>
 </head>
+<div id="includedNavContent"></div>
 
-<body>
-    <div id="includedNavContent"></div>
+<div class="CreatenewChat-column">
+<h1>Create a new projects chat</h1>
 
-    <div class="NewChatBox-Container">
+<div class="CreateNewChat-Center">
+        <div class="CNC-LeftContainer-Original">
+            <div class="CNC-align">
+                <form>
+                    <input id="CN_c_input" placeholder="Project Name..">
+                    <textarea id="CN_d_input" placeholder="Description"></textarea>
+                    <div class="CreateNewChat-ButtonContainer">
+                        <input id = "thumbnail" type = "file" accept=".png">
+                        <button type="button" class="import_button">Import Image</button>
+                    </div>
+                </form>
+            </div>
+            <div class="CreateNewChat-ButtonContainer">
+                <input id="CreateNewChat_Done_button" type="submit" value="Done">
+            </div>
+        </div>
+        <div class="CNC-RightContainer-Original">
+            <div class="title-bar">Projects which don't have a chat</div>
+            <div class="CreateNewChat-Scroll">
+                <p>Project</p>
+                <p>Project</p>
+                <p>Project</p>
+                <p>Project</p>
+            </div>
+        </div>
+</div>
+</div>
+
+<div class="gap"></div>
+
+    <!-- <div class="NewChatBox-Container">
         <div id="create_new_leftdiv">
             <div id="create_ChatboxChoice">
                 <h1>Create New Chatbox:</h1>
                 <div id="checkbox_container">
+
                     <div id="CreateNProj">
                         <input type="checkbox" id="top_check"> Create new project
                     </div>
@@ -162,7 +196,7 @@
         </div>
 
         <div id="create_new_rightdiv">
-            <!-- Create New Project Section -->
+            Create New Project Section
             <div id="createnew_ChatboxDescription" style="display: none;">
                 <form>
                     <input id="CN_c_input" placeholder="Project Name..">
@@ -172,8 +206,8 @@
                 </form>
             </div>
 
-            <!-- Import Existing Project Section -->
-            <div id="choose_project" style="display: none;">
+            Import Existing Project Section
+            <!-- <div id="choose_project" style="display: none;">
                 <form>
                     <input id="CP_c_input" placeholder="Project Name..">
                     <input id="CP_d_input" placeholder="Description">
@@ -181,8 +215,8 @@
                     <input id="ChooseProject_Done_button" type="submit" value="Done">
                 </form>
             </div>
-        </div>
-    </div>
+        </div> -->
+    <!-- </div> --> 
 
     <footer>
         <script>
