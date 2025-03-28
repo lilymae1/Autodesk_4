@@ -11,9 +11,10 @@ const PORT = 3000;
 expressApp.use(cors());
 
 const appDataPath = app.getPath("appData") + "\\RevitChatProjects";
+const revitSamplesPath = "C:\\Program Files\\Autodesk\\Revit 2025\\Samples";
 expressApp.use(express.static(path.join(__dirname, 'UI')));
 
-// Route to list of folders and get images
+// Route to list files (folders and files) and get images
 expressApp.get("/files", (req, res) => {
     fs.readdir(appDataPath, { withFileTypes: true }, (err, items) => {
         if (err) {
@@ -36,8 +37,7 @@ expressApp.get("/files", (req, res) => {
     });
 });
 
-// Route to revit projects (Samples folder)
-const revitSamplesPath = "C:\\Program Files\\Autodesk\\Revit 2025\\Samples";
+// Route to list Revit sample projects
 expressApp.get('/revit-projects', (req, res) => {
     fs.readdir(revitSamplesPath, (err, files) => {
         if (err) {
@@ -71,6 +71,28 @@ expressApp.post("/api/chat/create-project", express.json(), (req, res) => {
     fs.writeFileSync(chatLogPath, "Chat started...\n");
 
     res.json({ message: `Project '${name}' created and chat log initialized` });
+});
+
+// Route to delete a project folder
+expressApp.delete('/delete-folder', express.json(), (req, res) => {
+    let { folderName } = req.body;
+
+    if (!folderName) {
+        return res.status(400).json({ error: 'Folder name is required' });
+    }
+    folderName = folderName.trim();
+    const dirPath = path.join(appDataPath, folderName);
+
+    console.log(`Attempting to delete: ${dirPath}`);
+
+    fs.rm(dirPath, { recursive: true, force: true }, (err) => {
+        if (err) {
+            console.error("Error deleting folder:", err);
+            return res.status(500).json({ error: "Failed to delete folder." });
+        }
+        console.log("Folder deleted successfully.");
+        res.json({ message: "Folder deleted successfully." });
+    });
 });
 
 // Route to create a new chat log
