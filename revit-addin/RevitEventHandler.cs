@@ -60,29 +60,36 @@ public class RevitCommandHandler : IExternalEventHandler
                     break;
 
                     case "DeleteAllWalls":
+                    Logger.Log("Attempting to delete all walls");
                     AICommands.DeleteAllWalls(doc);
                     break;
 
                 case "MoveCamera":
                     XYZ eyePosition = new XYZ(
-                    Convert.ToDouble(_parameters["eyeX"]),
-                    Convert.ToDouble(_parameters["eyeY"]),
-                    Convert.ToDouble(_parameters["eyeZ"])
+                        Convert.ToDouble(_parameters["eyeX"]),
+                        Convert.ToDouble(_parameters["eyeY"]),
+                        Convert.ToDouble(_parameters["eyeZ"])
                     );
                     XYZ targetPosition = new XYZ(
-                    Convert.ToDouble(_parameters["targetX"]),
-                    Convert.ToDouble(_parameters["targetY"]),
-                    Convert.ToDouble(_parameters["targetZ"])
+                        Convert.ToDouble(_parameters["targetX"]),
+                        Convert.ToDouble(_parameters["targetY"]),
+                        Convert.ToDouble(_parameters["targetZ"])
                     );
-                    AICommands.MoveCamera(doc, view3D, eyePosition, targetPosition);
+                    AICommands.MoveCamera(_uiApp, eyePosition, targetPosition);
                     break;
 
                 case "ChangeViewType":
-                    AICommands.ChangeViewType(doc, view, _parameters["newViewType"].ToString());
+                    AICommands.ChangeViewType(_uiApp, _parameters["newViewType"].ToString());
+                    break;
+
+                case "RotateCamera":
+                    double angle = Convert.ToDouble(_parameters["angle"]);
+                    AICommands.RotateCamera(angle, _uiApp);
                     break;
 
                 case "ViewRotation":
-                    AICommands.RotateCamera(Convert.ToDouble(_parameters["angle"], uiApp));
+                    double angle1 = Convert.ToDouble(_parameters["angle"]);
+                    AICommands.RotateCamera(angle1, _uiApp);
                     break;
 
                 default:

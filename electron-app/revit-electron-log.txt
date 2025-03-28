@@ -2,9 +2,7 @@ Output:
 
 Server running at http://localhost:3000
 Electron app is ready
-User input: rotate the camera by 30 degrees 
-User input: execute the command rotate the camera by 30 degrees
-User input: return the json command to rotate the camera by 30 degrees
+User input: delete all walls with the revitcommand: DeleteAllWalls
 
 
 Error:
