@@ -30,8 +30,6 @@
         <div id="includedNavContent"></div>
         <link rel="stylesheet" type="text/css" href="style.css" >
 
-        <!-- <object type="text/html" data="Nav.html"></object>  Need to check if this line is still needed-->
-
         <div class="ExistingProjectPage-Center">
             
             <div class="ExistingProjectPage-Image">
@@ -44,43 +42,16 @@
                         <h3>Name</h3>
                     </div>
                     <div id=EP_Des_input>
-                        <h3>Description, words, words. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        </h3>
+                        <h3>Description.</h3>
                     </div>
-                    <!--
-                    <h1 id=EP_N_input placeholder="Name..">
-                    <h1 id=EP_D_input placeholder="Description"> --> <!--Need to make text description go to top left not just left-->
                 </form>
                 
                 <div class="ExistingProjectPage-Scroll">
                     <br> Chat Log: </br>
-                    <li><a href="chatEnlarged.html"> Chat Log (25/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (22/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (21/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (18/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (16/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (13/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (08/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (07/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (05/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (01/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (29/11/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (27/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (26/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (23/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (22/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (21/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (19/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (15/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (14/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (12/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (08/12/24) </a></li>
+                    <!-- These are the chat logs listed with links -->
                 </div>
                 
-                  
-                <button id = "ExistingProjectPage-Create-New" onclick="">Create New Chat</button>
+                <button id = "ExistingProjectPage-Create-New" onclick="createNewChat()">Create New Chat</button>
                 
                 <div class="ExistingProjectPage-ButtonContainer">
                     <button id="ExistingProjectPage-Button" onclick="myFunction()"> Edit </button>
@@ -97,34 +68,12 @@
                 
                 <div class="ExistingProjectPage-Scroll">
                     <br> Chat Log: </br>
-                    <li>Chat Log (25/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (22/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (21/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (18/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (16/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (13/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (08/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (07/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (05/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (01/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (29/11/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (27/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (26/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (23/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (22/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (21/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (19/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (15/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (14/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (12/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (08/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
                 </div>
                 
                 <div class="ExistingProjectPage-ButtonContainer">
-                    <button id = "EP-Button-EditVer" onclick="deleteFolder()">Exit</button>
+                    <button id = "EP-Button-EditVer" onclick="exitEditMode()">Exit</button>
                     <button id = "EP-Button-EditVer" onclick="">Save</button>
                     <button id="EP-Button-EditVer" onclick="">Delete</button>
-                    <!--<button id="EP-Button-EditVer" onclick="showDeleteConfirmation()">Delete</button> -->
                 </div> 
                 
             </div>
@@ -141,6 +90,32 @@
             <button id = "EP-Button-Delete-Yes" onclick="document.location='ExistingProjectPage.html'">Yes</button>
             <button id = "EP-Button-Delete-No" onclick="document.location='ExistingProjectPage.html'">No</button>
         </div>
+
+        <script>
+            // Create New Chat function to initialize chat log creation
+            function createNewChat() {
+                // Retrieve project name from the page (you can modify this as per your design)
+                const projectName = 'NewProjectName'; // Use the actual name logic here
+                fetch("/api/chat/create-chatlog", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ name: projectName })
+                }).then(response => response.json())
+                  .then(data => {
+                      // Add the newly created chat log to the list on the page
+                      const chatLogList = document.querySelector('.ExistingProjectPage-Scroll');
+                      const newChatLog = document.createElement('li');
+                      newChatLog.innerHTML = `<a href="chatEnlarged.html">${projectName}</a>`;
+                      chatLogList.appendChild(newChatLog);
+                  }).catch(error => console.error('Error creating new chat log:', error));
+            }
+
+            // Other functions remain the same (Edit, Delete, etc.)
+        </script>
+    </body>
+</html>
 
 
         <!-- Script Makes Edit Button Access Editing Page-->

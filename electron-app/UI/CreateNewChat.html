@@ -153,7 +153,7 @@
                 });
             });
 
-            // Load Revit Projects
+            // Load Revit Sample Projects from a folder
             function loadRevitProjects() {
                 fetch("http://localhost:3000/revit-projects")
                     .then(response => response.json())
@@ -226,14 +226,3 @@
 </body>
 
 </html>
-   <!-- // Brief Description:
-   //Create New Project: When the user selects "Create new project" and fills out the form, 
-   //the project is created using the /create-project API. 
-   The project info (name and description) is stored in the info.json file.
-   // Import Existing Project: When a project is selected from the list, the user can edit the description. 
-   Upon clicking "Done," a new chatbox file is created using the /create-chatbox API.
-   //Appended Chat Logs: The API handles appending new chat logs by renaming old ones with timestamps and creating new ones. 
-   //Create New Project: When the user clicks "Done" after entering the name and description for a new project, it triggers the API to create the new project.
-   
-   Import Existing Project: When the user clicks "Done" for an existing project, 
-   it triggers the API to create a new chatbox for that project. 

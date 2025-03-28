@@ -1,5 +1,5 @@
-// Save messages once sent/received with timestamp
-function saveMessage(sender, message) {
+// Save messages to localStorage and also to server-side chatlog.txt
+function saveMessageToFile(sender, message) {
     let messages = JSON.parse(localStorage.getItem("chatMessages")) || [];
     
     let newMessage = {
@@ -10,6 +10,27 @@ function saveMessage(sender, message) {
 
     messages.push(newMessage);
     localStorage.setItem("chatMessages", JSON.stringify(messages));
+
+    // Send the message to the server to save in the chatlog.txt
+    const projectName = getCurrentProjectName();
+    if (projectName) {
+        fetch(`/api/chat/save-message`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                name: projectName,
+                sender: sender,
+                message: message,
+                timestamp: newMessage.timestamp
+            })
+        });
+    }
+}
+
+// Helper function to get the current project name
+function getCurrentProjectName() {
+    // Assuming the project name is stored in localStorage or a global variable
+    return localStorage.getItem("currentProjectName");
 }
 
 function formatTimestamp(date) {
@@ -21,7 +42,6 @@ function formatTimestamp(date) {
     }).replace(',', ''); // Remove comma for cleaner format
 }
 
-// Updated appendMessage to handle "Thinking..." correctly
 function appendMessage(sender, message, timestamp = new Date().toLocaleString(), isThinking = false) {
     const chatlog = document.getElementById('chat');
 
@@ -42,9 +62,6 @@ function appendMessage(sender, message, timestamp = new Date().toLocaleString(),
     }
 
     // Display timestamp if provided
-    if (!timestamp) {
-        timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    }
     const timeSpan = document.createElement('span');
     timeSpan.classList.add(sender === 'user' ? 'outgoing-time' : 'received-time');
     timeSpan.textContent = timestamp;
@@ -61,9 +78,11 @@ function appendMessage(sender, message, timestamp = new Date().toLocaleString(),
 
     chatlog.appendChild(msgDiv);
     chatlog.scrollTop = chatlog.scrollHeight;
+
+    // Save the message to the server and localStorage
+    saveMessageToFile(sender, message);
 }
 
-// Send message handler
 function send_message(event) {
     event.preventDefault();
     let messageInput = document.getElementById("input");
@@ -74,7 +93,7 @@ function send_message(event) {
 
     // Save and display user message
     appendMessage('user', userMessage);
-    saveMessage("user", userMessage);
+    saveMessageToFile("user", userMessage);
 
     // Send "Thinking..." message
     appendMessage('bot', 'Thinking...', true);
@@ -104,7 +123,7 @@ function archie_message() {
 
             // Display Archie's Response
             appendMessage('bot', response);
-            saveMessage("bot", response);
+            saveMessageToFile("bot", response);
         });
     } else {
         console.error("chatAPI is undefined inside archie_message");
@@ -134,6 +153,31 @@ function loadMessages() {
         appendMessage(msg.sender, msg.text, msg.timestamp);
     });
 }
+
+// Function to handle 'Create New Chat' button
+document.getElementById('Create-New').addEventListener('click', () => {
+    const projectName = "guug"; // You can dynamically change this based on the user's selection
+    const chatBoxId = `chatbox-${new Date().getTime()}`; // Unique ID for each new chatbox
+
+    // Create a new chatbox container
+    const chatContainer = document.createElement('div');
+    chatContainer.id = chatBoxId;
+    chatContainer.classList.add('chat-container');
+
+    // Create the chat log and append it to the new chatbox
+    const chatlogDiv = document.createElement('div');
+    chatlogDiv.classList.add('chatlog');
+    chatContainer.appendChild(chatlogDiv);
+
+    // Append the chat container to the body (or a specific parent element)
+    document.body.appendChild(chatContainer);
+
+    // Set the current project name for the new chat
+    localStorage.setItem("currentProjectName", projectName);
+
+    // Initialize a new chat for this chatbox
+    appendMessage('bot', 'Welcome! How can I assist you today?', new Date().toLocaleString());
+});
 
 // Initialize chat when the page loads
 document.addEventListener("DOMContentLoaded", () => {

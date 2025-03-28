@@ -1,8 +1,8 @@
 const { app, BrowserWindow, ipcMain, screen } = require('electron');
 const path = require('path');
-const axios = require('axios');
-const express = require('express');
 const fs = require('fs');
+const express = require('express');
+const axios = require('axios');
 const cors = require('cors');
 
 // Initialize Express server
@@ -13,7 +13,7 @@ expressApp.use(cors());
 const appDataPath = app.getPath("appData") + "\\RevitChatProjects";
 expressApp.use(express.static(path.join(__dirname, 'UI')));
 
-// Route to list of folders and get image
+// Route to list of folders and get images
 expressApp.get("/files", (req, res) => {
     fs.readdir(appDataPath, { withFileTypes: true }, (err, items) => {
         if (err) {
@@ -36,7 +36,7 @@ expressApp.get("/files", (req, res) => {
     });
 });
 
-// Route to Revit projects
+// Route to revit projects (Samples folder)
 const revitSamplesPath = "C:\\Program Files\\Autodesk\\Revit 2025\\Samples";
 expressApp.get('/revit-projects', (req, res) => {
     fs.readdir(revitSamplesPath, (err, files) => {
@@ -49,46 +49,9 @@ expressApp.get('/revit-projects', (req, res) => {
     });
 });
 
-// Delete folder route (Version 2 modified)
-expressApp.delete('/delete-folder', express.json(), (req, res) => {
-    var { folderName } = req.body;
-
-    if (!folderName) {
-        return res.status(400).json({ error: 'Folder name is required' });
-    }
-    folderName = folderName.trim();
-    const dirPath = path.join(appDataPath, folderName);
-    
-    console.log(`Attempting to delete: ${dirPath}`);
-
-    fs.rm(dirPath, { recursive: true, force: true }, (err) => {
-        if (err) {
-            console.error("Error deleting folder:", err);
-            return res.status(500).json({ error: "Failed to delete folder." });
-        }
-        console.log("Folder deleted successfully.");
-        res.json({ message: "Folder deleted successfully." });
-    });
-});
-
-// Route to create a new chat log
-expressApp.post("/api/chat/create-chatlog", express.json(), (req, res) => {
-    const { name } = req.body;
-    if (!name) {
-        return res.status(400).json({ error: "Project name is required" });
-    }
-
-    const chatLogPath = path.join(appDataPath, name, "chatlog.txt");
-
-    // Create an empty chat log file
-    fs.writeFileSync(chatLogPath, "Chat started...\n");
-
-    res.json({ message: `Chat log for '${name}' created successfully` });
-});
-
 // Route to create a new project
 expressApp.post("/api/chat/create-project", express.json(), (req, res) => {
-    const { name, description} = req.body;
+    const { name, description } = req.body;
     if (!name) {
         return res.status(400).json({ error: "Project name is required" });
     }
@@ -103,39 +66,109 @@ expressApp.post("/api/chat/create-project", express.json(), (req, res) => {
     const projectData = { name, description };
     fs.writeFileSync(infoPath, JSON.stringify(projectData, null, 2));
 
-    res.json({ message: `Project '${name}' created successfully` });
+    // Create a new chat log file when a new project is created
+    const chatLogPath = path.join(projectPath, "chatlog.txt");
+    fs.writeFileSync(chatLogPath, "Chat started...\n");
+
+    res.json({ message: `Project '${name}' created and chat log initialized` });
 });
 
-// Route to update an existing project's name and description
-expressApp.post("/api/chat/update-project", express.json(), (req, res) => {
-    const { oldName, newName, newDescription } = req.body;
-    if (!oldName || !newName) {
-        return res.status(400).json({ error: "Both old and new project names are required" });
+// Route to create a new chat log
+expressApp.post("/api/chat/create-chatlog", express.json(), (req, res) => {
+    const { projectName } = req.body;
+    if (!projectName) {
+        return res.status(400).json({ error: "Project name is required" });
     }
 
-    const oldProjectPath = path.join(appDataPath, oldName);
-    const newProjectPath = path.join(appDataPath, newName);
-    const infoPath = path.join(newProjectPath, "info.json");
+    const projectPath = path.join(appDataPath, projectName);
 
-    if (!fs.existsSync(oldProjectPath)) {
-        return res.status(404).json({ error: "Original project not found" });
+    if (!fs.existsSync(projectPath)) {
+        return res.status(404).json({ error: `Project '${projectName}' not found` });
     }
 
-    if (oldName !== newName && fs.existsSync(newProjectPath)) {
-        return res.status(400).json({ error: "A project with the new name already exists" });
-    }
+    const chatLogPath = path.join(projectPath, "chatlog.txt");
 
-    if (oldName !== newName) {
-        fs.renameSync(oldProjectPath, newProjectPath);
-    }
+    // Create an empty chat log file
+    fs.writeFileSync(chatLogPath, "Chat started...\n");
 
-    const projectData = { name: newName, description: newDescription };
-    fs.writeFileSync(infoPath, JSON.stringify(projectData, null, 2));
-
-    res.json({ message: `Project '${oldName}' updated successfully` });
+    res.json({ message: `Chat log for '${projectName}' created successfully` });
 });
 
-// Start the server
+// Route to save a message to the chatlog.txt of the project
+expressApp.post("/api/chat/save-message", express.json(), (req, res) => {
+    const { name, sender, message, timestamp } = req.body;
+
+    if (!name || !sender || !message || !timestamp) {
+        return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    const chatLogPath = path.join(appDataPath, name, "chatlog.txt");
+
+    // Append message to the chatlog.txt
+    const logMessage = `[${timestamp}] ${sender}: ${message}\n`;
+    fs.appendFileSync(chatLogPath, logMessage);
+
+    res.json({ message: "Message saved to chatlog" });
+});
+
+// Handle chat messages (from the frontend interface)
+ipcMain.on('chat-message', async (event, userInput) => {
+    console.log('User input:', userInput);
+    try {
+        let response = await axios.post('http://localhost:5000/api/chatbot/getResponse', { message: userInput });
+        event.reply('chat-response', response.data.response || "No response from AI.");
+    } catch (error) {
+        console.error('Error communicating with API:', error);
+        event.reply('chat-response', 'Error: Unable to process your request.');
+    }
+});
+
+// Handle Revit commands (via Electron interaction)
+ipcMain.on('execute-revit-command', async (event, revitCommand) => {
+    try {
+        const revitResponse = await axios.post("http://localhost:5000/api/revit/execute", revitCommand);
+        event.reply("chat-response", revitResponse.data);
+    } catch (error) {
+        console.error("Error executing Revit command:", error);
+        event.reply("chat-response", "Error executing Revit command.");
+    }
+});
+
+// Window controls for Electron (minimize, fullscreen, etc.)
+ipcMain.on('minimize-chat', () => {
+    let win = BrowserWindow.getFocusedWindow();
+    if (win) {
+        win.setResizable(true);
+        win.setSize(400, 600);
+        win.setResizable(false);
+    }
+});
+
+ipcMain.on('fullscreen-chat', () => {
+    let win = BrowserWindow.getFocusedWindow();
+    if (win) {
+        const { width, height } = screen.getPrimaryDisplay().workAreaSize;
+        win.setResizable(true);
+        win.setSize(width, height);
+        win.setBounds({ x: 0, y: 0, width: width, height: height });
+        win.setResizable(false);
+    }
+});
+
+ipcMain.on('move-window', (event, dx, dy) => {
+    let win = BrowserWindow.getFocusedWindow();
+    if (win) {
+        const currentBounds = win.getBounds();
+        win.setBounds({
+            x: currentBounds.x + dx,
+            y: currentBounds.y + dy,
+            width: currentBounds.width,
+            height: currentBounds.height
+        });
+    }
+});
+
+// Start the Express server
 expressApp.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });
@@ -173,64 +206,5 @@ app.whenReady().then(() => {
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
         app.quit();
-    }
-});
-
-// Handle chat messages
-ipcMain.on('chat-message', async (event, userInput) => {
-    console.log('User input:', userInput);
-    try 
-    { 
-        let response = await axios.post('http://localhost:5000/api/chatbot/getResponse', { message: userInput });
-        event.reply('chat-response', response.data.response || "No response from AI.");
-        
-    } catch (error) {
-        console.error('Error communicating with API:', error);
-        event.reply('chat-response', 'Error: Unable to process your request.');
-    }
-});
-
-// Handle Revit commands
-ipcMain.on('execute-revit-command', async (event, revitCommand) => {
-    try {
-        const revitResponse = await axios.post("http://localhost:5000/api/revit/execute", revitCommand);
-        event.reply("chat-response", revitResponse.data);
-    } catch (error) {
-        console.error("Error executing Revit command:", error);
-        event.reply("chat-response", "Error executing Revit command.");
-    }
-});
-
-// Window controls
-ipcMain.on('minimize-chat', () => {
-    let win = BrowserWindow.getFocusedWindow();
-    if (win) {
-        win.setResizable(true);
-        win.setSize(400, 600);
-        win.setResizable(false);
-    }
-});
-
-ipcMain.on('fullscreen-chat', () => {
-    let win = BrowserWindow.getFocusedWindow();
-    if (win) {
-        const { width, height } = screen.getPrimaryDisplay().workAreaSize;
-        win.setResizable(true);
-        win.setSize(width, height);
-        win.setBounds({ x: 0, y: 0, width: width, height: height });
-        win.setResizable(false);
-    }
-});
-
-ipcMain.on('move-window', (event, dx, dy) => {
-    let win = BrowserWindow.getFocusedWindow();
-    if (win) {
-        const currentBounds = win.getBounds();
-        win.setBounds({
-            x: currentBounds.x + dx,
-            y: currentBounds.y + dy,
-            width: currentBounds.width,
-            height: currentBounds.height
-        });
     }
 });
