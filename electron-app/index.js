@@ -36,24 +36,19 @@ expressApp.get("/files", (req, res) => {
     });
 });
 
-// // Route list of revit projects
-// expressApp.get("/revit-projects", (req, res) => {
-//     fs.readdir(appDataPath, { withFileTypes: true }, (err, items) => {
-//         if (err) {
-//             console.error("Error reading directory:", err);
-//             return res.status(500).json({ error: "Unable to read directory" });
-//         }
-        
-//             return {
-//                 name: item.name,
-//                 type: item.isDirectory() ? "folder" : "file",
-//             };
-//         });
+const revitSamplesPath = "C:\\Program Files\\Autodesk\\Revit 2025\\Samples";
 
-//         res.json(filesAndFolders);
-//     });
-// });
+// route to revit projects
+expressApp.get('/revit-projects', (req, res) => {
+    fs.readdir(revitSamplesPath, (err, files) => {
+        if (err) {
+            console.error("Error reading directory:", err);
+            return res.status(500).json({ error: "Unable to read directory" });
+        }
 
+        res.json(files.map(file => ({ name: file })));
+    });
+});
 
 expressApp.delete('/delete-folder', express.json(), (req, res) => {
     const { folderName } = req.body;

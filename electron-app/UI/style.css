@@ -264,7 +264,7 @@ section
   border-radius: 4px;
 }
 
-.CreateNewChat-Scroll p {
+#file-list li {
  color: black;
  margin: 10px;
 }

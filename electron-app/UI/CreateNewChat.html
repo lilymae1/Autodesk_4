@@ -25,33 +25,10 @@
             };
             xhr.send();
 
-            // Toggle visibility of descriptions based on checkbox states
-            $("#top_check").change(function () {
-                if (this.checked) {
-                    $("#createnew_ChatboxDescription").show();
-                    $("#choose_project").hide();
-                    $("#CN_c_input, #CN_d_input").prop("disabled", false);
-                    $("#CP_c_input, #CP_d_input").prop("disabled", true).val('');
-                } else {
-                    $("#createnew_ChatboxDescription").hide();
-                }
-            });
-
-            $("#bottom_check").change(function () {
-                if (this.checked) {
-                    $("#choose_project").show();
-                    $("#createnew_ChatboxDescription").hide();
-                    $("#CN_c_input, #CN_d_input").prop("disabled", true).val('');
-                    $("#CP_c_input, #CP_d_input").prop("disabled", true);
-                } else {
-                    $("#choose_project").hide();
-                }
-            });
-
             // Load Existing Projects
             function loadProjects() {
                 $.ajax({
-                    url: "http://localhost:3000/api/chat/projects",
+                    url: "http://localhost:3000/files",
                     type: "GET",
                     success: function (data) {
                         var projectList = $("#PreviousProjects_scroll");
@@ -64,11 +41,9 @@
 
                         data.forEach(function (project) {
                             console.log("Loaded project:", project);
-                            const projectName = project.name || "Unnamed Project";
-                            const projectDesc = project.description || "No description";
                             projectList.append(
-                                `<br><a href="#" onclick="selectProject('${projectName}', '${projectDesc}')">
-                                    ${projectName} (${projectDesc})
+                                `<br><a href="#" onclick="selectProject('${project.name}')">
+                                    ${project.name}
                                 </a><br>`
                             );
                         });
@@ -80,148 +55,58 @@
             }
 
             // Select Existing Project
-            window.selectProject = function (name, description) {
-                console.log("Project selected:", name, description);
+            window.selectProject = function (name) {
+                console.log("Project selected:", name);
                 $("#CP_c_input").val(name).prop("disabled", false);
-                $("#CP_d_input").val(description).prop("disabled", false);
-                alert("Project " + name + " selected. You can now edit the name and description.");
+                alert("Project " + name + " selected.");
             }
 
-            // Create New Project
-            $("#CreateNewChat_Done_button").click(function (event) {
-                event.preventDefault();
-                var name = $("#CN_c_input").val().trim();
-                var description = $("#CN_d_input").val().trim();
-                //var image = $("thumbnail").val();
-
-                if (!name) {
-                    alert("Project name is required.");
-                    return;
-                }
-
-                $.ajax({
-                    url: "http://localhost:3000/api/chat/create-project",
-                    type: "POST",
-                    contentType: "application/json",
-                    data: JSON.stringify({ name: name, description: description}),
-                    //data: JSON.stringify({ name: name, description: description,image: image}),
-                    success: function (response) {
-                        alert("Project Created: " + response.message);
-                        loadProjects();
-                    },
-                    error: function () {
-                        alert("Error creating project.");
-                    }
-                });
-            });
-
-            // Save Edited Project Name and Description
-            $("#ChooseProject_Done_button").click(function (event) {
-                event.preventDefault();
-                var name = $("#CP_c_input").val().trim();
-                var description = $("#CP_d_input").val().trim();
-
-                if (!name) {
-                    alert("Project name is required.");
-                    return;
-                }
-
-                $.ajax({
-                    url: "http://localhost:3000/api/chat/update-project",
-                    type: "POST",
-                    contentType: "application/json",
-                    data: JSON.stringify({ name: name, description: description }),
-                    success: function (response) {
-                        alert("Project Updated: " + response.message);
-                        loadProjects();
-                    },
-                    error: function () {
-                        alert("Error updating project.");
-                    }
-                });
-            });
-
-            loadProjects();
-        });
-    </script>
-</head>
-<div id="includedNavContent"></div>
-
-<h1 class="title">Create a Projects Chat</h1>
-
-<div class="CreateNewChat-Center">
-    <div class="CNC-LeftContainer-Original">
-        <div class="CNC-align">
-            <form>
-                <input id="CN_c_input" placeholder="Project Name..">
-                <textarea id="CN_d_input" placeholder="Description"></textarea>
-                <input id="CreateNewChat_Done_button" type="submit" value="Done">
-            </form>
-        </div>
-    </div>
-    <div class="CNC-RightContainer-Original">
-        <div class="title-bar">Projects which don't have a chat</div>
-        <div class="CreateNewChat-Scroll">
-            <ul id="file-list"></ul> <!-- List container for file names -->
-            <script>
-                fetch("http://localhost:3000/")
+            // Load Revit Sample Projects
+            function loadRevitProjects() {
+                fetch("http://localhost:3000/revit-projects")
                     .then(response => response.json())
                     .then(items => {
                         const list = document.getElementById("file-list");
-                        list.innerHTML = ""; // Clear existing content
+                        list.innerHTML = "";
                         items.forEach(item => {
                             const li = document.createElement("li");
-                            li.textContent = item.name; // Display file name
+                            li.textContent = item.name;
                             list.appendChild(li);
                         });
                     })
                     .catch(error => console.error("Error fetching files:", error));
-            </script>
-        </div>
-    </div>
-        </div>
-</div>
+            }
 
-<div class="gap"></div>
+            loadProjects();
+            loadRevitProjects();
+        });
+    </script>
+</head>
 
-    <!-- <div class="NewChatBox-Container">
-        <div id="create_new_leftdiv">
-            <div id="create_ChatboxChoice">
-                <h1>Create New Chatbox:</h1>
-                <div id="checkbox_container">
+<body>
+    <div id="includedNavContent"></div>
 
-                    <div id="CreateNProj">
-                        <input type="checkbox" id="top_check"> Create new project
-                    </div>
-                    <div id="ImportNProj">
-                        <input type="checkbox" id="bottom_check"> Import existing project
-                    </div>
-                </div>
-            </div>
-        </div>
+    <h1 class="title">Create a Projects Chat</h1>
 
-        <div id="create_new_rightdiv">
-            Create New Project Section
-            <div id="createnew_ChatboxDescription" style="display: none;">
+    <div class="CreateNewChat-Center">
+        <div class="CNC-LeftContainer-Original">
+            <div class="CNC-align">
                 <form>
                     <input id="CN_c_input" placeholder="Project Name..">
-                    <input id="CN_d_input" placeholder="Description">
-                    <input id="Thumbnail" type = "file" accept=".png">
+                    <textarea id="CN_d_input" placeholder="Description"></textarea>
                     <input id="CreateNewChat_Done_button" type="submit" value="Done">
                 </form>
             </div>
-
-            Import Existing Project Section
-            <!-- <div id="choose_project" style="display: none;">
-                <form>
-                    <input id="CP_c_input" placeholder="Project Name..">
-                    <input id="CP_d_input" placeholder="Description">
-                    <div id="PreviousProjects_scroll"></div>
-                    <input id="ChooseProject_Done_button" type="submit" value="Done">
-                </form>
+        </div>
+        <div class="CNC-RightContainer-Original">
+            <div class="title-bar">Projects which don't have a chat</div>
+            <div class="CreateNewChat-Scroll">
+                <ul id="file-list"></ul>
             </div>
-        </div> -->
-    <!-- </div> --> 
+        </div>
+    </div>
+
+    <div class="gap"></div>
 
     <footer>
         <script>
@@ -232,28 +117,29 @@
                     console.log("Footer.html loaded successfully");
                     $("#includedContent").html(xhr1.responseText);
                 } else {
-                    console.error("Error loading footer.html: " + xhr1.status);
-                    $("#includedContent").html("Error loading footer.html");
+                    console.error("Error loading Footer.html: " + xhr1.status);
+                    $("#includedContent").html("Error loading Footer.html");
                 }
             };
             xhr1.onerror = function () {
                 console.error("Request failed");
-                $("#includedContent").html("Error loading footer.html");
+                $("#includedContent").html("Error loading Footer.html");
             };
             xhr1.send();
         </script>
         <div id="includedContent"></div>
     </footer>
 </body>
-</html>
-<!-- // Brief Description:
-//Create New Project: When the user selects "Create new project" and fills out the form, 
-//the project is created using the /create-project API. 
-The project info (name and description) is stored in the info.json file.
-// Import Existing Project: When a project is selected from the list, the user can edit the description. 
-Upon clicking "Done," a new chatbox file is created using the /create-chatbox API.
-//Appended Chat Logs: The API handles appending new chat logs by renaming old ones with timestamps and creating new ones. 
-//Create New Project: When the user clicks "Done" after entering the name and description for a new project, it triggers the API to create the new project.
 
-Import Existing Project: When the user clicks "Done" for an existing project, 
-it triggers the API to create a new chatbox for that project. 
+</html>
+   <!-- // Brief Description:
+   //Create New Project: When the user selects "Create new project" and fills out the form, 
+   //the project is created using the /create-project API. 
+   The project info (name and description) is stored in the info.json file.
+   // Import Existing Project: When a project is selected from the list, the user can edit the description. 
+   Upon clicking "Done," a new chatbox file is created using the /create-chatbox API.
+   //Appended Chat Logs: The API handles appending new chat logs by renaming old ones with timestamps and creating new ones. 
+   //Create New Project: When the user clicks "Done" after entering the name and description for a new project, it triggers the API to create the new project.
+   
+   Import Existing Project: When the user clicks "Done" for an existing project, 
+   it triggers the API to create a new chatbox for that project. 
