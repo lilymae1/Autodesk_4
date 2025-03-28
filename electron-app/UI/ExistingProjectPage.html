@@ -142,14 +142,7 @@
             <button id = "EP-Button-Delete-No" onclick="document.location='ExistingProjectPage.html'">No</button>
         </div>
 
-        <!---
-        <div id="EP-DeleteChatLog-Container" style="display: none;">
-            <h3 id="EP-Delete-Question">Do you want to delete ChatLog for (projectname)?</h3>
-            <button id="EP-Button-Delete-Yes" onclick="document.location='index.html'">Yes</button>
-            <button id="EP-Button-Delete-No" onclick="hideDeleteConfirmation()">No</button>
-        </div> -->
 
-        <!-- <object type="text/html" data="Footer.html"></object> Need to check if this line is still needed-->
         <!-- Script Makes Edit Button Access Editing Page-->
         <script>
             function myFunction() {
@@ -274,70 +267,6 @@ function deleteProject() {
         mainContent.classList.remove("DeleteVer-fade-out"); // Restore main content visibility
     });
 });
-            
-
-
-        //function showDeleteConfirmation() {
-          //  document.getElementById("EP-DeleteChatLog-Container").style.display = "block";
-        //}
-
-        //function hideDeleteConfirmation() {
-          //  document.getElementById("EP-DeleteChatLog-Container").style.display = "none";
-        //}
-
-        //document.addEventListener("DOMContentLoaded", function () {
-            //const chatLogs = document.querySelectorAll(".ExistingProjectPage-Scroll li");
-            //let selectedItem = null;
-
-        // Add click event to select an item
-//        chatLogs.forEach(log => {
-//            log.addEventListener("click", function () {
-//                // Remove highlight from other items
-//                chatLogs.forEach(item => item.classList.remove("selected"));
-
-                // Highlight the selected item
-//                this.classList.add("selected");
-//                selectedItem = this;
-//            });
-
-        // Add delete button next to each log
-//        let deleteBtn = document.createElement("button");
-//        deleteBtn.textContent = "X";
-//        deleteBtn.classList.add("delete-btn");
-//        log.appendChild(deleteBtn);
-
-        // Add delete event
-//        deleteBtn.addEventListener("click", function (event) {
-//            event.stopPropagation(); // Prevent item selection on delete click
-//            selectedItem = log;
-//            showDeleteConfirmation();
-//        });
-//    });
-
-    // Show delete confirmation container
-//    function showDeleteConfirmation() {
-//        document.getElementById("EP-DeleteChatLog-Container").style.display = "block";
-//    }
-
-    // Hide delete confirmation container
-//    function hideDeleteConfirmation() {
-//        document.getElementById("EP-DeleteChatLog-Container").style.display = "none";
-//    }
-
-    // Handle "Yes" button click (delete item)
-//    document.getElementById("EP-Button-Delete-Yes").addEventListener("click", function () {
-//        if (selectedItem) {
-//            selectedItem.remove();
-//            selectedItem = null;
-//        }
-//        hideDeleteConfirmation();
-//    });
-
-    // Handle "No" button click (cancel delete)
-//    document.getElementById("EP-Button-Delete-No").addEventListener("click", function () {
-//        hideDeleteConfirmation();
-//    });
-//});
 
           </script>
     </body>
