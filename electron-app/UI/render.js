@@ -154,30 +154,32 @@ function loadMessages() {
     });
 }
 
-// Function to handle 'Create New Chat' button
-document.getElementById('Create-New').addEventListener('click', () => {
-    const projectName = "guug"; // You can dynamically change this based on the user's selection
-    const chatBoxId = `chatbox-${new Date().getTime()}`; // Unique ID for each new chatbox
+// if someone can acc work out what this does ill be amazed
 
-    // Create a new chatbox container
-    const chatContainer = document.createElement('div');
-    chatContainer.id = chatBoxId;
-    chatContainer.classList.add('chat-container');
+// // Function to handle 'Create New Chat' button
+// document.getElementById('Create-New').addEventListener('click', () => {
+//     const projectName = "guug"; // You can dynamically change this based on the user's selection
+//     const chatBoxId = `chatbox-${new Date().getTime()}`; // Unique ID for each new chatbox
 
-    // Create the chat log and append it to the new chatbox
-    const chatlogDiv = document.createElement('div');
-    chatlogDiv.classList.add('chatlog');
-    chatContainer.appendChild(chatlogDiv);
+//     // Create a new chatbox container
+//     const chatContainer = document.createElement('div');
+//     chatContainer.id = chatBoxId;
+//     chatContainer.classList.add('chat-container');
 
-    // Append the chat container to the body (or a specific parent element)
-    document.body.appendChild(chatContainer);
+//     // Create the chat log and append it to the new chatbox
+//     const chatlogDiv = document.createElement('div');
+//     chatlogDiv.classList.add('chatlog');
+//     chatContainer.appendChild(chatlogDiv);
 
-    // Set the current project name for the new chat
-    localStorage.setItem("currentProjectName", projectName);
+//     // Append the chat container to the body (or a specific parent element)
+//     document.body.appendChild(chatContainer);
 
-    // Initialize a new chat for this chatbox
-    appendMessage('bot', 'Welcome! How can I assist you today?', new Date().toLocaleString());
-});
+//     // Set the current project name for the new chat
+//     localStorage.setItem("currentProjectName", projectName);
+
+//     // Initialize a new chat for this chatbox
+//     appendMessage('bot', 'Welcome! How can I assist you today?', new Date().toLocaleString());
+// });
 
 // Initialize chat when the page loads
 document.addEventListener("DOMContentLoaded", () => {
