@@ -2,9 +2,6 @@ Output:
 
 Server running at http://localhost:3000
 Electron app is ready
-User input: hello
 
 
 Error:
-[15808:0328/082731.219:ERROR:CONSOLE(1)] "Request Autofill.enable failed. {"code":-32601,"message":"'Autofill.enable' wasn't found"}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
-[15808:0328/082731.219:ERROR:CONSOLE(1)] "Request Autofill.setAddresses failed. {"code":-32601,"message":"'Autofill.setAddresses' wasn't found"}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)

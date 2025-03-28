@@ -1,37 +1,37 @@
 // Save messages to localStorage and also to server-side chatlog.txt
-function saveMessageToFile(sender, message) {
-    let messages = JSON.parse(localStorage.getItem("chatMessages")) || [];
+// function saveMessageToFile(sender, message) {
+//     let messages = JSON.parse(localStorage.getItem("chatMessages")) || [];
     
-    let newMessage = {
-        sender: sender,
-        text: message,
-        timestamp: new Date().toLocaleString()  // Save time message was sent
-    };
+//     let newMessage = {
+//         sender: sender,
+//         text: message,
+//         timestamp: new Date().toLocaleString()  // Save time message was sent
+//     };
 
-    messages.push(newMessage);
-    localStorage.setItem("chatMessages", JSON.stringify(messages));
+//     messages.push(newMessage);
+//     localStorage.setItem("chatMessages", JSON.stringify(messages));
 
-    // Send the message to the server to save in the chatlog.txt
-    const projectName = getCurrentProjectName();
-    if (projectName) {
-        fetch(`/api/chat/save-message`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                name: projectName,
-                sender: sender,
-                message: message,
-                timestamp: newMessage.timestamp
-            })
-        });
-    }
-}
+//     // Send the message to the server to save in the chatlog.txt
+//     const projectName = getCurrentProjectName();
+//     if (projectName) {
+//         fetch(`/api/chat/save-message`, {
+//             method: 'POST',
+//             headers: { 'Content-Type': 'application/json' },
+//             body: JSON.stringify({
+//                 name: projectName,
+//                 sender: sender,
+//                 message: message,
+//                 timestamp: newMessage.timestamp
+//             })
+//         });
+//     }
+// }
 
-// Helper function to get the current project name
-function getCurrentProjectName() {
-    // Assuming the project name is stored in localStorage or a global variable
-    return localStorage.getItem("currentProjectName");
-}
+// // Helper function to get the current project name
+// function getCurrentProjectName() {
+//     // Assuming the project name is stored in localStorage or a global variable
+//     return localStorage.getItem("currentProjectName");
+// }
 
 function formatTimestamp(date) {
     return new Date(date).toLocaleString('en-GB', {

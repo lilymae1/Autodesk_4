@@ -91,36 +91,7 @@ public class RevitCommandHandler : IExternalEventHandler
                     double angle1 = Convert.ToDouble(_parameters["angle"]);
                     AICommands.RotateCamera(angle1, _uiApp);
                     break;
-                
-                    // **Create Roof Case**
-                // case "CreateRoof":
-                //     ElementId roofLevelId = new ElementId(Convert.ToInt32(_parameters["levelId"])); // Assuming it's passed as an ID
-                //     ElementId roofTypeId = new ElementId(Convert.ToInt32(_parameters["roofTypeId"])); // Assuming it's passed as an ID
-                //     CurveArray roofBoundary = new CurveArray(); // You would need to convert _parameters into curves
-                //     // Example of creating a simple rectangular boundary (to be replaced with real data)
-                //     roofBoundary.Append(Line.CreateBound(new XYZ(0, 0, 0), new XYZ(10, 0, 0)));
-                //     roofBoundary.Append(Line.CreateBound(new XYZ(10, 0, 0), new XYZ(10, 10, 0)));
-                //     roofBoundary.Append(Line.CreateBound(new XYZ(10, 10, 0), new XYZ(0, 10, 0)));
-                //     roofBoundary.Append(Line.CreateBound(new XYZ(0, 10, 0), new XYZ(0, 0, 0)));
 
-                //     AICommands.CreateRoof(doc, roofLevelId, roofTypeId, roofBoundary);
-                //     break;
-
-                //     // **Create Window Case**
-                // case "CreateWindow":
-                //     ElementId windowWallId = new ElementId(Convert.ToInt32(_parameters["wallId"])); // Assuming wall ID is passed
-                //     ElementId windowTypeId = new ElementId(Convert.ToInt32(_parameters["windowTypeId"])); // Assuming window type ID is passed
-                //     XYZ windowLocation = new XYZ(
-                //     Convert.ToDouble(_parameters["windowX"]),
-                //     Convert.ToDouble(_parameters["windowY"]),
-                //     Convert.ToDouble(_parameters["windowZ"])
-                //     );
-
-                //     AICommands.CreateWindow(doc, windowWallId, windowTypeId, windowLocation);
-                //     break;
-
-                //     AICommands.CreateDoor(doc, doorWallId, doorTypeId, doorLocation);
-                //     break;
                 default:
                     Logger.Log("Unknown command received.");
                     break;
