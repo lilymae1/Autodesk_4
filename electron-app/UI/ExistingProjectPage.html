@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <head>
-    <title>Viewing project</title>
+    <title>Viewing Project</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
         var xhr = new XMLHttpRequest();
@@ -22,345 +22,195 @@
             $("#includedNavContent").html("Error loading Nav.html");
         };
         xhr.send();
-
     </script>
 </head>
-<html>
-    <body>
-        <div id="includedNavContent"></div>
-        <link rel="stylesheet" type="text/css" href="style.css" >
 
-        <!-- <object type="text/html" data="Nav.html"></object>  Need to check if this line is still needed-->
+<body>
+    <div id="includedNavContent"></div>
+    <link rel="stylesheet" type="text/css" href="style.css">
 
-        <div class="ExistingProjectPage-Center">
+    <div class="ExistingProjectPage-Center">
+        <div class="ExistingProjectPage-Image">
+            <img id="projectImage" src="Assets/example_image.png" alt="Placeholder image" width="380px" height="380px">
+        </div>
+
+        <div class="EP-RightContainer-Original">
+            <form>
+                <div id="EP_N_input">
+                    <h3 id="projectName">Name</h3>
+                </div>
+                <div id="EP_Des_input">
+                    <h3 id="projectDescription">Description</h3>
+                </div>
+            </form>
             
-            <div class="ExistingProjectPage-Image">
-                <img src="Assets\example_image.png" alt="Trulli" width="380px" height="380px" alt="Placeholder image of Archie the AI bot for a project with no image yet">
+            <div class="ExistingProjectPage-Scroll">
+                <h3>Chat Log:</h3>
+                <ul id="chatLogList"></ul>
             </div>
-    
-            <div class="EP-RightContainer-Original">
-                <form>
-                    <div id=EP_N_input>
-                        <h3>Name</h3>
-                    </div>
-                    <div id=EP_Des_input>
-                        <h3>Description, words, words. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        </h3>
-                    </div>
-                    <!--
-                    <h1 id=EP_N_input placeholder="Name..">
-                    <h1 id=EP_D_input placeholder="Description"> --> <!--Need to make text description go to top left not just left-->
-                </form>
-                
-                <div class="ExistingProjectPage-Scroll">
-                    <br> Chat Log: </br>
-                    <li><a href="chatEnlarged.html"> Chat Log (25/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (22/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (21/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (18/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (16/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (13/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (08/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (07/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (05/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (01/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (29/11/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (27/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (26/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (23/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (22/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (21/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (19/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (15/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (14/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (12/12/24) </a></li>
-                    <li><a href="chatEnlarged.html"> Chat Log (08/12/24) </a></li>
-                </div>
-                
-                  
-                <button id = "ExistingProjectPage-Create-New" onclick="">Create New Chat</button>
-                
-                <div class="ExistingProjectPage-ButtonContainer">
-                    <button id="ExistingProjectPage-Button" onclick="myFunction()"> Edit </button>
-                    <button id ="ExistingProjectPage-Button" onclick="deleteProject()">Delete</button>
-                </div>
-                
-            </div>
-
-            <div id="EP-RightContainer-EditVersion" class="EP-RightContainer-EditVersion" style="display: none;">
-                <form>
-                    <input id=EP_N_input placeholder="Name..">
-                    <input id=EP_D_input placeholder="Description">
-                </form>
-                
-                <div class="ExistingProjectPage-Scroll">
-                    <br> Chat Log: </br>
-                    <li>Chat Log (25/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (22/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (21/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (18/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (16/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (13/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (08/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (07/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (05/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (01/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (29/11/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (27/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (26/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (23/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (22/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (21/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (19/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (15/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (14/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (12/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                    <li>Chat Log (08/12/24) <button class="deleteBtn" style="display:none;">X</button></li>
-                </div>
-                
-                <div class="ExistingProjectPage-ButtonContainer">
-                    <button id = "EP-Button-EditVer" onclick="deleteFolder()">Exit</button>
-                    <button id = "EP-Button-EditVer" onclick="">Save</button>
-                    <button id="EP-Button-EditVer" onclick="">Delete</button>
-                    <!--<button id="EP-Button-EditVer" onclick="showDeleteConfirmation()">Delete</button> -->
-                </div> 
-                
+            
+            <textarea id="messageInput" placeholder="Type your message here..."></textarea>
+            <button id="sendMessageBtn">Send Message</button>
+            
+            <button id="ExistingProjectPage-Create-New">Create New Chat</button>
+            
+            <div class="ExistingProjectPage-ButtonContainer">
+                <button id="ExistingProjectPage-Button" onclick="myFunction()">Edit</button>
+                <button id="ExistingProjectPage-Button" onclick="deleteProject()">Delete</button>
             </div>
         </div>
 
-        <div id="EP-DeleteContainer" >
-            <h3 id = EP-Delete-Question>Do you want to delete Chatbox for (projectname)?</h3>
-            <button id = "EP-Button-DeleteVer" onclick="document.location='index.html'">Yes</button>
-            <button id = "EP-Button-DeleteVer" onclick="document.location='ExistingProjectPage.html'">No</button>
+        <div id="EP-RightContainer-EditVersion" class="EP-RightContainer-EditVersion" style="display: none;">
+            <form>
+                <input id="EP_N_input_Edit" placeholder="Name..">
+                <input id="EP_D_input_Edit" placeholder="Description">
+            </form>
+            
+            <div class="ExistingProjectPage-Scroll">
+                <h3>Chat Log:</h3>
+                <ul id="chatLogList"></ul>
+            </div>
+            
+            <div class="ExistingProjectPage-ButtonContainer">
+                <button id="EP-Button-EditVer" onclick="exitEditMode()">Exit</button>
+                <button id="EP-Button-EditVer" onclick="saveChanges()">Save</button>
+                <button id="EP-Button-EditVer" onclick="deleteProject()">Delete</button>
+            </div>
         </div>
+    </div>
 
-        <div id="EP-DeleteChatLog-Container" style="display: none;" >
-            <h3 id = EP-Delete-Question>Do you want to delete ChatLog for (projectname)?</h3>
-            <button id = "EP-Button-Delete-Yes" onclick="document.location='ExistingProjectPage.html'">Yes</button>
-            <button id = "EP-Button-Delete-No" onclick="document.location='ExistingProjectPage.html'">No</button>
-        </div>
+    <div id="EP-DeleteContainer">
+        <h3 id="EP-Delete-Question">Do you want to delete Chatbox for (projectname)?</h3>
+        <button id="EP-Button-DeleteVer" onclick="document.location='index.html'">Yes</button>
+        <button id="EP-Button-DeleteVer" onclick="document.location='ExistingProjectPage.html'">No</button>
+    </div>
 
-        <!---
-        <div id="EP-DeleteChatLog-Container" style="display: none;">
-            <h3 id="EP-Delete-Question">Do you want to delete ChatLog for (projectname)?</h3>
-            <button id="EP-Button-Delete-Yes" onclick="document.location='index.html'">Yes</button>
-            <button id="EP-Button-Delete-No" onclick="hideDeleteConfirmation()">No</button>
-        </div> -->
+    <div id="EP-DeleteChatLog-Container" style="display: none;">
+        <h3 id="EP-Delete-Question">Do you want to delete ChatLog for (projectname)?</h3>
+        <button id="EP-Button-Delete-Yes" onclick="document.location='ExistingProjectPage.html'">Yes</button>
+        <button id="EP-Button-Delete-No" onclick="document.location='ExistingProjectPage.html'">No</button>
+    </div>
 
-        <!-- <object type="text/html" data="Footer.html"></object> Need to check if this line is still needed-->
-        <!-- Script Makes Edit Button Access Editing Page-->
-        <script>
-            function myFunction() {
-    var original = document.querySelector(".EP-RightContainer-Original");
-    var editVersion = document.getElementById("EP-RightContainer-EditVersion");
-    var deleteButtons = document.querySelectorAll('.deleteBtn');
+    <script>
+        let selectedProjectName = 'project1'; // Replace with actual project name
 
-    // Ensure elements exist before modifying them
-    if (original && editVersion) {
-        original.style.display = "none";  // Hide the original container
-        editVersion.style.display = "block";  // Show the edit version
-    }
+        function loadProjectData(projectName, callback) {
+            fetch(`http://localhost:3000/files/${projectName}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('projectName').textContent = data.name;
+                    document.getElementById('projectDescription').textContent = data.description;
 
-    // Show delete buttons in edit mode
-    deleteButtons.forEach(button => {
-        button.style.display = 'inline';
-    });
-}
+                    if (data.image) {
+                        document.getElementById('projectImage').src = `Assets/${data.image}`;
+                    }
 
-function deleteProject() {
-        // Get project name from the <h3> tag
-            const params = new URLSearchParams(window.location.search);
-        for(var value of params.keys()) {
-            projectName = params.get(value);
-            console.log(projectName)
+                    callback(data.name);
+                })
+                .catch(error => console.error('Error loading project data:', error));
         }
-        projectName.trim();
-        console.log(projectName)
-        // Send a request to delete the folder
-        fetch("http://localhost:3000/delete-folder", {
-    method: "DELETE",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ folderName:projectName})
-    }).then(res => res.json()).then(data => console.log(data)).catch(err => console.error(err));
-    body: JSON.stringify({ folderName: 'my-folder-name' })
-    
-.then(response => response.json())
-.then(data => console.log(data))
-.catch(error => console.error('Error:', error));
-    }
 
-            function exitEditMode() {
-                var original = document.querySelector(".EP-RightContainer-Original");
-                var editVersion = document.getElementById("EP-RightContainer-EditVersion");
-                var deleteButtons = document.querySelectorAll('.deleteBtn');
+        function loadChatLogs(projectName) {
+            fetch(`http://localhost:3000/api/chat/get-messages?projectName=${projectName}`)
+                .then(response => response.json())
+                .then(messages => {
+                    const chatLogList = document.getElementById("chatLogList");
+                    chatLogList.innerHTML = "";
 
-            // Show original, hide edit mode
-            if (original && editVersion) {
-                original.style.display = "block";
-                editVersion.style.display = "none";
-            }
-            
-            // Hide delete buttons when exiting edit mode
-                deleteButtons.forEach(button => {
-                button.style.display = 'none';
-                });
-            }
+                    messages.forEach((msg) => {
+                        const logItem = document.createElement("li");
+                        logItem.textContent = `[${msg.timestamp}] ${msg.sender}: ${msg.text}`;
+                        chatLogList.appendChild(logItem);
+                    });
+                })
+                .catch(error => console.error("Error loading chat logs:", error));
+        }
 
-            function DeleteChatbox() {
-                var original = document.querySelector(".EP-RightContainer-Original");
-                var editVersion = document.getElementById("EP-RightContainer-EditVersion");
-
-            // Show original, hide edit mode
-                original.style.display = "block";
-                editVersion.style.display = "none";
-            }
-          
-            // Ensure the edit version is hidden on page load
-            document.addEventListener("DOMContentLoaded", function () {
-              document.getElementById("EP-RightContainer-EditVersion").style.display = "none";
-            });
-
-            //DeleteContainer
-            document.addEventListener("DOMContentLoaded", function () {
-                const deleteButton = document.querySelector(".ExistingProjectPage-ButtonContainer button:nth-child(2)");
-                const deleteContainer = document.getElementById("EP-DeleteContainer");
-                const mainContent = document.querySelector(".ExistingProjectPage-Center");
-
-                deleteButton.addEventListener("click", function () {
-                    // Hide everything else with fade effect
-                    mainContent.classList.add("DeleteVer-fade-out");
-
-                // Show delete container
-                    deleteContainer.classList.add("DeleteVer-show-delete");
-                });
-            });
-
-            //DELETE CHATLOG SECTION
-            document.addEventListener("DOMContentLoaded", function () {
-    const deleteButtons = document.querySelectorAll('.deleteBtn');
-    const deleteChatLogContainer = document.getElementById("EP-DeleteChatLog-Container");
-    const mainContent = document.querySelector(".ExistingProjectPage-Center");
-    let selectedItem = null;
-
-    // Hide the delete chat log container on page load
-    deleteChatLogContainer.style.display = "none";
-
-    // Add event listeners to delete buttons
-    deleteButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            selectedItem = this.parentElement; // Store reference to the <li> element
-            deleteChatLogContainer.style.display = "block"; // Show delete confirmation
-            mainContent.classList.add("DeleteVer-fade-out"); // Optionally fade out main content
+        document.addEventListener("DOMContentLoaded", function () {
+            loadProjectData(selectedProjectName, loadChatLogs);
         });
-    });
 
-    // Handle Yes button click in delete confirmation for chat logs
-    document.getElementById("EP-Button-Delete-Yes").addEventListener("click", function () {
-        if (selectedItem) {
-            selectedItem.remove(); // Remove the selected chat log <li>
-            selectedItem = null; // Reset selectedItem
+        function sendMessage() {
+            const messageInput = document.getElementById("messageInput");
+            const messageText = messageInput.value.trim();
+            if (!messageText) return;
+
+            const newMessage = {
+                sender: "User",
+                text: messageText,
+                timestamp: new Date().toISOString()
+            };
+
+            fetch("http://localhost:3000/api/chat/save-message", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    projectName: selectedProjectName,
+                    newMessage: newMessage
+                })
+            })
+            .then(response => response.json())
+            .then(() => {
+                loadChatLogs(selectedProjectName); // Refresh chat log
+                messageInput.value = ""; // Clear input
+            })
+            .catch(error => console.error("Error saving message:", error));
         }
 
-        // Hide delete confirmation modal
-        deleteChatLogContainer.style.display = "none"; 
-        mainContent.classList.remove("DeleteVer-fade-out"); // Restore main content visibility
-    });
+        document.getElementById("sendMessageBtn").addEventListener("click", sendMessage);
 
-    // Handle No button click - Cancel delete
-    document.getElementById("EP-Button-Delete-No").addEventListener("click", function () {
-        deleteChatLogContainer.style.display = "none"; // Just hide confirmation modal
-        mainContent.classList.remove("DeleteVer-fade-out"); // Restore main content visibility
-    });
-});
-            
+        function myFunction() {
+            document.querySelector(".EP-RightContainer-Original").style.display = "none";
+            document.getElementById("EP-RightContainer-EditVersion").style.display = "block";
+        }
 
+        function exitEditMode() {
+            document.querySelector(".EP-RightContainer-Original").style.display = "block";
+            document.getElementById("EP-RightContainer-EditVersion").style.display = "none";
+        }
 
-        //function showDeleteConfirmation() {
-          //  document.getElementById("EP-DeleteChatLog-Container").style.display = "block";
-        //}
+        function saveChanges() {
+            const newName = document.getElementById('EP_N_input_Edit').value;
+            const newDescription = document.getElementById('EP_D_input_Edit').value;
 
-        //function hideDeleteConfirmation() {
-          //  document.getElementById("EP-DeleteChatLog-Container").style.display = "none";
-        //}
+            fetch('http://localhost:3000/api/chat/update-project', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    oldName: selectedProjectName,
+                    newName: newName,
+                    newDescription: newDescription
+                })
+            })
+            .then(() => {
+                alert('Project updated successfully!');
+                loadProjectData(newName, loadChatLogs);
+            })
+            .catch(error => console.error('Error saving changes:', error));
+        }
+    </script>
+</body>
 
-        //document.addEventListener("DOMContentLoaded", function () {
-            //const chatLogs = document.querySelectorAll(".ExistingProjectPage-Scroll li");
-            //let selectedItem = null;
+<footer>
+    <script>
+        var xhr1 = new XMLHttpRequest();
+        xhr1.open('GET', 'Footer.html', true);
+        xhr1.onload = function () {
+            if (xhr1.status == 200) {
+                console.log("Footer.html loaded successfully");
+                $("#includedContent").html(xhr1.responseText);
+            } else {
+                console.error("Error loading Footer.html: " + xhr1.status);
+                $("#includedContent").html("Error loading Footer.html");
+            }
+        };
+        xhr1.onerror = function () {
+            console.error("Request failed");
+            $("#includedContent").html("Error loading Footer.html");
+        };
+        xhr1.send();
+    </script>
+    <div id="includedContent"></div>
+</footer>
 
-        // Add click event to select an item
-//        chatLogs.forEach(log => {
-//            log.addEventListener("click", function () {
-//                // Remove highlight from other items
-//                chatLogs.forEach(item => item.classList.remove("selected"));
-
-                // Highlight the selected item
-//                this.classList.add("selected");
-//                selectedItem = this;
-//            });
-
-        // Add delete button next to each log
-//        let deleteBtn = document.createElement("button");
-//        deleteBtn.textContent = "X";
-//        deleteBtn.classList.add("delete-btn");
-//        log.appendChild(deleteBtn);
-
-        // Add delete event
-//        deleteBtn.addEventListener("click", function (event) {
-//            event.stopPropagation(); // Prevent item selection on delete click
-//            selectedItem = log;
-//            showDeleteConfirmation();
-//        });
-//    });
-
-    // Show delete confirmation container
-//    function showDeleteConfirmation() {
-//        document.getElementById("EP-DeleteChatLog-Container").style.display = "block";
-//    }
-
-    // Hide delete confirmation container
-//    function hideDeleteConfirmation() {
-//        document.getElementById("EP-DeleteChatLog-Container").style.display = "none";
-//    }
-
-    // Handle "Yes" button click (delete item)
-//    document.getElementById("EP-Button-Delete-Yes").addEventListener("click", function () {
-//        if (selectedItem) {
-//            selectedItem.remove();
-//            selectedItem = null;
-//        }
-//        hideDeleteConfirmation();
-//    });
-
-    // Handle "No" button click (cancel delete)
-//    document.getElementById("EP-Button-Delete-No").addEventListener("click", function () {
-//        hideDeleteConfirmation();
-//    });
-//});
-
-          </script>
-    </body>
-
-    <footer>
-        <script>
-            var xhr1 = new XMLHttpRequest();
-            xhr1.open('GET', 'Footer.html', true);
-            xhr1.onload = function () {
-                if (xhr1.status == 200) {
-                    console.log("footer.html loaded successfully");
-                    $("#includedContent").html(xhr1.responseText);
-                } else {
-                    console.error("Error loading footer.html: " + xhr1.status);
-                    $("#includedContent").html("Error loading Nav.html");
-                }
-            };
-            xhr1.onerror = function () {
-                console.error("Request failed");
-                $("#includedContent").html("Error loading footer.html");
-            };
-            xhr1.send();
-        </script>
-        <div id="includedContent"></div>
-    </footer>
 </html>
