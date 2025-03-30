@@ -268,3 +268,14 @@ level: Level 1
 28/03/2025 00:06:21: Angle: 60
 28/03/2025 00:06:21: Transaction started successfully.
 28/03/2025 00:06:21: Error in command execution: The given key 'angle' was not present in the dictionary.
+30/03/2025 17:24:09: {"RevitCommand":"CreateWall","Parameters":{"startX":0,"startY":0,"endX":10,"endY":0,"height":10.0,"wallType":"Basic Wall","level":"Level 1"}}
+30/03/2025 17:24:09: CreateWall
+30/03/2025 17:24:09: startX: 0
+startY: 0
+endX: 10
+endY: 0
+height: 10
+wallType: Basic Wall
+level: Level 1
+30/03/2025 17:24:09: Transaction started successfully.
+30/03/2025 17:24:14: Transaction committed successfully.
