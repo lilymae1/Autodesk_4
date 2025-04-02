@@ -279,3 +279,52 @@ wallType: Basic Wall
 level: Level 1
 30/03/2025 17:24:09: Transaction started successfully.
 30/03/2025 17:24:14: Transaction committed successfully.
+31/03/2025 15:41:15: {"RevitCommand":"CreateWall","Parameters":{"startX":0,"startY":0,"endX":10,"endY":0,"height":10.0,"wallType":"Basic Wall","level":"Level 1"}}
+31/03/2025 15:41:15: CreateWall
+31/03/2025 15:41:15: startX: 0
+startY: 0
+endX: 10
+endY: 0
+height: 10
+wallType: Basic Wall
+level: Level 1
+31/03/2025 15:41:15: Transaction started successfully.
+31/03/2025 15:41:17: Transaction committed successfully.
+31/03/2025 15:56:16: {"RevitCommand":"RotateCamera","Parameters":{"angle":30}}
+31/03/2025 15:56:16: RotateCamera
+31/03/2025 15:56:16: angle: 30
+31/03/2025 15:56:16: Transaction started successfully.
+31/03/2025 15:56:16: Error in command execution: The vectors upDirection and forwardDirection are not perpendicular.
+Parameter name: upDirection
+31/03/2025 16:01:10: {"RevitCommand":"RotateCameraByAngle","Parameters":{"angle":30}}
+31/03/2025 16:01:10: RotateCameraByAngle
+31/03/2025 16:01:10: angle: 30
+31/03/2025 16:03:29: {"RevitCommand":"RotateCamera","Parameters":{"angle":30}}
+31/03/2025 16:03:29: RotateCamera
+31/03/2025 16:03:29: angle: 30
+31/03/2025 16:03:29: Transaction started successfully.
+31/03/2025 16:03:29: Error in command execution: The vectors upDirection and forwardDirection are not perpendicular.
+Parameter name: upDirection
+31/03/2025 16:06:44: {"RevitCommand":"RotateCamera","Parameters":{"angle":30}}
+31/03/2025 16:06:44: RotateCamera
+31/03/2025 16:06:44: angle: 30
+31/03/2025 16:06:44: Transaction started successfully.
+31/03/2025 16:06:44: Error in command execution: The vectors upDirection and forwardDirection are not perpendicular.
+Parameter name: upDirection
+31/03/2025 16:09:48: {"RevitCommand":"ViewCamera","Parameters":{"Rotation":{"X":0,"Y":30,"Z":0}}}
+31/03/2025 16:09:48: ViewCamera
+31/03/2025 16:09:48: Rotation: {
+  "X": 0,
+  "Y": 30,
+  "Z": 0
+}
+31/03/2025 16:09:48: Transaction started successfully.
+31/03/2025 16:09:48: Unknown command received.
+31/03/2025 16:09:48: Transaction committed successfully.
+31/03/2025 16:13:07: {"RevitCommand":"RotateCamera","Parameters":{"angle":30,"direction":"Counterclockwise"}}
+31/03/2025 16:13:07: RotateCamera
+31/03/2025 16:13:07: angle: 30
+direction: Counterclockwise
+31/03/2025 16:13:07: Transaction started successfully.
+31/03/2025 16:13:07: Error in command execution: The vectors upDirection and forwardDirection are not perpendicular.
+Parameter name: upDirection

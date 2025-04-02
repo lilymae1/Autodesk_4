@@ -243,23 +243,33 @@ public class AICommands
         if (view == null || !view.CanBePrinted)
             return;
 
-        // Get the current camera orientation.
+        // Get the current camera orientation
         ViewOrientation3D orientation = view.GetOrientation();
         XYZ currentViewDirection = orientation.ForwardDirection;
+        XYZ currentUpDirection = orientation.UpDirection;
         XYZ currentCameraPosition = orientation.EyePosition;
 
-        // Define the rotation axis and compute the rotation transform.
+        // Define the rotation axis (world Z-axis)
         XYZ rotationAxis = XYZ.BasisZ;
         double angleInRadians = angleInDegrees * (Math.PI / 180);
-        Transform rotationTransform = Transform.CreateRotationAtPoint(rotationAxis, angleInRadians, currentCameraPosition);
+        
+        // Create rotation transformation matrix
+        Transform rotationTransform = Transform.CreateRotation(rotationAxis, angleInRadians);
 
-        // Apply the rotation.
+        // Apply rotation to the forward and up vectors
         XYZ newViewDirection = rotationTransform.OfVector(currentViewDirection);
-        XYZ newUpDirection = rotationTransform.OfVector(orientation.UpDirection);
+        XYZ newUpDirection = rotationTransform.OfVector(currentUpDirection);
 
-        // Set the new orientation.
+        // Ensure perpendicularity by reconstructing the up direction correctly
+        XYZ newRightDirection = newViewDirection.CrossProduct(newUpDirection).Normalize();
+        newUpDirection = newRightDirection.CrossProduct(newViewDirection).Normalize();
+
+        // Set the new orientation
         view.SetOrientation(new ViewOrientation3D(newViewDirection, newUpDirection, currentCameraPosition));
     }
+
+
+
 
     private static ElementId GetViewTypeId(Document doc, string viewTypeName)
     {

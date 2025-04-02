@@ -2,6 +2,10 @@ Output:
 
 Server running at http://localhost:3000
 Electron app is ready
+User input: execute the command to rotate the camera by 30 degrees
+User input: execute the command to rotate camera by 30 degrees
+User input: move camera from (0,0,0) to (20, 20, 20)
+User input: execute the json command to move camera from (0,0,0) to (20, 20, 20)
 
 
 Error:
