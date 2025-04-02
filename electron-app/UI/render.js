@@ -1,37 +1,4 @@
-// Save messages to localStorage and also to server-side chatlog.txt
-// function saveMessageToFile(sender, message) {
-//     let messages = JSON.parse(localStorage.getItem("chatMessages")) || [];
-    
-//     let newMessage = {
-//         sender: sender,
-//         text: message,
-//         timestamp: new Date().toLocaleString()  // Save time message was sent
-//     };
 
-//     messages.push(newMessage);
-//     localStorage.setItem("chatMessages", JSON.stringify(messages));
-
-//     // Send the message to the server to save in the chatlog.txt
-//     const projectName = getCurrentProjectName();
-//     if (projectName) {
-//         fetch(`/api/chat/save-message`, {
-//             method: 'POST',
-//             headers: { 'Content-Type': 'application/json' },
-//             body: JSON.stringify({
-//                 name: projectName,
-//                 sender: sender,
-//                 message: message,
-//                 timestamp: newMessage.timestamp
-//             })
-//         });
-//     }
-// }
-
-// // Helper function to get the current project name
-// function getCurrentProjectName() {
-//     // Assuming the project name is stored in localStorage or a global variable
-//     return localStorage.getItem("currentProjectName");
-// }
 
 function formatTimestamp(date) {
     return new Date(date).toLocaleString('en-GB', {
@@ -39,7 +6,7 @@ function formatTimestamp(date) {
         minute: '2-digit',
         day: '2-digit',
         month: 'short',
-    }).replace(',', ''); // Remove comma for cleaner format
+    }).replace(',', ''); 
 }
 
 function appendMessage(sender, message, timestamp = new Date().toLocaleString(), isThinking = false) {
@@ -154,32 +121,6 @@ function loadMessages() {
     });
 }
 
-// if someone can acc work out what this does ill be amazed
-
-// // Function to handle 'Create New Chat' button
-// document.getElementById('Create-New').addEventListener('click', () => {
-//     const projectName = "guug"; // You can dynamically change this based on the user's selection
-//     const chatBoxId = `chatbox-${new Date().getTime()}`; // Unique ID for each new chatbox
-
-//     // Create a new chatbox container
-//     const chatContainer = document.createElement('div');
-//     chatContainer.id = chatBoxId;
-//     chatContainer.classList.add('chat-container');
-
-//     // Create the chat log and append it to the new chatbox
-//     const chatlogDiv = document.createElement('div');
-//     chatlogDiv.classList.add('chatlog');
-//     chatContainer.appendChild(chatlogDiv);
-
-//     // Append the chat container to the body (or a specific parent element)
-//     document.body.appendChild(chatContainer);
-
-//     // Set the current project name for the new chat
-//     localStorage.setItem("currentProjectName", projectName);
-
-//     // Initialize a new chat for this chatbox
-//     appendMessage('bot', 'Welcome! How can I assist you today?', new Date().toLocaleString());
-// });
 
 // Initialize chat when the page loads
 document.addEventListener("DOMContentLoaded", () => {

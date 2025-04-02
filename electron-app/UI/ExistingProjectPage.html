@@ -111,8 +111,6 @@
                       chatLogList.appendChild(newChatLog);
                   }).catch(error => console.error('Error creating new chat log:', error));
             }
-
-            // Other functions remain the same (Edit, Delete, etc.)
         </script>
     </body>
 </html>
@@ -138,7 +136,6 @@
 }
 
 function deleteProject() {
-        // Get project name from the <h3> tag
             const params = new URLSearchParams(window.location.search);
         for(var value of params.keys()) {
             projectName = params.get(value);
@@ -218,7 +215,7 @@ function deleteProject() {
     // Add event listeners to delete buttons
     deleteButtons.forEach(button => {
         button.addEventListener('click', function () {
-            selectedItem = this.parentElement; // Store reference to the <li> element
+            selectedItem = this.parentElement;
             deleteChatLogContainer.style.display = "block"; // Show delete confirmation
             mainContent.classList.add("DeleteVer-fade-out"); // Optionally fade out main content
         });

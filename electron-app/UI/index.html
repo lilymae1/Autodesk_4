@@ -99,10 +99,6 @@
             list.innerHTML = "";
             items.forEach(item => {
                 const div = document.createElement("div");
-                // div.innerHTML = `<a href="ExistingProjectPage.html">
-                //                     <img src="${item.image}" alt="${item.name}">
-                //                     ${item.name}
-                //                 </a>`;
                                 div.innerHTML = `<a href="ExistingProjectPage.html?projectNameElement = ${item.name}">
                                     ${item.name}
                                 </a>`;

@@ -8,16 +8,16 @@ const axios = require('axios');
 async function queryOllama(prompt) {
     try {
         const response = await axios.post('http://localhost:11434/api/generate', {
-            model: "openhermes:7b-mistral-v2.5-q4_0", // Ensure correct model
+            model: "openhermes:7b-mistral-v2.5-q4_0",
             prompt: prompt,
-            format: "json", // Ensure structured output
+            format: "json", 
             stream: false,
         });
 
         const aiResponse = response.data.response;
         console.log("Raw AI Response:", aiResponse);
 
-        // Attempt to parse JSON
+        
         try {
             const parsedJson = JSON.parse(aiResponse);
             return parsedJson;
